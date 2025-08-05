@@ -149,7 +149,7 @@
             const options = { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' };
             const formatted = start.toLocaleDateString('en-US', options);
             const card = document.createElement('div');
-            card.className = "border-l-4 border-brand-accent bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition";
+            card.className = "border-l-4 border-brand-accent bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition overflow-hidden break-words";
             card.innerHTML = `
               <h3 class="text-xl font-serif font-bold text-brand-primary">${event.summary}</h3>
               <p class="text-sm text-gray-600">${formatted}</p>
