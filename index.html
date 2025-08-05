@@ -1,19 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="en">
 <head>
-  <link rel="icon" href="onpurpose.ico" type="image/x-icon">
+  <link rel="icon" href="onPurposeColorBGIcon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="onPurposeColorBGIcon.svg">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="A Christ-centered community of young adults at Calhoun SDA Church. Because purpose isn’t accidental. Join us for events, Bible study, and more.">
+  <meta name="theme-color" content="#4e6d64">
   <title>On Purpose | Young Adults</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
+          colors: {
+            'brand-dark': '#2a3a35',
+            'brand-dark-end': '#252f2c',
+            'brand-primary': '#4e6d64',
+            'brand-secondary': '#d0b49f',
+            'brand-accent': '#e58c62',
+            'brand-bg': '#f8f6f3'
+          },
           fontFamily: {
             sans: ['Montserrat', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+            mono: ['Space Mono', 'monospace'],
           },
           animation: {
             'fade-in': 'fadeIn 1s ease-out forwards'
@@ -28,128 +39,80 @@
       }
     }
   </script>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&family=Space+Mono:ital@0;1&display=swap" rel="stylesheet">
   <style>
-    .toggle-bg { transition: background-color 0.3s; }
-    .dot { transition: transform 0.3s; }
-    input:checked ~ .dot { transform: translateX(1.5rem); }
-    input:checked ~ .toggle-bg { background-color: #4f46e5; }
     @keyframes fadeInUp {
       0% { opacity: 0; transform: translateY(40px); }
       100% { opacity: 1; transform: translateY(0); }
     }
-    .animate-fade-in {
-      animation: fadeInUp 0.8s ease-out both;
-    }
+    .animate-fade-in { animation: fadeInUp 0.8s ease-out both; }
   </style>
 </head>
-<body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100 font-sans">
-  <!-- Theme Toggle -->
-  <div class="absolute top-4 right-4 flex items-center space-x-4 z-50">
-    <label class="flex items-center cursor-pointer">
-      <div class="relative">
-        <input type="checkbox" id="themeToggle" class="sr-only" />
-        <div class="block toggle-bg w-12 h-6 bg-gray-300 rounded-full"></div>
-        <div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full shadow"></div>
-      </div>
-      <span class="ml-2 text-sm">Dark Mode</span>
-    </label>
-  </div>
-
-  <!-- Hero Section -->
-  <section class="h-screen bg-gradient-to-br from-indigo-600 to-purple-600 text-white flex flex-col justify-center items-center text-center px-4">
+<body class="bg-brand-bg text-brand-primary font-sans">
+  <section class="relative h-screen bg-gradient-to-b from-brand-dark to-brand-dark-end text-white flex flex-col justify-center items-center text-center px-4">
     <h1 class="animate-fade-in">
       <img src="onPurposeWhite.svg" alt="On Purpose Logo" class="h-36 mb-4" />
       <span class="sr-only">On Purpose Young Adults</span>
     </h1>
-    <p class="mt-2 text-base italic">Because purpose isn’t accidental.</p>
-    <p id="verseDisplay" class="mt-6 italic text-lg"></p>
-    <a href="#events" class="mt-8 bg-white text-indigo-600 font-semibold py-2 px-6 rounded-full shadow hover:bg-gray-100 transition">See What’s Happening</a>
+    <p class="mt-2 text-base font-mono italic tracking-wide">Because purpose isn’t accidental.</p>
+    <p id="verseDisplay" class="mt-6 font-mono italic text-lg max-w-2xl mx-auto"></p>
+    <a href="#events" class="mt-8 bg-brand-accent text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl hover:opacity-95 hover:-translate-y-1 transition transform duration-200 tracking-wide uppercase">See What’s Happening</a>
+    
   </section>
 
-  <!-- About Section -->
-  <section class="py-16 px-6 bg-gray-100 dark:bg-gray-800 scroll-fade" id="about">
+  <section class="py-16 px-4 sm:px-6 bg-white border-t-4 border-brand-secondary" id="about">
     <div class="max-w-3xl mx-auto text-center">
-      <h2 class="text-3xl font-bold mb-4">Who We Are</h2>
-      <p class="text-lg leading-relaxed">We’re a community of young adults at Calhoun SDA Church living life <strong>On Purpose</strong>. Through Bible study, service, and fun social events, we aim to grow spiritually, connect deeply, and make a difference together.</p>
+      <h2 class="text-3xl font-serif font-bold mb-4 text-brand-primary">Who We Are</h2>
+      <div class="h-1 bg-brand-secondary w-24 mx-auto my-6 rounded-full"></div>
+      <p class="text-lg leading-relaxed font-light text-brand-primary">
+        We’re a community of young adults at Calhoun SDA Church living life <strong>On Purpose</strong>. Through Bible study, service, and fun social events, we aim to grow spiritually, connect deeply, and make a difference together.
+      </p>
     </div>
   </section>
 
-  <!-- Events Section -->
-  <section class="py-16 px-6 scroll-fade" id="events">
+  <section class="py-16 px-4 sm:px-6 scroll-fade" id="events">
     <div class="max-w-4xl mx-auto">
-      <h2 class="text-3xl font-bold text-center mb-4">See What’s Happening</h2>
-      <div id="countdown" class="text-lg md:text-xl text-center mb-6 italic text-gray-700 dark:text-gray-300"></div>
-      <h2 class="text-3xl font-bold text-center mb-10">Upcoming Events</h2>
-      <div id="eventCards" class="grid md:grid-cols-2 gap-8"></div>
+      <h2 class="text-3xl font-serif font-bold text-center mb-10 text-brand-primary">Upcoming Events</h2>
+      <div id="countdown" class="font-mono text-lg md:text-xl text-center mb-12 italic text-gray-700"></div>
+      <div id="eventCards" class="grid md:grid-cols-2 gap-8 gap-y-12"></div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-indigo-700 dark:bg-indigo-900 text-white py-8 text-center">
+  <footer class="bg-brand-dark text-white py-8 text-center relative">
     <p>&copy; <span id="year"></span> On Purpose • Calhoun SDA Young Adults</p>
-    <div class="mt-4 flex flex-col sm:flex-row justify-center gap-6 text-sm">
+    <div class="mt-4 flex flex-col sm:flex-row justify-center gap-6 text-sm text-gray-400">
       <div>
         Follow us on Instagram
-        <a href="https://instagram.com/onpurpose.ya" target="_blank" class="underline hover:text-gray-300">@onpurpose.ya</a>
+        <a href="https://instagram.com/onpurpose.ya" target="_blank" class="underline hover:text-white transition">@onpurpose.ya</a>
       </div>
       <div>
         Contact us at
-        <a href="mailto:info@onpurposeya.com" class="underline hover:text-gray-300">info@onpurposeya.com</a>
+        <a href="mailto:info@onpurposeya.com" class="underline hover:text-white transition">info@onpurposeya.com</a>
       </div>
     </div>
   </footer>
 
-  <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <script>
-    // Theme toggle logic
-    const toggle = document.getElementById('themeToggle');
-    const html = document.documentElement;
-
-    toggle.addEventListener('change', () => {
-      if (toggle.checked) {
-        html.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
-      } else {
-        html.classList.remove('dark');
-        localStorage.setItem('theme', 'light');
-      }
-    });
-
-    if (localStorage.getItem('theme') === 'dark') {
-      html.classList.add('dark');
-      toggle.checked = true;
-    }
-
-    // On DOM load
     window.addEventListener("DOMContentLoaded", () => {
       document.getElementById("year").textContent = new Date().getFullYear();
-      document.getElementById("verseDisplay").textContent = [
-        "“The plans of the Lord stand firm forever.” – Psalm 33:11",
-        "“In their hearts humans plan their course, but the Lord establishes their steps.” – Proverbs 16:9",
-        "“And whatever you do, do it heartily, as to the Lord and not to men.” – Colossians 3:23",
-        "“Commit to the Lord whatever you do, and he will establish your plans.” – Proverbs 16:3",
-        "“Let all that you do be done in love.” – 1 Corinthians 16:14",
-        "“And we know that in all things God works for the good of those who love him, who have been called according to his purpose.” - Romans 8:28"
-      ][Math.floor(Math.random() * 6)];
-
+      document.getElementById("verseDisplay").textContent = "\u201cAnd we know that in all things God works for the good of those who love him, who have been called according to his purpose.\u201d - Romans 8:28";
       document.querySelectorAll('.scroll-fade').forEach(section => {
         gsap.fromTo(section, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', scrollTrigger: { trigger: section, start: 'top 85%' } });
       });
-
       loadCalendarEvents();
     });
 
-    // Countdown
     function updateCountdownTo(date) {
       const el = document.getElementById("countdown");
       function update() {
         const now = new Date();
         const diff = date - now;
         if (diff <= 0) {
-          el.textContent = "It's time!";
+          el.innerHTML = "Our next event is happening now!";
           return;
         }
         const d = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -162,7 +125,6 @@
       setInterval(update, 1000);
     }
 
-    // Calendar Events
     async function loadCalendarEvents() {
       const container = document.getElementById('eventCards');
       container.innerHTML = '<p class="text-center col-span-2">Loading events...</p>';
@@ -171,25 +133,32 @@
         const data = await res.json();
         const now = new Date();
         const events = (data.items || []).filter(e => new Date(e.start.dateTime || e.start.date) > now).slice(0, 4);
-
         const nextEvent = events[0];
-        if (nextEvent) updateCountdownTo(new Date(nextEvent.start.dateTime || nextEvent.start.date));
+        if (nextEvent) {
+          document.getElementById('countdown').style.display = 'block';
+          updateCountdownTo(new Date(nextEvent.start.dateTime || nextEvent.start.date));
+        } else {
+          document.getElementById('countdown').style.display = 'none';
+        }
         container.innerHTML = '';
-
-        events.forEach(event => {
-          const start = new Date(event.start.dateTime || event.start.date);
-          const options = { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' };
-          const formatted = start.toLocaleDateString('en-US', options);
-          const card = document.createElement('div');
-          card.className = "bg-white dark:bg-gray-700 p-6 rounded-lg shadow overflow-hidden";
-          card.innerHTML = `
-            <h3 class="text-xl font-semibold mb-2">${event.summary}</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-300 mb-1">${formatted}</p>
-            <p class="text-gray-700 dark:text-gray-200 break-words">${event.description || 'Click below for more details.'}</p>
-            <a href="${event.htmlLink}" class="inline-block mt-4 text-indigo-600 dark:text-indigo-400 underline" target="_blank">View Event</a>
-          `;
-          container.appendChild(card);
-        });
+        if (events.length === 0) {
+          container.innerHTML = '<p class="text-center col-span-2">No upcoming events right now. Check back soon!</p>';
+        } else {
+          events.forEach(event => {
+            const start = new Date(event.start.dateTime || event.start.date);
+            const options = { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' };
+            const formatted = start.toLocaleDateString('en-US', options);
+            const card = document.createElement('div');
+            card.className = "border-l-4 border-brand-accent bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition";
+            card.innerHTML = `
+              <h3 class="text-xl font-serif font-bold text-brand-primary">${event.summary}</h3>
+              <p class="text-sm text-gray-600">${formatted}</p>
+              <p class="text-gray-700 mt-2 break-words">${event.description || 'Click below for more details.'}</p>
+              <a href="${event.htmlLink}" class="inline-block mt-4 text-brand-accent font-semibold underline hover:opacity-80 transition" target="_blank">View Event Details</a>
+            `;
+            container.appendChild(card);
+          });
+        }
       } catch (err) {
         console.error('Failed to load events:', err);
         container.innerHTML = '<p class="text-center col-span-2 text-red-500">Failed to load events. Try again later.</p>';
