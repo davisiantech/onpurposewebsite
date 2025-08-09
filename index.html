@@ -5,7 +5,7 @@
   <link rel="apple-touch-icon" href="onPurposeColorBGIcon.svg">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="A Christ-centered community of young adults at Calhoun SDA Church. Because purpose isn’t accidental. Join us for events, Bible study, and more.">
+  <meta name="description" content="A Christ-centered community of young adults at Calhoun SDA Church. Because purpose isn't accidental. Join us for events, Bible study, and more.">
   <meta name="theme-color" content="#4e6d64">
   <title>On Purpose | Young Adults</title>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -44,25 +44,35 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&family=Space+Mono:ital@0;1&display=swap" rel="stylesheet">
   <style>
     html {
-    scroll-behavior: smooth;
+      scroll-behavior: smooth;
     }
     @keyframes fadeInUp {
       0% { opacity: 0; transform: translateY(40px); }
       100% { opacity: 1; transform: translateY(0); }
     }
     .animate-fade-in { animation: fadeInUp 0.8s ease-out both; }
+    /* Hero fade-in sequence classes for staggered animation */
+    .hero-seq { opacity: 0; animation: fadeInUp 0.8s ease-out forwards; }
+    .hero-seq-1 { animation-delay: 0.05s; }
+    .hero-seq-2 { animation-delay: 0.20s; }
+    .hero-seq-3 { animation-delay: 0.35s; }
+
+    /* Disables animation when user prefers reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-seq,
+      .animate-fade-in { animation: none !important; opacity: 1 !important; transform: none !important; }
+    }
   </style>
 </head>
 <body class="bg-brand-bg text-brand-primary font-sans">
-  <section class="relative h-screen bg-gradient-to-b from-brand-dark to-brand-dark-end text-white flex flex-col justify-center items-center text-center px-4">
-    <h1 class="animate-fade-in">
-      <img src="onPurposeWhite.svg" alt="On Purpose Logo" class="h-36 mb-4" />
-      <span class="sr-only">On Purpose Young Adults</span>
-    </h1>
-    <p class="mt-2 text-base font-mono italic tracking-wide">Because purpose isn’t accidental.</p>
-    <p id="verseDisplay" class="mt-6 font-mono italic text-lg max-w-2xl mx-auto"></p>
-    <a href="#events" class="mt-8 bg-brand-accent text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl hover:opacity-95 hover:-translate-y-1 transition transform duration-200 tracking-wide uppercase">See What’s Happening</a>
-    
+  <section id="hero" class="relative h-screen bg-gradient-to-b from-brand-dark to-brand-dark-end text-white flex flex-col justify-center items-center text-center px-4">
+      <h1 class="hero-seq hero-seq-1">
+        <img src="onPurposeWhite.svg" alt="On Purpose Logo" class="h-36 mb-4" />
+        <span class="sr-only">On Purpose Young Adults</span>
+      </h1>
+      <p class="mt-2 text-base font-mono italic tracking-wide hero-seq hero-seq-2">Because purpose isn't accidental.</p>
+      <p id="verseDisplay" class="mt-6 font-mono italic text-lg max-w-2xl mx-auto hero-seq hero-seq-2"></p>
+      <a href="#events" class="mt-8 bg-brand-accent text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl hover:opacity-95 hover:-translate-y-1 transition transform duration-200 tracking-wide uppercase hero-seq hero-seq-3">See What's Happening</a>
   </section>
 
   <section class="py-16 px-4 sm:px-6 bg-white border-t-4 border-brand-secondary" id="about">
@@ -70,7 +80,7 @@
       <h2 class="text-3xl font-serif font-bold mb-4 text-brand-primary">Who We Are</h2>
       <div class="h-1 bg-brand-secondary w-24 mx-auto my-6 rounded-full"></div>
       <p class="text-lg leading-relaxed font-light text-brand-primary">
-        We’re a community of young adults at Calhoun SDA Church living life <strong class="font-bold">On Purpose</strong>. Through Bible study, service, and fun social events, we aim to grow spiritually, connect deeply, and make a difference together.
+        We're a community of young adults at Calhoun SDA Church living life <strong class="font-bold">On Purpose</strong>. Through Bible study, service, and fun social events, we aim to grow spiritually, connect deeply, and make a difference together.
       </p>
     </div>
   </section>
@@ -78,7 +88,7 @@
   <section class="py-16 px-4 sm:px-6 scroll-fade" id="events">
     <div class="max-w-4xl mx-auto">
       <h2 class="text-3xl font-serif font-bold text-center mb-10 text-brand-primary">Upcoming Events</h2>
-      <div id="countdown" class="font-mono text-lg md:text-xl text-center mb-12 italic text-gray-700"></div>
+      <div id="countdown" class="font-sans text-lg md:text-xl text-center mb-12 italic text-gray-700"></div>
       <div id="eventCards" class="grid md:grid-cols-2 gap-8 gap-y-12"></div>
     </div>
   </section>
@@ -107,6 +117,7 @@
         gsap.fromTo(section, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', scrollTrigger: { trigger: section, start: 'top 85%' } });
       });
       loadCalendarEvents();
+
     });
 
     function updateCountdownTo(date) {
@@ -128,6 +139,60 @@
       setInterval(update, 1000);
     }
 
+    // Safely escape text so it doesn't render as HTML
+    function escapeHTML(str) {
+      return String(str).replace(/[&<>"']/g, (c) => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      }[c]));
+    }
+
+    // Find the first usable URL in text (handles <a>, https://, www., and bare domains)
+    function findFirstUrlAndClean(text) {
+      const src = text || "";
+
+      // 1) Try to parse any HTML and extract/remove the first anchor tag href
+      const div = document.createElement('div');
+      div.innerHTML = src;
+      const firstAnchor = div.querySelector('a[href]');
+      let link = null;
+      if (firstAnchor) {
+        const href = firstAnchor.getAttribute('href');
+        if (href) link = href.trim();
+        firstAnchor.remove(); // remove the anchor from rendered description
+      }
+
+      // Remaining plain text (also covers cases where description was HTML-encoded)
+      let plain = (div.textContent || '').trim();
+
+      // 2) If we didn't get a link from an <a>, look for URL-like text in the remaining string.
+      //    - https:// or http://
+      //    - www.example.com
+      //    - bare domains like example.org/path
+      const urlRe = /(?:https?:\/\/[^\s<>"']+|www\.[^\s<>"']+|(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}(?:\/[^\s<>"']*)?)/gi;
+      const emailRe = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi;
+
+      if (!link) {
+        let m;
+        while ((m = urlRe.exec(plain))) {
+          const candidate = m[0];
+          // skip emails
+          if (!candidate.match(emailRe)) {
+            link = candidate.startsWith('http') ? candidate : ('https://' + candidate.replace(/^www\./, ''));
+            break;
+          }
+        }
+      }
+
+      // 3) Remove *all* URL-like substrings from the description so they don't render in the card
+      const cleaned = plain.replace(urlRe, '').replace(/\s{2,}/g, ' ').trim();
+
+      return { link, cleaned };
+    }
+
     async function loadCalendarEvents() {
       const container = document.getElementById('eventCards');
       container.innerHTML = '<p class="text-center col-span-2">Loading events...</p>';
@@ -147,17 +212,41 @@
         if (events.length === 0) {
           container.innerHTML = '<p class="text-center col-span-2">No upcoming events right now. Check back soon!</p>';
         } else {
+          // Determine if ANY event has a non-empty cleaned description
+          const hasAnyDescription = events.some(event => {
+            const desc = event.description || '';
+            const processed = findFirstUrlAndClean(desc);
+            return processed.cleaned && processed.cleaned.trim().length > 0;
+          });
           events.forEach(event => {
             const start = new Date(event.start.dateTime || event.start.date);
             const options = { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' };
             const formatted = start.toLocaleDateString('en-US', options);
+            // Prepare description and choose link:
+            let rawDescription = event.description || '';
+            let eventLink = event.htmlLink;
+
+            const processed = findFirstUrlAndClean(rawDescription);
+            if (processed.link) {
+              eventLink = processed.link;
+            }
+            const description = processed.cleaned;
+
             const card = document.createElement('div');
             card.className = "border-l-4 border-brand-accent bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition overflow-hidden break-words";
             card.innerHTML = `
               <h3 class="text-xl font-serif font-bold text-brand-primary">${event.summary}</h3>
-              <p class="text-sm text-gray-600">${formatted}</p>
-              <p class="text-gray-700 mt-2 break-words">${event.description || 'Click below for more details.'}</p>
-              <a href="${event.htmlLink}" class="inline-block mt-4 text-brand-accent font-semibold underline hover:opacity-80 transition" target="_blank">View Event Details</a>
+              <p class="font-sans text-sm text-gray-600">${formatted}</p>
+              ${
+                description && description.trim().length > 0
+                  ? `<p class="text-gray-700 break-words mt-4">${escapeHTML(description)}</p>`
+                  : (
+                      hasAnyDescription
+                        ? `<p class="text-gray-700 break-words mt-4" style="min-height:1.5em;">&nbsp;</p>`
+                        : ``
+                    )
+              }
+              <a href="${eventLink}" class="text-brand-accent font-semibold underline hover:opacity-80 transition mt-4 block" target="_blank">View Event Details</a>
             `;
             container.appendChild(card);
           });
