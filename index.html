@@ -104,9 +104,39 @@
   <section class="py-16 px-4 sm:px-6 scroll-fade" id="events">
     <div class="max-w-4xl mx-auto">
       <h2 class="text-3xl font-serif font-bold text-center mb-10 text-brand-primary">Upcoming Events</h2>
+
       <div id="countdown" class="font-sans text-lg md:text-xl text-center mb-12 italic text-gray-700"></div>
       <div id="eventCards" class="grid md:grid-cols-2 gap-8 gap-y-12"></div>
-    </div>
+
+      <div class="bg-brand-secondary/20 border border-brand-secondary/30 rounded-lg p-6 md:p-8 mt-12">
+        <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-12">
+          <div class="flex items-center gap-4">
+            <div class="flex-shrink-0 bg-white p-3 rounded-full shadow-sm">
+              <svg class="w-8 h-8 text-brand-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0h18M-4.5 12h22.5" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-serif font-bold text-brand-primary">Sabbath School Bible Study</h3>
+              <p class="text-brand-primary/80">Every Sabbath at 10:00 AM</p>
+            </div>
+          </div>
+          <div class="w-24 h-px bg-brand-secondary/50 md:hidden"></div>
+          <div class="flex items-center gap-4">
+            <div class="flex-shrink-0 bg-white p-3 rounded-full shadow-sm">
+              <svg class="w-8 h-8 text-brand-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-serif font-bold text-brand-primary">Location</h3>
+              <p class="text-brand-primary/80">Right side of God's Pantry at Calhoun SDA</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
   </section>
 
   <footer class="bg-brand-dark text-white py-8 text-center relative">
@@ -185,9 +215,6 @@
       let plain = (div.textContent || '').trim();
 
       // 2) If we didn't get a link from an <a>, look for URL-like text in the remaining string.
-      //    - https:// or http://
-      //    - www.example.com
-      //    - bare domains like example.org/path
       const urlRe = /(?:https?:\/\/[^\s<>"']+|www\.[^\s<>"']+|(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}(?:\/[^\s<>"']*)?)/gi;
       const emailRe = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi;
 
@@ -243,9 +270,9 @@
             let eventLink = event.htmlLink;
 
             const processed = findFirstUrlAndClean(rawDescription);
-            if (processed.link) {
-              eventLink = processed.link;
-            }
+if (processed.link) {
+  eventLink = processed.link;
+}
             const description = processed.cleaned;
 
             const card = document.createElement('div');
