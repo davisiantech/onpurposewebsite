@@ -62,6 +62,22 @@
       .hero-seq,
       .animate-fade-in { animation: none !important; opacity: 1 !important; transform: none !important; }
     }
+    /* --- Event card layout & description clamp --- */
+    .event-card { display: flex; flex-direction: column; height: 100%; }
+    .event-body { flex: 1 1 auto; }
+
+    .desc-clamp { position: relative; max-height: 4.5em; /* ~3 lines at 1.5em */ line-height: 1.5em; overflow: hidden; }
+    .desc-clamp.is-clamped::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2.0em;
+      background: linear-gradient(to bottom, rgba(255,255,255,0), #ffffff 80%);
+      pointer-events: none;
+    }
+    /* Match dark text-on-white card background color just in case the theme changes */
+    .event-card-bg { background:#ffffff; }
+    .toggle-more { display:none; font-weight:600; text-decoration:underline; color:#e58c62; }
+    .desc-clamp.expanded { max-height:none; }
+    .desc-clamp.expanded::after { display:none; }
+    .toggle-more.show { display:inline-block; }
   </style>
 </head>
 <body class="bg-brand-bg text-brand-primary font-sans">
@@ -233,22 +249,46 @@
             const description = processed.cleaned;
 
             const card = document.createElement('div');
-            card.className = "border-l-4 border-brand-accent bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition overflow-hidden break-words";
+            card.className = "event-card event-card-bg border-l-4 border-brand-accent bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition overflow-hidden";
             card.innerHTML = `
-              <h3 class="text-xl font-serif font-bold text-brand-primary">${event.summary}</h3>
-              <p class="font-sans text-sm text-gray-600">${formatted}</p>
-              ${
-                description && description.trim().length > 0
-                  ? `<p class="text-gray-700 break-words mt-4">${escapeHTML(description)}</p>`
-                  : (
-                      hasAnyDescription
-                        ? `<p class="text-gray-700 break-words mt-4" style="min-height:1.5em;">&nbsp;</p>`
-                        : ``
-                    )
-              }
-              <a href="${eventLink}" class="text-brand-accent font-semibold underline hover:opacity-80 transition mt-4 block" target="_blank">View Event Details</a>
+              <div class="event-body">
+                <h3 class="text-xl font-serif font-bold text-brand-primary">${event.summary}</h3>
+                <p class="font-sans text-sm text-gray-600">${formatted}</p>
+                ${
+                  description && description.trim().length > 0
+                    ? `<p class=\"desc-clamp text-gray-700 break-words mt-4\">${escapeHTML(description)}</p>`
+                    : (hasAnyDescription ? `<p class=\"desc-clamp mt-4\"></p>` : ``)
+                }
+              </div>
+              <div class="mt-4">
+                <button type="button" class="toggle-more mt-2 text-xs text-gray-500 underline">Read more</button>
+                <a href="${eventLink}" class="mt-2 text-brand-accent font-semibold underline hover:opacity-80 transition block">View Event Details</a>
+              </div>
             `;
             container.appendChild(card);
+
+            // Clamp logic: if the description overflows, add fade + show toggle
+            const descEl = card.querySelector('.desc-clamp');
+            const moreBtn = card.querySelector('.toggle-more');
+            if (descEl && descEl.textContent.trim().length > 0) {
+              // Allow layout to compute then test overflow
+              requestAnimationFrame(() => {
+                if (descEl.scrollHeight > descEl.clientHeight + 2) {
+                  descEl.classList.add('is-clamped');
+                  moreBtn.classList.add('show');
+                  moreBtn.addEventListener('click', () => {
+                    const expanded = descEl.classList.toggle('expanded');
+                    if (expanded) {
+                      descEl.classList.remove('is-clamped');
+                      moreBtn.textContent = 'Show less';
+                    } else {
+                      descEl.classList.add('is-clamped');
+                      moreBtn.textContent = 'Read more';
+                    }
+                  });
+                }
+              });
+            }
           });
         }
       } catch (err) {
