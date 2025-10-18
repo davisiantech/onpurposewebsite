@@ -261,17 +261,43 @@
             return processed.cleaned && processed.cleaned.trim().length > 0;
           });
           events.forEach(event => {
-            const start = new Date(event.start.dateTime || event.start.date);
-            const options = { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' };
-            const formatted = start.toLocaleDateString('en-US', options);
+            // ================== START: CORRECTED CODE ==================
+            const isAllDay = !!event.start.date;
+            let start, formatted;
+
+            if (isAllDay) {
+              // For "YYYY-MM-DD", treat it as local time by adding a time component.
+              // Using timeZone: 'UTC' in options then prevents the local timezone from shifting it again during formatting.
+              start = new Date(event.start.date + 'T00:00:00');
+              const options = {
+                weekday: 'long',
+                month: 'long',
+                day: 'numeric',
+                timeZone: 'UTC'
+              };
+              formatted = start.toLocaleDateString('en-US', options);
+            } else {
+              // For events with a specific time, the full ISO string is fine.
+              start = new Date(event.start.dateTime);
+              const options = {
+                weekday: 'long',
+                month: 'long',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: '2-digit'
+              };
+              formatted = start.toLocaleDateString('en-US', options);
+            }
+            // =================== END: CORRECTED CODE ===================
+
             // Prepare description and choose link:
             let rawDescription = event.description || '';
             let eventLink = event.htmlLink;
 
             const processed = findFirstUrlAndClean(rawDescription);
-if (processed.link) {
-  eventLink = processed.link;
-}
+            if (processed.link) {
+              eventLink = processed.link;
+            }
             const description = processed.cleaned;
 
             const card = document.createElement('div');
