@@ -23,16 +23,11 @@
           },
           fontFamily: {
             sans: ['Montserrat', 'sans-serif'],
-            serif: ['Playfair Display', 'serif'],
+            serif: ['Playfair Display', 'serif']
           },
-          animation: {
-            'fade-in': 'fadeIn 1s ease-out forwards'
-          },
+          animation: { 'fade-in': 'fadeIn 1s ease-out forwards' },
           keyframes: {
-            fadeIn: {
-              '0%': { opacity: 0 },
-              '100%': { opacity: 1 }
-            }
+            fadeIn: { '0%': { opacity: 0 }, '100%': { opacity: 1 } }
           }
         }
       }
@@ -42,52 +37,55 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <style>
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
     @keyframes fadeInUp {
       0% { opacity: 0; transform: translateY(40px); }
       100% { opacity: 1; transform: translateY(0); }
     }
     .animate-fade-in { animation: fadeInUp 0.8s ease-out both; }
-    /* Hero fade-in sequence classes for staggered animation */
     .hero-seq { opacity: 0; animation: fadeInUp 0.8s ease-out forwards; }
     .hero-seq-1 { animation-delay: 0.05s; }
     .hero-seq-2 { animation-delay: 0.20s; }
     .hero-seq-3 { animation-delay: 0.35s; }
 
-    /* Disables animation when user prefers reduced motion */
     @media (prefers-reduced-motion: reduce) {
       .hero-seq,
       .animate-fade-in { animation: none !important; opacity: 1 !important; transform: none !important; }
     }
-    /* --- Event card layout & description clamp --- */
+
     .event-card { display: flex; flex-direction: column; height: 100%; }
     .event-body { flex: 1 1 auto; }
 
-    .desc-clamp { position: relative; max-height: 4.5em; /* ~3 lines at 1.5em */ line-height: 1.5em; overflow: hidden; }
+    .desc-clamp {
+      position: relative;
+      max-height: 4.5em;
+      line-height: 1.5em;
+      overflow: hidden;
+    }
     .desc-clamp.is-clamped::after {
-      content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2.0em;
+      content: "";
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 2.0em;
       background: linear-gradient(to bottom, rgba(255,255,255,0), #ffffff 80%);
       pointer-events: none;
     }
-    /* Match dark text-on-white card background color just in case the theme changes */
-    .event-card-bg { background:#ffffff; }
-    .toggle-more { display:none; font-weight:600; text-decoration:underline; color:#e58c62; }
-    .desc-clamp.expanded { max-height:none; }
-    .desc-clamp.expanded::after { display:none; }
-    .toggle-more.show { display:inline-block; }
+    .event-card-bg { background: #ffffff; }
+    .toggle-more { display: none; font-weight: 600; text-decoration: underline; color: #e58c62; }
+    .desc-clamp.expanded { max-height: none; }
+    .desc-clamp.expanded::after { display: none; }
+    .toggle-more.show { display: inline-block; }
   </style>
 </head>
 <body class="bg-brand-bg text-brand-primary font-sans">
   <section id="hero" class="relative h-screen bg-gradient-to-b from-brand-dark to-brand-dark-end text-white flex flex-col justify-center items-center text-center px-4">
-      <h1 class="hero-seq hero-seq-1">
-        <img src="onPurposeWhite.svg" alt="On Purpose Logo" class="h-36 mb-4" />
-        <span class="sr-only">On Purpose Young Adults</span>
-      </h1>
-      <p class="mt-2 text-base italic tracking-wide hero-seq hero-seq-2">Because purpose isn't accidental.</p>
-      <p id="verseDisplay" class="mt-6 italic text-lg max-w-2xl mx-auto hero-seq hero-seq-2"></p>
-      <a href="#events" class="mt-8 bg-brand-accent text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl hover:opacity-95 hover:-translate-y-1 transition transform duration-200 tracking-wide uppercase hero-seq hero-seq-3">See What's Happening</a>
+    <h1 class="hero-seq hero-seq-1">
+      <img src="onPurposeWhite.svg" alt="On Purpose Logo" class="h-36 mb-4" />
+      <span class="sr-only">On Purpose Young Adults</span>
+    </h1>
+    <p class="mt-2 text-base italic tracking-wide hero-seq hero-seq-2">Because purpose isn't accidental.</p>
+    <p id="verseDisplay" class="mt-6 italic text-lg max-w-2xl mx-auto hero-seq hero-seq-2"></p>
+    <a href="#events" class="mt-8 bg-brand-accent text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl hover:opacity-95 hover:-translate-y-1 transition transform duration-200 tracking-wide uppercase hero-seq hero-seq-3">See What's Happening</a>
   </section>
 
   <section class="py-16 px-4 sm:px-6 bg-white border-t-4 border-brand-secondary" id="about">
@@ -135,14 +133,27 @@
                 1411 Rome Rd SW, Calhoun, GA 30701
               </a>
             </div>
-            </div>
+          </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="py-16 px-4 sm:px-6 scroll-fade bg-white border-t-4 border-brand-bg" id="instagram-feed">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl font-serif font-bold text-center mb-10 text-brand-primary">Connect With Us On Instagram</h2>
+      <!-- Changed grid to be 2 columns by default, 3 columns on md+ -->
+      <div id="instagramGrid" class="grid grid-cols-2 md:grid-cols-3 gap-4"></div>
+      <div class="text-center mt-12">
+        <a href="https://instagram.com/onpurpose.ya" target="_blank" class="bg-brand-accent text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl hover:opacity-95 hover:-translate-y-1 transition transform duration-200 tracking-wide uppercase">
+          See All Posts @onpurpose.ya
+        </a>
       </div>
+    </div>
   </section>
 
   <footer class="bg-brand-dark text-white py-8 text-center relative">
-    <p>&copy; <span id="year"></span> On Purpose • Calhoun SDA Young Adults</p>
+    <p>© <span id="year"></span> On Purpose • Calhoun SDA Young Adults</p>
     <div class="mt-4 flex flex-col sm:flex-row justify-center gap-6 text-sm text-gray-400">
       <div>
         Follow us on Instagram
@@ -165,7 +176,7 @@
         gsap.fromTo(section, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', scrollTrigger: { trigger: section, start: 'top 85%' } });
       });
       loadCalendarEvents();
-
+      loadInstagramFeed();
     });
 
     function updateCountdownTo(date) {
@@ -187,22 +198,14 @@
       setInterval(update, 1000);
     }
 
-    // Safely escape text so it doesn't render as HTML
     function escapeHTML(str) {
-      return String(str).replace(/[&<>"']/g, (c) => ({
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#39;'
+      return String(str).replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
       }[c]));
     }
 
-    // Find the first usable URL in text (handles <a>, https://, www., and bare domains)
     function findFirstUrlAndClean(text) {
       const src = text || "";
-
-      // 1) Try to parse any HTML and extract/remove the first anchor tag href
       const div = document.createElement('div');
       div.innerHTML = src;
       const firstAnchor = div.querySelector('a[href]');
@@ -210,13 +213,9 @@
       if (firstAnchor) {
         const href = firstAnchor.getAttribute('href');
         if (href) link = href.trim();
-        firstAnchor.remove(); // remove the anchor from rendered description
+        firstAnchor.remove();
       }
-
-      // Remaining plain text (also covers cases where description was HTML-encoded)
       let plain = (div.textContent || '').trim();
-
-      // 2) If we didn't get a link from an <a>, look for URL-like text in the remaining string.
       const urlRe = /(?:https?:\/\/[^\s<>"']+|www\.[^\s<>"']+|(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}(?:\/[^\s<>"']*)?)/gi;
       const emailRe = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi;
 
@@ -224,17 +223,13 @@
         let m;
         while ((m = urlRe.exec(plain))) {
           const candidate = m[0];
-          // skip emails
           if (!candidate.match(emailRe)) {
             link = candidate.startsWith('http') ? candidate : ('https://' + candidate.replace(/^www\./, ''));
             break;
           }
         }
       }
-
-      // 3) Remove *all* URL-like substrings from the description so they don't render in the card
       const cleaned = plain.replace(urlRe, '').replace(/\s{2,}/g, ' ').trim();
-
       return { link, cleaned };
     }
 
@@ -257,62 +252,42 @@
         if (events.length === 0) {
           container.innerHTML = '<p class="text-center col-span-2">No upcoming events right now. Check back soon!</p>';
         } else {
-          // Determine if ANY event has a non-empty cleaned description
           const hasAnyDescription = events.some(event => {
             const desc = event.description || '';
             const processed = findFirstUrlAndClean(desc);
             return processed.cleaned && processed.cleaned.trim().length > 0;
           });
           events.forEach(event => {
-            // ================== START: CORRECTED CODE ==================
             const isAllDay = !!event.start.date;
             let start, formatted;
 
             if (isAllDay) {
-              // For "YYYY-MM-DD", treat it as local time by adding a time component.
-              // Using timeZone: 'UTC' in options then prevents the local timezone from shifting it again during formatting.
               start = new Date(event.start.date + 'T00:00:00');
-              const options = {
-                weekday: 'long',
-                month: 'long',
-                day: 'numeric',
-                timeZone: 'UTC'
-              };
+              const options = { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC' };
               formatted = start.toLocaleDateString('en-US', options);
             } else {
-              // For events with a specific time, the full ISO string is fine.
               start = new Date(event.start.dateTime);
-              const options = {
-                weekday: 'long',
-                month: 'long',
-                day: 'numeric',
-                hour: 'numeric',
-                minute: '2-digit'
-              };
+              const options = { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' };
               formatted = start.toLocaleDateString('en-US', options);
             }
-            // =================== END: CORRECTED CODE ===================
 
-            // Prepare description and choose link:
             let rawDescription = event.description || '';
             let eventLink = event.htmlLink;
 
             const processed = findFirstUrlAndClean(rawDescription);
-            if (processed.link) {
-              eventLink = processed.link;
-            }
+            if (processed.link) eventLink = processed.link;
             const description = processed.cleaned;
 
             const card = document.createElement('div');
             card.className = "event-card event-card-bg border-l-4 border-brand-accent bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition overflow-hidden";
             card.innerHTML = `
               <div class="event-body">
-                <h3 class="text-xl font-serif font-bold text-brand-primary">${event.summary}</h3>
-                <p class="font-sans text-sm text-gray-600">${formatted}</p>
+                <h3 class="text-xl font-serif font-bold text-brand-primary">${escapeHTML(event.summary)}</h3>
+                <p class="font-sans text-sm text-gray-600">${escapeHTML(formatted)}</p>
                 ${
                   description && description.trim().length > 0
-                    ? `<p class=\"desc-clamp text-gray-700 break-words mt-4\">${escapeHTML(description)}</p>`
-                    : (hasAnyDescription ? `<p class=\"desc-clamp mt-4\"></p>` : ``)
+                    ? `<p class="desc-clamp text-gray-700 break-words mt-4">${escapeHTML(description)}</p>`
+                    : (hasAnyDescription ? `<p class="desc-clamp mt-4"></p>` : ``)
                 }
               </div>
               <div class="mt-4">
@@ -322,11 +297,9 @@
             `;
             container.appendChild(card);
 
-            // Clamp logic: if the description overflows, add fade + show toggle
             const descEl = card.querySelector('.desc-clamp');
             const moreBtn = card.querySelector('.toggle-more');
             if (descEl && descEl.textContent.trim().length > 0) {
-              // Allow layout to compute then test overflow
               requestAnimationFrame(() => {
                 if (descEl.scrollHeight > descEl.clientHeight + 2) {
                   descEl.classList.add('is-clamped');
@@ -349,6 +322,61 @@
       } catch (err) {
         console.error('Failed to load events:', err);
         container.innerHTML = '<p class="text-center col-span-2 text-red-500">Failed to load events. Try again later.</p>';
+      }
+    }
+
+    async function loadInstagramFeed() {
+      const container = document.getElementById('instagramGrid');
+      const workerUrl = 'https://onpurpose-insta.jdawg2450.workers.dev/';
+      const maxPosts = 6;
+
+      container.innerHTML = '<p class="col-span-full text-center text-brand-primary/80">Loading Instagram feed...</p>';
+
+      try {
+        const res = await fetch(workerUrl);
+        const data = await res.json();
+
+        if (data.error || !data.data) {
+          console.error("Instagram Worker Error:", data.error);
+          container.innerHTML = '<p class="col-span-full text-center text-red-600">Could not load Instagram feed. (Token expired or worker issue)</p>';
+          return;
+        }
+
+        container.innerHTML = '';
+
+        data.data.slice(0, maxPosts).forEach(post => {
+          let postUrl = post.media_url;
+          if (post.media_type === 'CAROUSEL_ALBUM' || post.media_type === 'VIDEO') {
+            postUrl = post.thumbnail_url || post.media_url;
+          }
+
+          const mediaElement = `
+            <div class="aspect-square bg-gray-200 overflow-hidden relative group rounded-lg shadow-md transition duration-300 transform hover:scale-[1.02] hover:shadow-xl">
+              <img src="${postUrl}" alt="${(post.caption || 'On Purpose Post').substring(0, 50)}"
+                   class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+              <a href="${post.permalink}" target="_blank" rel="noopener noreferrer"
+                 class="absolute inset-0 bg-brand-dark/70 flex flex-col items-center justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer text-white">
+                <div class="mb-2 text-3xl">
+                  ${post.media_type === 'VIDEO' ? '▶️' : (post.media_type === 'CAROUSEL_ALBUM' ? '✨' : '📸')}
+                </div>
+                <p class="text-sm font-light text-center leading-relaxed line-clamp-4 px-2">
+                  ${escapeHTML(post.caption || 'View Post')}
+                </p>
+                <p class="text-xs font-semibold mt-2 text-brand-accent">View on Instagram</p>
+              </a>
+            </div>
+          `;
+          container.insertAdjacentHTML('beforeend', mediaElement);
+        });
+
+        gsap.fromTo(
+          "#instagramGrid > div",
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "power2.out" }
+        );
+      } catch (err) {
+        console.error('Failed to connect to Instagram Worker:', err);
+        container.innerHTML = '<p class="col-span-full text-center text-red-600">Connection error. Could not reach the feed server.</p>';
       }
     }
   </script>
