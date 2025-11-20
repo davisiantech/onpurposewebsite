@@ -1,207 +1,353 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <link rel="icon" href="onPurposeColorBGIcon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="onPurposeColorBGIcon.svg">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="A Christ-centered community of young adults at Calhoun SDA Church. Because purpose isn't accidental. Join us for events, Bible study, and more.">
-  <meta name="theme-color" content="#4e6d64">
+  <meta name="description" content="A Christ-centered community of young adults at Calhoun SDA Church. Because purpose isn't accidental." />
+  <meta name="theme-color" content="#2a3a35">
   <title>On Purpose | Young Adults</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="onPurposeColorBGIcon.svg" type="image/svg+xml">
+
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Config -->
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            'brand-dark': '#2a3a35',
-            'brand-dark-end': '#252f2c',
-            'brand-primary': '#4e6d64',
-            'brand-secondary': '#d0b49f',
-            'brand-accent': '#e58c62',
-            'brand-bg': '#f8f6f3'
+            brand: {
+              dark: '#2a3a35',     // Deep Green
+              light: '#4e6d64',    // Medium Green
+              sage: '#8fa89f',     // Light Green accent
+              sand: '#d0b49f',     // Beige/Tan
+              clay: '#e58c62',     // Orange/Terracotta
+              cream: '#f8f6f3',    // Off-white background
+              white: '#ffffff'
+            }
           },
           fontFamily: {
             sans: ['Montserrat', 'sans-serif'],
             serif: ['Playfair Display', 'serif']
           },
-          animation: { 'fade-in': 'fadeIn 1s ease-out forwards' },
-          keyframes: {
-            fadeIn: { '0%': { opacity: 0 }, '100%': { opacity: 1 } }
+          boxShadow: {
+            'soft': '0 10px 40px -10px rgba(0,0,0,0.08)',
+            'card': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)'
           }
         }
       }
     }
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
   <style>
-    html { scroll-behavior: smooth; }
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(40px); }
-      100% { opacity: 1; transform: translateY(0); }
+    /* Custom Utilities */
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
     }
-    .animate-fade-in { animation: fadeInUp 0.8s ease-out both; }
-    .hero-seq { opacity: 0; animation: fadeInUp 0.8s ease-out forwards; }
-    .hero-seq-1 { animation-delay: 0.05s; }
-    .hero-seq-2 { animation-delay: 0.20s; }
-    .hero-seq-3 { animation-delay: 0.35s; }
-
-    @media (prefers-reduced-motion: reduce) {
-      .hero-seq,
-      .animate-fade-in { animation: none !important; opacity: 1 !important; transform: none !important; }
+    
+    .text-outline {
+      -webkit-text-stroke: 1px rgba(255,255,255,0.2);
+      color: transparent;
     }
 
-    .event-card { display: flex; flex-direction: column; height: 100%; }
-    .event-body { flex: 1 1 auto; }
-
-    .desc-clamp {
-      position: relative;
-      max-height: 4.5em;
-      line-height: 1.5em;
+    /* Line Clamp logic */
+    .line-clamp-3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
       overflow: hidden;
     }
-    .desc-clamp.is-clamped::after {
-      content: "";
-      position: absolute;
-      left: 0; right: 0; bottom: 0;
-      height: 2.0em;
-      background: linear-gradient(to bottom, rgba(255,255,255,0), #ffffff 80%);
-      pointer-events: none;
+
+    /* Loader Animation */
+    .loader-dots div {
+      animation-timing-function: cubic-bezier(0, 1, 1, 0);
     }
-    .event-card-bg { background: #ffffff; }
-    .toggle-more { display: none; font-weight: 600; text-decoration: underline; color: #e58c62; }
-    .desc-clamp.expanded { max-height: none; }
-    .desc-clamp.expanded::after { display: none; }
-    .toggle-more.show { display: inline-block; }
+    .loader-dots div:nth-child(1) { left: 8px; animation: loader-dots1 0.6s infinite; }
+    .loader-dots div:nth-child(2) { left: 8px; animation: loader-dots2 0.6s infinite; }
+    .loader-dots div:nth-child(3) { left: 32px; animation: loader-dots2 0.6s infinite; }
+    .loader-dots div:nth-child(4) { left: 56px; animation: loader-dots3 0.6s infinite; }
+    @keyframes loader-dots1 { 0% { transform: scale(0); } 100% { transform: scale(1); } }
+    @keyframes loader-dots3 { 0% { transform: scale(1); } 100% { transform: scale(0); } }
+    @keyframes loader-dots2 { 0% { transform: translate(0, 0); } 100% { transform: translate(24px, 0); } }
   </style>
 </head>
-<body class="bg-brand-bg text-brand-primary font-sans">
-  <section id="hero" class="relative h-screen bg-gradient-to-b from-brand-dark to-brand-dark-end text-white flex flex-col justify-center items-center text-center px-4">
-    <h1 class="hero-seq hero-seq-1">
-      <img src="onPurposeWhite.svg" alt="On Purpose Logo" class="h-36 mb-4" />
-      <span class="sr-only">On Purpose Young Adults</span>
-    </h1>
-    <p class="mt-2 text-base italic tracking-wide hero-seq hero-seq-2">Because purpose isn't accidental.</p>
-    <p id="verseDisplay" class="mt-6 italic text-lg max-w-2xl mx-auto hero-seq hero-seq-2"></p>
-    <a href="#events" class="mt-8 bg-brand-accent text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl hover:opacity-95 hover:-translate-y-1 transition transform duration-200 tracking-wide uppercase hero-seq hero-seq-3">See What's Happening</a>
-  </section>
+<body class="bg-brand-cream text-brand-dark font-sans antialiased selection:bg-brand-clay selection:text-white">
 
-  <section class="py-16 px-4 sm:px-6 bg-white border-t-4 border-brand-secondary" id="about">
-    <div class="max-w-3xl mx-auto text-center">
-      <h2 class="text-3xl font-serif font-bold mb-4 text-brand-primary">Who We Are</h2>
-      <div class="h-1 bg-brand-secondary w-24 mx-auto my-6 rounded-full"></div>
-      <p class="text-lg leading-relaxed font-light text-brand-primary">
-        We're a community of young adults at Calhoun SDA Church living life <strong class="font-bold">On Purpose</strong>. Through Bible study, service, and fun social events, we aim to grow spiritually, connect deeply, and make a difference together.
-      </p>
+  <!-- Navigation -->
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 px-6 lg:px-12 flex justify-between items-center">
+    <a href="#" class="flex items-center gap-2 group">
+      <!-- Top-left branding (Text version for when user scrolls past hero) -->
+      <div class="font-serif font-bold text-2xl tracking-tighter text-brand-dark group-hover:text-brand-clay transition-colors">
+        On<span class="italic text-brand-clay">Purpose</span>
+      </div>
+    </a>
+
+    <div class="hidden md:flex items-center gap-8 font-medium text-sm tracking-wide">
+      <a href="#about" class="hover:text-brand-clay transition-colors">About</a>
+      <a href="#events" class="hover:text-brand-clay transition-colors">Events</a>
+      <a href="#instagram" class="hover:text-brand-clay transition-colors">Gallery</a>
     </div>
-  </section>
+    
+    <!-- Mobile Menu Button -->
+    <button class="md:hidden text-brand-dark" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+      </svg>
+    </button>
+  </nav>
 
-  <section class="py-16 px-4 sm:px-6 scroll-fade" id="events">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="text-3xl font-serif font-bold text-center mb-10 text-brand-primary">Upcoming Events</h2>
+  <!-- Mobile Menu Overlay -->
+  <div id="mobile-menu" class="hidden fixed inset-0 z-40 bg-brand-cream/95 backdrop-blur-xl pt-24 px-6">
+    <div class="flex flex-col gap-6 text-2xl font-serif font-bold text-center">
+      <a href="#about" onclick="document.getElementById('mobile-menu').classList.add('hidden')">About</a>
+      <a href="#events" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Events</a>
+      <a href="#instagram" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Instagram</a>
+      <button onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="mt-8 text-sm font-sans font-normal opacity-50 uppercase tracking-widest">Close Menu</button>
+    </div>
+  </div>
 
-      <div id="countdown" class="font-sans text-lg md:text-xl text-center mb-12 italic text-gray-700"></div>
-      <div id="eventCards" class="grid md:grid-cols-2 gap-8 gap-y-12"></div>
+  <!-- Hero Section -->
+  <header class="relative min-h-screen flex flex-col justify-center items-center text-center px-4 pt-20 overflow-hidden">
+    <!-- Background abstract shapes -->
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 opacity-30">
+      <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand-sand rounded-full blur-3xl mix-blend-multiply animate-pulse"></div>
+      <div class="absolute top-1/2 -left-24 w-72 h-72 bg-brand-sage rounded-full blur-3xl mix-blend-multiply opacity-70"></div>
+      <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-brand-clay rounded-full blur-3xl mix-blend-multiply opacity-20"></div>
+    </div>
 
-      <div class="bg-brand-secondary/20 border border-brand-secondary/30 rounded-lg p-6 md:p-8 mt-12">
-        <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-12">
-          <div class="flex items-center gap-4">
-            <div class="flex-shrink-0 bg-white p-3 rounded-full shadow-sm">
-              <svg class="w-8 h-8 text-brand-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0h18M-4.5 12h22.5" />
-              </svg>
-            </div>
-            <div>
-              <h3 class="text-xl font-serif font-bold text-brand-primary">Sabbath School Bible Study</h3>
-              <p class="text-brand-primary/80">Every Sabbath at 10:00 AM</p>
-            </div>
-          </div>
-          <div class="w-24 h-px bg-brand-secondary/50 md:hidden"></div>
-          <div class="flex items-center gap-4">
-            <div class="flex-shrink-0 bg-white p-3 rounded-full shadow-sm">
-              <svg class="w-8 h-8 text-brand-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-              </svg>
-            </div>
-            <div>
-              <h3 class="text-xl font-serif font-bold text-brand-primary">Location</h3>
-              <p class="text-brand-primary/80">Right side of God's Pantry</p>
-              <a href="https://maps.google.com/?q=1411+Rome+Rd+SW,+Calhoun,+GA+30701" target="_blank" rel="noopener noreferrer" class="text-brand-primary/80 text-sm underline hover:text-brand-accent transition">
-                1411 Rome Rd SW, Calhoun, GA 30701
-              </a>
-            </div>
-          </div>
+    <div class="gsap-hero opacity-0 translate-y-8">
+      <img 
+        src="onPurposeColorBGIcon.svg" 
+        onerror="this.style.display='none'" 
+        alt="On Purpose Logo" 
+        class="h-32 md:h-40 mx-auto mb-8 drop-shadow-2xl hover:scale-105 transition-transform duration-500" 
+      />
+      
+      <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-brand-dark mb-6 leading-[1.1]">
+        Purpose isn't <br />
+        <span class="italic text-brand-clay font-serif">accidental.</span>
+      </h1>
+      
+      <p class="text-lg md:text-xl text-brand-light max-w-2xl mx-auto leading-relaxed mb-10 font-light">
+        A Christ-centered community of young adults in Calhoun, GA.<br class="hidden md:block">
+        Doing life together, growing in faith, and serving our community.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <a href="#events" class="px-8 py-4 bg-brand-clay text-white rounded-full font-semibold tracking-wide shadow-lg shadow-brand-clay/30 hover:bg-brand-dark hover:shadow-brand-dark/20 transition-all duration-300 transform hover:-translate-y-1">
+          See What's Happening
+        </a>
+        <a href="#about" class="px-8 py-4 bg-white text-brand-dark border border-brand-sand rounded-full font-medium hover:bg-brand-sand/20 transition-colors">
+          New Here?
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 animate-bounce opacity-50">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+      </svg>
+    </div>
+  </header>
+
+  <!-- About / Verse Section -->
+  <section id="about" class="py-24 px-4 bg-white relative">
+    <div class="max-w-4xl mx-auto text-center">
+      <span class="text-brand-clay font-bold tracking-widest text-xs uppercase mb-4 block">Our Foundation</span>
+      
+      <!-- Dynamic Verse -->
+      <blockquote class="font-serif text-2xl md:text-4xl text-brand-dark leading-normal italic mb-8 gsap-fade">
+        <span id="verseDisplay">Loading verse...</span>
+      </blockquote>
+      
+      <div class="h-px w-24 bg-brand-clay mx-auto mb-8"></div>
+      
+      <div class="grid md:grid-cols-3 gap-8 text-left mt-16 gsap-fade">
+        <div class="p-6 bg-brand-cream rounded-2xl border border-brand-sand/20">
+          <div class="w-10 h-10 bg-brand-dark text-white rounded-full flex items-center justify-center mb-4 font-serif italic text-xl">1</div>
+          <h3 class="font-serif font-bold text-xl mb-2">Connect</h3>
+          <p class="text-sm text-gray-600 leading-relaxed">Building genuine friendships that go beyond Sabbath morning. We do lunch, hikes, game nights, and life together.</p>
+        </div>
+        <div class="p-6 bg-brand-cream rounded-2xl border border-brand-sand/20">
+          <div class="w-10 h-10 bg-brand-clay text-white rounded-full flex items-center justify-center mb-4 font-serif italic text-xl">2</div>
+          <h3 class="font-serif font-bold text-xl mb-2">Grow</h3>
+          <p class="text-sm text-gray-600 leading-relaxed">Deep diving into Scripture without the fluff. Join our Sabbath School class every week at 10:00 AM.</p>
+        </div>
+        <div class="p-6 bg-brand-cream rounded-2xl border border-brand-sand/20">
+          <div class="w-10 h-10 bg-brand-sand text-white rounded-full flex items-center justify-center mb-4 font-serif italic text-xl">3</div>
+          <h3 class="font-serif font-bold text-xl mb-2">Serve</h3>
+          <p class="text-sm text-gray-600 leading-relaxed">Putting faith into action. We get involved in local initiatives and church projects to love our neighbors.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="py-16 px-4 sm:px-6 scroll-fade bg-white border-t-4 border-brand-bg" id="instagram-feed">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="text-3xl font-serif font-bold text-center mb-10 text-brand-primary">Connect With Us On Instagram</h2>
-      <!-- Changed grid to be 2 columns by default, 3 columns on md+ -->
-      <div id="instagramGrid" class="grid grid-cols-2 md:grid-cols-3 gap-4"></div>
-      <div class="text-center mt-12">
-        <a href="https://instagram.com/onpurpose.ya" target="_blank" class="bg-brand-accent text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl hover:opacity-95 hover:-translate-y-1 transition transform duration-200 tracking-wide uppercase">
-          See All Posts @onpurpose.ya
+  <!-- Events Section -->
+  <section id="events" class="py-24 px-4 bg-brand-dark text-brand-cream relative overflow-hidden">
+    <!-- Decorative bg -->
+    <div class="absolute top-0 right-0 w-64 h-64 bg-brand-light rounded-full blur-3xl opacity-20 translate-x-1/2 -translate-y-1/2"></div>
+
+    <div class="max-w-5xl mx-auto relative z-10">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+        <div>
+          <h2 class="font-serif text-4xl md:text-5xl font-bold mb-2">Upcoming Events</h2>
+          <p id="countdown" class="text-brand-clay font-medium tracking-wide opacity-0 transition-opacity duration-500"></p>
+        </div>
+        <a href="https://calendar.google.com/calendar/u/0/embed?src=c_5a8b28211567c6c615d0333a03e48848e4b56c7836a8c9611274104732295845@group.calendar.google.com" target="_blank" class="text-sm underline decoration-brand-clay underline-offset-4 hover:text-brand-clay transition-colors">
+          View Full Calendar &rarr;
         </a>
+      </div>
+
+      <!-- Events Grid -->
+      <div id="eventCards" class="grid grid-cols-1 gap-4">
+        <!-- Loader -->
+        <div class="bg-white/5 rounded-xl p-8 text-center border border-white/10">
+          <div class="loader-dots block relative w-20 h-5 mx-auto">
+            <div class="absolute top-0 w-3 h-3 rounded-full bg-brand-clay"></div>
+            <div class="absolute top-0 w-3 h-3 rounded-full bg-brand-clay"></div>
+            <div class="absolute top-0 w-3 h-3 rounded-full bg-brand-clay"></div>
+            <div class="absolute top-0 w-3 h-3 rounded-full bg-brand-clay"></div>
+          </div>
+          <p class="mt-4 text-sm opacity-70">Fetching calendar...</p>
+        </div>
+      </div>
+
+      <!-- Weekly Recurring Card -->
+      <div class="mt-12 bg-brand-light/20 border border-brand-light/30 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center gap-6 backdrop-blur-sm">
+        <div class="bg-brand-cream text-brand-dark p-4 rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+          </svg>
+        </div>
+        <div class="text-center md:text-left flex-1">
+          <h3 class="text-xl font-serif font-bold text-white mb-1">Weekly Sabbath School</h3>
+          <p class="text-brand-cream/80 text-sm">Join us every Saturday at 10:00 AM for deep discussion and fellowship.</p>
+        </div>
+        <div class="text-center md:text-right">
+           <a href="https://maps.google.com/?q=1411+Rome+Rd+SW,+Calhoun,+GA+30701" target="_blank" class="inline-block px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition text-sm border border-white/10">
+             📍 God's Pantry (Right Side)
+           </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Instagram Section -->
+  <section id="instagram" class="py-24 px-4 bg-brand-cream">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="font-serif text-4xl font-bold text-brand-dark">Life On Purpose</h2>
+        <a href="https://instagram.com/onpurpose.ya" target="_blank" class="inline-block mt-2 text-brand-clay font-medium hover:underline">@onpurpose.ya</a>
+      </div>
+
+      <!-- Grid -->
+      <div id="instagramGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+        <!-- Populated by JS -->
       </div>
     </div>
   </section>
 
-  <footer class="bg-brand-dark text-white py-8 text-center relative">
-    <p>© <span id="year"></span> On Purpose • Calhoun SDA Young Adults</p>
-    <div class="mt-4 flex flex-col sm:flex-row justify-center gap-6 text-sm text-gray-400">
-      <div>
-        Follow us on Instagram
-        <a href="https://instagram.com/onpurpose.ya" target="_blank" class="underline hover:text-white transition">@onpurpose.ya</a>
+  <!-- Footer -->
+  <footer class="bg-brand-dark text-white pt-16 pb-8 px-6 border-t border-white/10">
+    <div class="max-w-4xl mx-auto text-center">
+      <img src="onPurposeWhite.svg" onerror="this.style.display='none'" class="h-16 mx-auto mb-6 opacity-90" alt="Logo">
+      
+      <p class="text-brand-sage font-light mb-8">
+        A ministry of the Calhoun Seventh-day Adventist Church.
+      </p>
+
+      <div class="flex flex-wrap justify-center gap-6 text-sm font-medium tracking-wide mb-12">
+        <a href="#about" class="hover:text-brand-clay transition">About</a>
+        <a href="#events" class="hover:text-brand-clay transition">Events</a>
+        <a href="mailto:info@onpurposeya.com" class="hover:text-brand-clay transition">Contact</a>
+        <a href="https://adventistgiving.org/donate/ANTFEG" class="hover:text-brand-clay transition">Donate</a>
       </div>
-      <div>
-          Support our ministry
-          <a href="https://adventistgiving.org/donate/ANTFEG" target="_blank" rel="noopener noreferrer" class="underline hover:text-white transition">Give Online</a>
-          </div>
-      <div>
-        Contact us at
-        <a href="mailto:info@onpurposeya.com" class="underline hover:text-white transition">info@onpurposeya.com</a>
+
+      <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 gap-4">
+        <p>&copy; <span id="year"></span> On Purpose YA.</p>
+        <p>Designed for the Kingdom.</p>
       </div>
     </div>
   </footer>
 
+  <!-- GSAP & Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  
   <script>
+    // -- Config --
+    const API_EVENTS = 'https://onpurpose-events.jdawg2450.workers.dev/';
+    const API_INSTA = 'https://onpurpose-insta.jdawg2450.workers.dev/';
+
+    // -- Navbar Scroll Effect --
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        nav.classList.add('glass-nav', 'py-3');
+        nav.classList.remove('py-4');
+      } else {
+        nav.classList.remove('glass-nav', 'py-3');
+        nav.classList.add('py-4');
+      }
+    });
+
+    // -- Init --
     window.addEventListener("DOMContentLoaded", () => {
+      // Year
       document.getElementById("year").textContent = new Date().getFullYear();
-      document.getElementById("verseDisplay").textContent = "\u201cAnd we know that in all things God works for the good of those who love him, who have been called according to his purpose.\u201d - Romans 8:28";
-      document.querySelectorAll('.scroll-fade').forEach(section => {
-        gsap.fromTo(section, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', scrollTrigger: { trigger: section, start: 'top 85%' } });
-      });
+      
+      // Verse
+      const verseText = "\u201cAnd we know that in all things God works for the good of those who love him, who have been called according to his purpose.\u201d";
+      const verseRef = "Romans 8:28";
+      document.getElementById("verseDisplay").innerHTML = `${verseText} <br><span class="block text-base font-sans font-normal not-italic mt-4 text-brand-clay uppercase tracking-widest">- ${verseRef}</span>`;
+
+      // Animations
+      initAnimations();
+      
+      // Data
       loadCalendarEvents();
       loadInstagramFeed();
     });
 
-    function updateCountdownTo(date) {
-      const el = document.getElementById("countdown");
-      function update() {
-        const now = new Date();
-        const diff = date - now;
-        if (diff <= 0) {
-          el.innerHTML = "Our next event is happening now!";
-          return;
-        }
-        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const m = Math.floor((diff / (1000 * 60)) % 60);
-        const s = Math.floor((diff / 1000) % 60);
-        el.textContent = `${d}d ${h}h ${m}m ${s}s until our next event`;
-      }
-      update();
-      setInterval(update, 1000);
+    function initAnimations() {
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Hero
+      gsap.to(".gsap-hero", {
+        opacity: 1,
+        y: 0,
+        duration: 1.2,
+        ease: "power3.out",
+        delay: 0.2
+      });
+
+      // Fade In Sections
+      gsap.utils.toArray('.gsap-fade').forEach(el => {
+        gsap.fromTo(el, 
+          { opacity: 0, y: 40 },
+          { 
+            opacity: 1, 
+            y: 0, 
+            duration: 0.8, 
+            scrollTrigger: { trigger: el, start: 'top 85%' } 
+          }
+        );
+      });
     }
 
+    // -- Utilities --
     function escapeHTML(str) {
       return String(str).replace(/[&<>"']/g, c => ({
         '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
@@ -209,178 +355,184 @@
     }
 
     function findFirstUrlAndClean(text) {
-      const src = text || "";
+      if (!text) return { link: null, cleaned: '' };
+      
+      // Create temp element to strip HTML tags safely
       const div = document.createElement('div');
-      div.innerHTML = src;
+      div.innerHTML = text;
+      
+      // Check for existing anchor tags
       const firstAnchor = div.querySelector('a[href]');
-      let link = null;
-      if (firstAnchor) {
-        const href = firstAnchor.getAttribute('href');
-        if (href) link = href.trim();
-        firstAnchor.remove();
-      }
-      let plain = (div.textContent || '').trim();
-      const urlRe = /(?:https?:\/\/[^\s<>"']+|www\.[^\s<>"']+|(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}(?:\/[^\s<>"']*)?)/gi;
-      const emailRe = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi;
-
+      let link = firstAnchor ? firstAnchor.getAttribute('href') : null;
+      
+      // Get plain text
+      let plain = div.textContent || div.innerText || "";
+      
+      // Regex for URLs in plain text
+      const urlRe = /(https?:\/\/[^\s]+)/g;
+      
       if (!link) {
-        let m;
-        while ((m = urlRe.exec(plain))) {
-          const candidate = m[0];
-          if (!candidate.match(emailRe)) {
-            link = candidate.startsWith('http') ? candidate : ('https://' + candidate.replace(/^www\./, ''));
-            break;
-          }
-        }
+        const match = urlRe.exec(plain);
+        if (match) link = match[0];
       }
-      const cleaned = plain.replace(urlRe, '').replace(/\s{2,}/g, ' ').trim();
+
+      // Remove URLs from description for cleaner UI
+      const cleaned = plain.replace(urlRe, '').trim();
+      
       return { link, cleaned };
     }
 
+    // -- Calendar Logic --
     async function loadCalendarEvents() {
       const container = document.getElementById('eventCards');
-      container.innerHTML = '<p class="text-center col-span-2">Loading events...</p>';
+      
       try {
-        const res = await fetch('https://onpurpose-events.jdawg2450.workers.dev/');
+        const res = await fetch(API_EVENTS);
         const data = await res.json();
         const now = new Date();
-        const events = (data.items || []).filter(e => new Date(e.start.dateTime || e.start.date) > now).slice(0, 4);
-        const nextEvent = events[0];
-        if (nextEvent) {
-          document.getElementById('countdown').style.display = 'block';
-          updateCountdownTo(new Date(nextEvent.start.dateTime || nextEvent.start.date));
-        } else {
-          document.getElementById('countdown').style.display = 'none';
+        
+        // Filter upcoming
+        const events = (data.items || [])
+          .filter(e => new Date(e.start.dateTime || e.start.date) > now)
+          .sort((a,b) => new Date(a.start.dateTime || a.start.date) - new Date(b.start.dateTime || b.start.date))
+          .slice(0, 4); // Limit to 4
+
+        // Countdown Logic
+        if (events.length > 0) {
+          const nextEvent = events[0];
+          const countdownEl = document.getElementById('countdown');
+          countdownEl.style.opacity = '1';
+          
+          const updateTimer = () => {
+            const diff = new Date(nextEvent.start.dateTime || nextEvent.start.date) - new Date();
+            if (diff <= 0) {
+              countdownEl.textContent = "Happening now!";
+              return;
+            }
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            countdownEl.textContent = `Next gathering in ${d} days, ${h} hours`;
+          };
+          updateTimer();
+          setInterval(updateTimer, 60000); // Update every minute
         }
-        container.innerHTML = '';
+
+        container.innerHTML = ''; // Clear loader
+
         if (events.length === 0) {
-          container.innerHTML = '<p class="text-center col-span-2">No upcoming events right now. Check back soon!</p>';
-        } else {
-          const hasAnyDescription = events.some(event => {
-            const desc = event.description || '';
-            const processed = findFirstUrlAndClean(desc);
-            return processed.cleaned && processed.cleaned.trim().length > 0;
-          });
-          events.forEach(event => {
-            const isAllDay = !!event.start.date;
-            let start, formatted;
-
-            if (isAllDay) {
-              start = new Date(event.start.date + 'T00:00:00');
-              const options = { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC' };
-              formatted = start.toLocaleDateString('en-US', options);
-            } else {
-              start = new Date(event.start.dateTime);
-              const options = { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' };
-              formatted = start.toLocaleDateString('en-US', options);
-            }
-
-            let rawDescription = event.description || '';
-            let eventLink = event.htmlLink;
-
-            const processed = findFirstUrlAndClean(rawDescription);
-            if (processed.link) eventLink = processed.link;
-            const description = processed.cleaned;
-
-            const card = document.createElement('div');
-            card.className = "event-card event-card-bg border-l-4 border-brand-accent bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition overflow-hidden";
-            card.innerHTML = `
-              <div class="event-body">
-                <h3 class="text-xl font-serif font-bold text-brand-primary">${escapeHTML(event.summary)}</h3>
-                <p class="font-sans text-sm text-gray-600">${escapeHTML(formatted)}</p>
-                ${
-                  description && description.trim().length > 0
-                    ? `<p class="desc-clamp text-gray-700 break-words mt-4">${escapeHTML(description)}</p>`
-                    : (hasAnyDescription ? `<p class="desc-clamp mt-4"></p>` : ``)
-                }
-              </div>
-              <div class="mt-4">
-                <button type="button" class="toggle-more mt-2 text-xs text-gray-500 underline">Read more</button>
-                <a href="${eventLink}" class="mt-2 text-brand-accent font-semibold underline hover:opacity-80 transition block">View Event Details</a>
-              </div>
-            `;
-            container.appendChild(card);
-
-            const descEl = card.querySelector('.desc-clamp');
-            const moreBtn = card.querySelector('.toggle-more');
-            if (descEl && descEl.textContent.trim().length > 0) {
-              requestAnimationFrame(() => {
-                if (descEl.scrollHeight > descEl.clientHeight + 2) {
-                  descEl.classList.add('is-clamped');
-                  moreBtn.classList.add('show');
-                  moreBtn.addEventListener('click', () => {
-                    const expanded = descEl.classList.toggle('expanded');
-                    if (expanded) {
-                      descEl.classList.remove('is-clamped');
-                      moreBtn.textContent = 'Show less';
-                    } else {
-                      descEl.classList.add('is-clamped');
-                      moreBtn.textContent = 'Read more';
-                    }
-                  });
-                }
-              });
-            }
-          });
-        }
-      } catch (err) {
-        console.error('Failed to load events:', err);
-        container.innerHTML = '<p class="text-center col-span-2 text-red-500">Failed to load events. Try again later.</p>';
-      }
-    }
-
-    async function loadInstagramFeed() {
-      const container = document.getElementById('instagramGrid');
-      const workerUrl = 'https://onpurpose-insta.jdawg2450.workers.dev/';
-      const maxPosts = 6;
-
-      container.innerHTML = '<p class="col-span-full text-center text-brand-primary/80">Loading Instagram feed...</p>';
-
-      try {
-        const res = await fetch(workerUrl);
-        const data = await res.json();
-
-        if (data.error || !data.data) {
-          console.error("Instagram Worker Error:", data.error);
-          container.innerHTML = '<p class="col-span-full text-center text-red-600">Could not load Instagram feed. (Token expired or worker issue)</p>';
+          container.innerHTML = `
+            <div class="bg-white/5 rounded-xl p-8 text-center border border-white/10">
+              <p class="text-lg italic">No special events scheduled soon.</p>
+              <p class="text-sm opacity-70 mt-2">Check back later or join us on Sabbath!</p>
+            </div>`;
           return;
         }
 
-        container.innerHTML = '';
+        events.forEach((event, index) => {
+          // Date Parsing
+          const isAllDay = !!event.start.date;
+          const dateObj = new Date(event.start.dateTime || event.start.date);
+          
+          const month = dateObj.toLocaleDateString('en-US', { month: 'short' }); // "OCT"
+          const day = dateObj.toLocaleDateString('en-US', { day: 'numeric' });   // "14"
+          const time = isAllDay ? 'All Day' : dateObj.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+          const weekday = dateObj.toLocaleDateString('en-US', { weekday: 'long' });
 
-        data.data.slice(0, maxPosts).forEach(post => {
-          let postUrl = post.media_url;
-          if (post.media_type === 'CAROUSEL_ALBUM' || post.media_type === 'VIDEO') {
-            postUrl = post.thumbnail_url || post.media_url;
-          }
+          // Description Parsing
+          const rawDesc = event.description || '';
+          const { link, cleaned } = findFirstUrlAndClean(rawDesc);
+          const finalLink = link || event.htmlLink;
+          
+          // Determine color logic for variety (optional, cycling through brand colors)
+          // We stick to a clean white card for consistency
+          
+          const cardHTML = `
+            <div class="group relative bg-brand-dark-light bg-[#32453f] rounded-xl p-0 overflow-hidden flex flex-row hover:bg-[#3a4f48] transition-colors border border-white/5 gsap-event-card">
+              <!-- Date Badge -->
+              <div class="w-24 md:w-32 flex flex-col items-center justify-center bg-brand-dark/30 border-r border-white/5 p-4 text-center shrink-0">
+                <span class="text-xs md:text-sm font-bold tracking-widest text-brand-clay uppercase">${month}</span>
+                <span class="text-3xl md:text-4xl font-serif font-bold text-white my-1">${day}</span>
+                <span class="text-xs text-brand-sage">${weekday}</span>
+              </div>
 
-          const mediaElement = `
-            <div class="aspect-square bg-gray-200 overflow-hidden relative group rounded-lg shadow-md transition duration-300 transform hover:scale-[1.02] hover:shadow-xl">
-              <img src="${postUrl}" alt="${(post.caption || 'On Purpose Post').substring(0, 50)}"
-                   class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-              <a href="${post.permalink}" target="_blank" rel="noopener noreferrer"
-                 class="absolute inset-0 bg-brand-dark/70 flex flex-col items-center justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer text-white">
-                <div class="mb-2 text-3xl">
-                  ${post.media_type === 'VIDEO' ? '▶️' : (post.media_type === 'CAROUSEL_ALBUM' ? '✨' : '📸')}
+              <!-- Content -->
+              <div class="p-5 md:p-6 flex-1 flex flex-col justify-center">
+                <div class="flex justify-between items-start gap-4">
+                  <div>
+                    <h3 class="text-xl font-bold text-white leading-tight mb-1 group-hover:text-brand-clay transition-colors">
+                      ${escapeHTML(event.summary)}
+                    </h3>
+                    <p class="text-brand-sage text-sm mb-2 flex items-center gap-1">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                      ${time}
+                    </p>
+                  </div>
+                  <a href="${finalLink}" target="_blank" class="hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-brand-clay text-white transition-colors shrink-0">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                  </a>
                 </div>
-                <p class="text-sm font-light text-center leading-relaxed line-clamp-4 px-2">
-                  ${escapeHTML(post.caption || 'View Post')}
-                </p>
-                <p class="text-xs font-semibold mt-2 text-brand-accent">View on Instagram</p>
-              </a>
+                
+                ${cleaned ? `<p class="text-gray-300 text-sm line-clamp-2 mt-2">${escapeHTML(cleaned)}</p>` : ''}
+                
+                <!-- Mobile Link overlay -->
+                <a href="${finalLink}" target="_blank" class="md:hidden absolute inset-0"></a>
+              </div>
             </div>
           `;
-          container.insertAdjacentHTML('beforeend', mediaElement);
+          
+          container.insertAdjacentHTML('beforeend', cardHTML);
         });
 
-        gsap.fromTo(
-          "#instagramGrid > div",
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "power2.out" }
-        );
+        // Animate cards in
+        gsap.from(".gsap-event-card", {
+          opacity: 0,
+          x: -20,
+          duration: 0.6,
+          stagger: 0.1,
+          scrollTrigger: { trigger: "#eventCards", start: "top 90%" }
+        });
+
       } catch (err) {
-        console.error('Failed to connect to Instagram Worker:', err);
-        container.innerHTML = '<p class="col-span-full text-center text-red-600">Connection error. Could not reach the feed server.</p>';
+        console.error(err);
+        container.innerHTML = '<p class="text-red-400 text-center">Could not sync calendar.</p>';
+      }
+    }
+
+    // -- Instagram Logic --
+    async function loadInstagramFeed() {
+      const container = document.getElementById('instagramGrid');
+      
+      try {
+        const res = await fetch(API_INSTA);
+        const data = await res.json();
+
+        if (data.error || !data.data) {
+           // Silently fail or show placeholder
+           container.innerHTML = '<p class="col-span-full text-center text-gray-400 text-sm">Follow us @onpurpose.ya</p>';
+           return;
+        }
+
+        container.innerHTML = ''; // Clear loading
+
+        data.data.slice(0, 4).forEach(post => { // Limit to 4 for cleaner grid
+           let imgUrl = post.media_url;
+           if (post.media_type === 'VIDEO' || post.media_type === 'CAROUSEL_ALBUM') {
+             imgUrl = post.thumbnail_url || post.media_url;
+           }
+
+           const item = `
+             <a href="${post.permalink}" target="_blank" class="group block relative aspect-square overflow-hidden rounded-lg bg-gray-100">
+               <img src="${imgUrl}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" alt="Instagram Post">
+               <div class="absolute inset-0 bg-brand-dark/60 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                  <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+               </div>
+             </a>
+           `;
+           container.insertAdjacentHTML('beforeend', item);
+        });
+
+      } catch (err) {
+        console.error(err);
       }
     }
   </script>
