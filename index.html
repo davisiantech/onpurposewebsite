@@ -103,9 +103,7 @@
       <a href="#about" class="hover:text-brand-clay transition-colors">About</a>
       <a href="#events" class="hover:text-brand-clay transition-colors">Events</a>
       <a href="#instagram" class="hover:text-brand-clay transition-colors">Gallery</a>
-      <a href="https://adventistgiving.org/donate/ANTFEG" target="_blank" class="px-5 py-2 rounded-full bg-brand-dark text-white hover:bg-brand-clay transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 duration-200">
-        Give
-      </a>
+      <!-- Give button removed from top bar -->
     </div>
     
     <!-- Mobile Menu Button -->
@@ -122,7 +120,7 @@
       <a href="#about" onclick="document.getElementById('mobile-menu').classList.add('hidden')">About</a>
       <a href="#events" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Events</a>
       <a href="#instagram" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Instagram</a>
-      <a href="https://adventistgiving.org/donate/ANTFEG" target="_blank" class="text-brand-clay">Give Online</a>
+      <!-- Give Online link removed from mobile menu -->
       <button onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="mt-8 text-sm font-sans font-normal opacity-50 uppercase tracking-widest">Close Menu</button>
     </div>
   </div>
@@ -215,7 +213,7 @@
           <h2 class="font-serif text-4xl md:text-5xl font-bold mb-2">Upcoming Events</h2>
           <p id="countdown" class="text-brand-clay font-medium tracking-wide opacity-0 transition-opacity duration-500"></p>
         </div>
-        <a href="https://calendar.google.com/calendar/u/0/embed?src=c_5a8b28211567c6c615d0333a03e48848e4b56c7836a8c9611274104732295845@group.calendar.google.com" target="_blank" class="text-sm underline decoration-brand-clay underline-offset-4 hover:text-brand-clay transition-colors">
+        <a href="https://calendar.google.com/calendar/embed?src=c_7aea78af80beef43bee212a0ec357262f4ccea24e809aa5e599cc969e2c1a0c7%40group.calendar.google.com&ctz=America%2FNew_York" target="_blank" class="text-sm underline decoration-brand-clay underline-offset-4 hover:text-brand-clay transition-colors">
           View Full Calendar &rarr;
         </a>
       </div>
@@ -400,12 +398,32 @@
       try {
         const res = await fetch(API_EVENTS);
         const data = await res.json();
+        
+        // Fix: Set "now" to the beginning of today to include events happening today
         const now = new Date();
+        now.setHours(0, 0, 0, 0);
         
         // Filter upcoming
         const events = (data.items || [])
-          .filter(e => new Date(e.start.dateTime || e.start.date) > now)
-          .sort((a,b) => new Date(a.start.dateTime || a.start.date) - new Date(b.start.dateTime || b.start.date))
+          .filter(e => {
+            // Handle All-day events vs Time events
+            let start;
+            if (e.start.dateTime) {
+                start = new Date(e.start.dateTime);
+            } else if (e.start.date) {
+                // Force local time interpretation for YYYY-MM-DD strings
+                // by appending T00:00:00. Otherwise browsers assume UTC.
+                start = new Date(e.start.date + 'T00:00:00');
+            } else {
+                return false;
+            }
+            return start >= now;
+          })
+          .sort((a,b) => {
+             const dateA = new Date(a.start.dateTime || (a.start.date + 'T00:00:00'));
+             const dateB = new Date(b.start.dateTime || (b.start.date + 'T00:00:00'));
+             return dateA - dateB;
+          })
           .slice(0, 4); // Limit to 4
 
         // Countdown Logic
@@ -415,7 +433,8 @@
           countdownEl.style.opacity = '1';
           
           const updateTimer = () => {
-            const diff = new Date(nextEvent.start.dateTime || nextEvent.start.date) - new Date();
+            const eventDate = new Date(nextEvent.start.dateTime || (nextEvent.start.date + 'T00:00:00'));
+            const diff = eventDate - new Date();
             if (diff <= 0) {
               countdownEl.textContent = "Happening now!";
               return;
@@ -442,7 +461,9 @@
         events.forEach((event, index) => {
           // Date Parsing
           const isAllDay = !!event.start.date;
-          const dateObj = new Date(event.start.dateTime || event.start.date);
+          const dateObj = isAllDay 
+            ? new Date(event.start.date + 'T00:00:00')
+            : new Date(event.start.dateTime);
           
           const month = dateObj.toLocaleDateString('en-US', { month: 'short' }); // "OCT"
           const day = dateObj.toLocaleDateString('en-US', { day: 'numeric' });   // "14"
