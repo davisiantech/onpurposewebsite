@@ -25,12 +25,12 @@
         extend: {
           colors: {
             brand: {
-              dark: '#2a3a35',     // Deep Green
-              light: '#4e6d64',    // Medium Green
-              sage: '#8fa89f',     // Light Green accent
-              sand: '#d0b49f',     // Beige/Tan
-              clay: '#e58c62',     // Orange/Terracotta
-              cream: '#f8f6f3',    // Off-white background
+              dark: '#2a3a35',      // Deep Green
+              light: '#4e6d64',     // Medium Green
+              sage: '#8fa89f',      // Light Green accent
+              sand: '#d0b49f',      // Beige/Tan
+              clay: '#e58c62',      // Orange/Terracotta
+              cream: '#f8f6f3',     // Off-white background
               white: '#ffffff'
             }
           },
@@ -103,7 +103,6 @@
       <a href="#about" class="hover:text-brand-clay transition-colors">About</a>
       <a href="#events" class="hover:text-brand-clay transition-colors">Events</a>
       <a href="#instagram" class="hover:text-brand-clay transition-colors">Gallery</a>
-      <!-- Give button removed from top bar -->
     </div>
     
     <!-- Mobile Menu Button -->
@@ -120,7 +119,6 @@
       <a href="#about" onclick="document.getElementById('mobile-menu').classList.add('hidden')">About</a>
       <a href="#events" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Events</a>
       <a href="#instagram" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Instagram</a>
-      <!-- Give Online link removed from mobile menu -->
       <button onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="mt-8 text-sm font-sans font-normal opacity-50 uppercase tracking-widest">Close Menu</button>
     </div>
   </div>
@@ -527,39 +525,49 @@
                 <div class="flex flex-col gap-2">
                   <div>
                     <h3 class="text-xl font-bold text-white leading-tight mb-1 group-hover:text-brand-clay transition-colors">
-                      ${escapeHTML(event.summary)}
+                      <a href="${finalLink}" target="_blank" class="hover:underline decoration-brand-clay underline-offset-4">${escapeHTML(event.summary)}</a>
                     </h3>
                     <div class="text-brand-sage text-sm mb-2 flex flex-wrap items-center gap-2">
-                       <span class="flex items-center gap-1">
+                        <span class="flex items-center gap-1">
                           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                           ${time}
-                       </span>
-                       ${location ? `
-                         <span class="opacity-60 hidden sm:inline">|</span>
-                         <span class="flex items-center gap-1 opacity-90">
-                           ${escapeHTML(location)}
-                         </span>
-                       ` : ''}
+                        </span>
+                        ${location ? `
+                          <span class="opacity-60 hidden sm:inline">|</span>
+                          <span class="flex items-center gap-1 opacity-90">
+                            ${escapeHTML(location)}
+                          </span>
+                        ` : ''}
                     </div>
                   </div>
                   
                   ${cleaned ? `
-                    <div>
+                    <div class="mb-1">
                         <p id="${descId}" class="text-gray-300 text-sm line-clamp-2 transition-all duration-300">${escapeHTML(cleaned)}</p>
-                        ${needsReadMore ? `
-                           <button id="btn-${descId}" onclick="toggleDescription('${descId}')" class="text-brand-clay text-xs font-bold uppercase tracking-wider mt-2 hover:text-white transition-colors focus:outline-none">
-                             Read More
-                           </button>
-                        ` : ''}
                     </div>
                   ` : ''}
+
+                  <!-- Mobile Actions Row (Visible on Phone Only) -->
+                  <div class="flex flex-wrap items-center gap-4 md:hidden mt-2 relative z-20">
+                     ${needsReadMore ? `
+                       <button id="btn-${descId}" onclick="toggleDescription('${descId}')" class="text-brand-clay text-xs font-bold uppercase tracking-wider hover:text-white transition-colors focus:outline-none">
+                         Read More
+                       </button>
+                       <span class="text-white/10">|</span>
+                     ` : ''}
+                     
+                     <a href="${finalLink}" target="_blank" class="text-brand-clay text-xs font-bold uppercase tracking-wider hover:text-white transition-colors flex items-center gap-1">
+                       View Details
+                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3">
+                         <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                       </svg>
+                     </a>
+                  </div>
                   
-                  <!-- Mobile Link overlay (only covers title/date area if Read More is present, or full card if not) -->
-                  ${!needsReadMore ? `<a href="${finalLink}" target="_blank" class="md:hidden absolute inset-0 z-0"></a>` : ''}
                 </div>
               </div>
               
-              <!-- Desktop Action Button -->
+              <!-- Desktop Action Button (Visible on PC Only) -->
                <div class="hidden md:flex flex-col justify-center pr-6 pl-2">
                   <a href="${finalLink}" target="_blank" class="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-brand-clay text-white transition-colors shrink-0">
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
