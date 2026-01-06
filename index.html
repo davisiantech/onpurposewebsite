@@ -26,7 +26,7 @@
           colors: {
             brand: {
               dark: '#2a3a35',      // Deep Green
-              light: '#4e6d64',     // Medium Green
+              light: '#4e6d64',      // Medium Green
               sage: '#8fa89f',      // Light Green accent
               sand: '#d0b49f',      // Beige/Tan
               clay: '#e58c62',      // Orange/Terracotta
@@ -93,7 +93,6 @@
   <!-- Navigation -->
   <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 px-6 lg:px-12 flex justify-between items-center">
     <a href="#" class="flex items-center gap-2 group">
-      <!-- Top-left branding (Text version for when user scrolls past hero) -->
       <div class="font-serif font-bold text-2xl tracking-tighter text-brand-dark group-hover:text-brand-clay transition-colors">
         On<span class="italic text-brand-clay">Purpose</span>
       </div>
@@ -261,7 +260,6 @@
 
       <!-- Grid -->
       <div id="instagramGrid" class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"></div>
-        <!-- Populated by JS -->
       </div>
     </div>
   </section>
@@ -298,7 +296,7 @@
     const API_EVENTS = 'https://onpurpose-events.jdawg2450.workers.dev/';
     const API_INSTA = 'https://onpurpose-insta.jdawg2450.workers.dev/';
 
-    // -- Global Function for Read More --
+    // -- Global Function for Toggle --
     window.toggleDescription = function(id) {
         const textEl = document.getElementById(id);
         const btnEl = document.getElementById('btn-' + id);
@@ -307,10 +305,10 @@
         // Toggle the class
         if (textEl.classList.contains('line-clamp-2')) {
             textEl.classList.remove('line-clamp-2');
-            btnEl.textContent = 'Show Less';
+            if (btnEl) btnEl.textContent = 'Show Less';
         } else {
             textEl.classList.add('line-clamp-2');
-            btnEl.textContent = 'Read More';
+            if (btnEl) btnEl.textContent = 'Read More';
         }
     };
 
@@ -328,18 +326,13 @@
 
     // -- Init --
     window.addEventListener("DOMContentLoaded", () => {
-      // Year
       document.getElementById("year").textContent = new Date().getFullYear();
       
-      // Verse
       const verseText = "\u201cAnd we know that in all things God works for the good of those who love him, who have been called according to his purpose.\u201d";
       const verseRef = "Romans 8:28";
       document.getElementById("verseDisplay").innerHTML = `${verseText} <br><span class="block text-base font-sans font-normal not-italic mt-4 text-brand-clay uppercase tracking-widest">- ${verseRef}</span>`;
 
-      // Animations
       initAnimations();
-      
-      // Data
       loadCalendarEvents();
       loadInstagramFeed();
     });
@@ -347,7 +340,6 @@
     function initAnimations() {
       gsap.registerPlugin(ScrollTrigger);
 
-      // Hero
       gsap.to(".gsap-hero", {
         opacity: 1,
         y: 0,
@@ -356,7 +348,6 @@
         delay: 0.2
       });
 
-      // Fade In Sections
       gsap.utils.toArray('.gsap-fade').forEach(el => {
         gsap.fromTo(el, 
           { opacity: 0, y: 40 },
@@ -379,36 +370,23 @@
 
     function findFirstUrlAndClean(text) {
       if (!text) return { link: null, cleaned: '' };
-      
-      // Create temp element to strip HTML tags safely
       const div = document.createElement('div');
       div.innerHTML = text;
-      
-      // Check for existing anchor tags
       const firstAnchor = div.querySelector('a[href]');
       let link = firstAnchor ? firstAnchor.getAttribute('href') : null;
-      
-      // Get plain text
       let plain = div.textContent || div.innerText || "";
-      
-      // Regex for URLs in plain text
-      // Updated to match: http(s):// OR www. OR words.com/org/net etc.
       const urlRe = /(?:(?:https?:\/\/)|(?:www\.)|(?:[a-zA-Z0-9-]+\.(?:com|org|net|edu|gov|io)))[^\s]*/gi;
       
       if (!link) {
         const matches = plain.match(urlRe);
         if (matches && matches.length > 0) {
             link = matches[0];
-            // If the link doesn't start with http, add https:// so it works
             if (!link.match(/^https?:\/\//i)) {
                 link = 'https://' + link;
             }
         }
       }
-
-      // Remove URLs from description for cleaner UI
       const cleaned = plain.replace(urlRe, '').trim();
-      
       return { link, cleaned };
     }
 
@@ -419,21 +397,15 @@
       try {
         const res = await fetch(API_EVENTS);
         const data = await res.json();
-        
-        // Fix: Set "now" to the beginning of today to include events happening today
         const now = new Date();
         now.setHours(0, 0, 0, 0);
         
-        // Filter upcoming
         const events = (data.items || [])
           .filter(e => {
-            // Handle All-day events vs Time events
             let start;
             if (e.start.dateTime) {
                 start = new Date(e.start.dateTime);
             } else if (e.start.date) {
-                // Force local time interpretation for YYYY-MM-DD strings
-                // by appending T00:00:00. Otherwise browsers assume UTC.
                 start = new Date(e.start.date + 'T00:00:00');
             } else {
                 return false;
@@ -445,9 +417,8 @@
              const dateB = new Date(b.start.dateTime || (b.start.date + 'T00:00:00'));
              return dateA - dateB;
           })
-          .slice(0, 4); // Limit to 4
+          .slice(0, 4);
 
-        // Countdown Logic
         if (events.length > 0) {
           const nextEvent = events[0];
           const countdownEl = document.getElementById('countdown');
@@ -465,10 +436,10 @@
             countdownEl.textContent = `Next gathering in ${d} days, ${h} hours`;
           };
           updateTimer();
-          setInterval(updateTimer, 60000); // Update every minute
+          setInterval(updateTimer, 60000);
         }
 
-        container.innerHTML = ''; // Clear loader
+        container.innerHTML = '';
 
         if (events.length === 0) {
           container.innerHTML = `
@@ -480,39 +451,26 @@
         }
 
         events.forEach((event, index) => {
-          // Date Parsing
           const isAllDay = !!event.start.date;
-          const dateObj = isAllDay 
-            ? new Date(event.start.date + 'T00:00:00')
-            : new Date(event.start.dateTime);
-          
-          const month = dateObj.toLocaleDateString('en-US', { month: 'short' }); // "OCT"
-          const day = dateObj.toLocaleDateString('en-US', { day: 'numeric' });   // "14"
+          const dateObj = isAllDay ? new Date(event.start.date + 'T00:00:00') : new Date(event.start.dateTime);
+          const month = dateObj.toLocaleDateString('en-US', { month: 'short' });
+          const day = dateObj.toLocaleDateString('en-US', { day: 'numeric' });
           const time = isAllDay ? 'All Day' : dateObj.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
           const weekday = dateObj.toLocaleDateString('en-US', { weekday: 'long' });
 
-          // Location Processing (Clean up Address)
           let location = event.location || '';
           if (location) {
-            // Remove USA, United States, US (case insensitive)
-            location = location.replace(/,?\s*(?:USA|United States|US)\b/gi, '');
-            // Remove Zip Code (5 digits, optional hyphen+4)
-            location = location.replace(/,?\s*\b\d{5}(?:-\d{4})?\b/g, '');
-            // Clean up any trailing commas or spaces left over
-            location = location.trim().replace(/,$/, '');
+            location = location.replace(/,?\s*(?:USA|United States|US)\b/gi, '').replace(/,?\s*\b\d{5}(?:-\d{4})?\b/g, '').trim().replace(/,$/, '');
           }
 
-          // Description Parsing
           const rawDesc = event.description || '';
           const { link, cleaned } = findFirstUrlAndClean(rawDesc);
           const finalLink = link || event.htmlLink;
-          
-          // Determine if we need read more button (approx > 100 chars)
           const needsReadMore = cleaned && cleaned.length > 100;
           const descId = `desc-${index}`;
 
           const cardHTML = `
-            <div class="group relative bg-brand-dark-light bg-[#32453f] rounded-xl p-0 overflow-hidden flex flex-row hover:bg-[#3a4f48] transition-colors border border-white/5 gsap-event-card">
+            <div class="group relative bg-[#32453f] rounded-xl p-0 overflow-hidden flex flex-row hover:bg-[#3a4f48] transition-colors border border-white/5 gsap-event-card">
               <!-- Date Badge -->
               <div class="w-24 md:w-32 flex flex-col items-center justify-center bg-brand-dark/30 border-r border-white/5 p-4 text-center shrink-0">
                 <span class="text-xs md:text-sm font-bold tracking-widest text-brand-clay uppercase">${month}</span>
@@ -524,8 +482,9 @@
               <div class="p-5 md:p-6 flex-1 flex flex-col justify-center">
                 <div class="flex flex-col gap-2">
                   <div>
-                    <h3 class="text-xl font-bold text-white leading-tight mb-1 group-hover:text-brand-clay transition-colors">
-                      <a href="${finalLink}" target="_blank" class="hover:underline decoration-brand-clay underline-offset-4">${escapeHTML(event.summary)}</a>
+                    <!-- Clickable Title for toggle -->
+                    <h3 onclick="toggleDescription('${descId}')" class="text-xl font-bold text-white leading-tight mb-1 hover:text-brand-clay transition-colors cursor-pointer select-none">
+                      ${escapeHTML(event.summary)}
                     </h3>
                     <div class="text-brand-sage text-sm mb-2 flex flex-wrap items-center gap-2">
                         <span class="flex items-center gap-1">
@@ -547,8 +506,7 @@
                     </div>
                   ` : ''}
 
-                  <!-- Mobile Actions Row (Visible on Phone Only) -->
-                  <!-- FIX: Changed from flex-wrap gap-4 to flex-nowrap gap-2 to prevent stacking on small screens -->
+                  <!-- Mobile Actions Row -->
                   <div class="flex items-center gap-2 md:hidden mt-2 relative z-20">
                       ${needsReadMore ? `
                         <button id="btn-${descId}" onclick="toggleDescription('${descId}')" class="text-brand-clay text-xs font-bold uppercase tracking-wider hover:text-white transition-colors focus:outline-none whitespace-nowrap">
@@ -564,13 +522,12 @@
                         </svg>
                       </a>
                   </div>
-                  
                 </div>
               </div>
               
-              <!-- Desktop Action Button (Visible on PC Only) -->
+              <!-- Desktop Action Button -->
                <div class="hidden md:flex flex-col justify-center pr-6 pl-2">
-                  <a href="${finalLink}" target="_blank" class="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-brand-clay text-white transition-colors shrink-0">
+                  <a href="${finalLink}" target="_blank" class="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-brand-clay text-white transition-colors shrink-0" title="Open Link">
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                   </a>
                </div>
@@ -580,7 +537,6 @@
           container.insertAdjacentHTML('beforeend', cardHTML);
         });
 
-        // Animate cards in
         gsap.from(".gsap-event-card", {
           opacity: 0,
           x: -20,
@@ -598,52 +554,34 @@
     // -- Instagram Logic --
     async function loadInstagramFeed() {
       const container = document.getElementById('instagramGrid');
-      
       try {
         const res = await fetch(API_INSTA);
         const data = await res.json();
-
         if (data.error || !data.data) {
-           // Silently fail or show placeholder
            container.innerHTML = '<p class="col-span-full text-center text-gray-400 text-sm">Follow us @onpurpose.ya</p>';
            return;
         }
-
-        container.innerHTML = ''; // Clear loading
-
-        data.data.slice(0, 4).forEach(post => { // Limit to 4 for cleaner grid
+        container.innerHTML = '';
+        data.data.slice(0, 4).forEach(post => {
            let imgUrl = post.media_url;
            if (post.media_type === 'VIDEO' || post.media_type === 'CAROUSEL_ALBUM') {
              imgUrl = post.thumbnail_url || post.media_url;
            }
-
            const typeEmoji = post.media_type === 'VIDEO' ? '▶️' : (post.media_type === 'CAROUSEL_ALBUM' ? '✨' : '📸');
            const caption = post.caption || 'View Post';
-
            const item = `
              <a href="${post.permalink}" target="_blank" class="group block relative aspect-square overflow-hidden rounded-xl bg-gray-100 shadow-md hover:shadow-xl transition-all duration-300">
                <img src="${imgUrl}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="Instagram Post">
-               
-               <!-- Detailed Hover Overlay -->
                <div class="absolute inset-0 bg-brand-dark/80 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6 text-center">
-                  <div class="text-3xl mb-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">
-                    ${typeEmoji}
-                  </div>
-                  <p class="text-white text-sm font-medium line-clamp-4 mb-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100 leading-relaxed">
-                    ${escapeHTML(caption)}
-                  </p>
-                  <span class="text-brand-clay text-xs font-bold uppercase tracking-widest transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-150">
-                    View on Instagram
-                  </span>
+                  <div class="text-3xl mb-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">${typeEmoji}</div>
+                  <p class="text-white text-sm font-medium line-clamp-4 mb-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100 leading-relaxed">${escapeHTML(caption)}</p>
+                  <span class="text-brand-clay text-xs font-bold uppercase tracking-widest transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-150">View on Instagram</span>
                </div>
              </a>
            `;
            container.insertAdjacentHTML('beforeend', item);
         });
-
-      } catch (err) {
-        console.error(err);
-      }
+      } catch (err) { console.error(err); }
     }
   </script>
 </body>
