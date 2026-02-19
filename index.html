@@ -389,6 +389,9 @@
                     const descId = `desc-${idx}`;
                     const needsReadMore = cleaned && cleaned.length > 120;
 
+                    // CHECK FOR RSVP LINK
+                    const isForm = finalLink && (finalLink.includes('forms.gle') || finalLink.includes('docs.google.com/forms') || finalLink.includes('tally.so'));
+
                     let location = event.location || '';
                     if (location) {
                         location = location
@@ -428,9 +431,15 @@
                 </div>
 
                 <div class="shrink-0">
-                  <a href="${finalLink}" target="_blank" class="flex items-center justify-center w-12 h-12 rounded-full border border-brand-sand hover:bg-brand-clay hover:border-brand-clay hover:text-white transition-all">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                  </a>
+                  ${isForm ? `
+                    <a href="${finalLink}" target="_blank" class="flex items-center justify-center px-6 py-3 rounded-xl bg-brand-clay text-white text-[10px] font-bold uppercase tracking-widest hover:bg-brand-forest transition-all shadow-md">
+                        RSVP
+                    </a>
+                  ` : `
+                    <a href="${finalLink}" target="_blank" class="flex items-center justify-center w-12 h-12 rounded-full border border-brand-sand hover:bg-brand-clay hover:border-brand-clay hover:text-white transition-all">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                  `}
                 </div>
             </div>
           `;
