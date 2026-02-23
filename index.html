@@ -100,182 +100,186 @@
 <body class="antialiased selection:bg-brand-clay selection:text-white">
     <div class="paper-grain"></div>
 
-    <!-- Navigation -->
-    <nav id="navbar"
-        class="fixed w-full z-50 transition-all duration-500 py-6 px-6 lg:px-12 flex justify-between items-center">
-        <a href="#" class="font-serif font-bold text-2xl tracking-tight italic group">
-            On<span class="text-brand-clay group-hover:text-brand-forest transition-colors font-serif">Purpose</span>
-        </a>
+    <!-- Wrapping all content to prevent horizontal scroll on mobile -->
+    <div class="overflow-x-hidden w-full relative">
 
-        <div
-            class="hidden md:flex items-center space-x-12 text-[11px] font-bold uppercase tracking-[0.2em] text-brand-forest/70">
-            <a href="#about" class="hover:text-brand-clay transition-colors">About</a>
-            <a href="#events" class="hover:text-brand-clay transition-colors">Events</a>
-            <a href="#journal" class="hover:text-brand-clay transition-colors">Gallery</a>
-        </div>
-
-        <button class="md:hidden p-2 text-brand-forest"
-            onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8h16M4 16h16"></path>
-            </svg>
-        </button>
-    </nav>
-
-    <!-- Mobile Menu -->
-    <div id="mobile-menu"
-        class="hidden fixed inset-0 z-[60] bg-brand-cream flex flex-col items-center justify-center gap-10 text-center">
-        <div class="flex flex-col gap-6 text-3xl font-serif italic font-bold text-brand-forest">
-            <a href="#about" onclick="document.getElementById('mobile-menu').classList.add('hidden')">About</a>
-            <a href="#events" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Events</a>
-            <a href="#journal" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Gallery</a>
-        </div>
-        <button onclick="document.getElementById('mobile-menu').classList.add('hidden')"
-            class="text-xs uppercase tracking-widest opacity-40 font-bold">Close Menu</button>
-    </div>
-
-    <!-- Hero Section -->
-    <header class="relative min-h-[90vh] flex flex-col justify-center max-w-7xl mx-auto px-6 pt-20 pb-32">
-        <div class="max-w-4xl mx-auto text-center gsap-hero-content">
-            <div class="flex items-center justify-center gap-3 mb-8">
-                <span class="h-[1px] w-10 bg-brand-clay"></span>
-                <span class="text-brand-clay font-bold uppercase tracking-[0.4em] text-[10px]">Calhoun YA</span>
-                <span class="h-[1px] w-10 bg-brand-clay"></span>
-            </div>
-            <h1 class="font-serif text-6xl md:text-8xl lg:text-9xl leading-[1.05] mb-10 text-balance tracking-tight">
-                Purpose isn't <br><em class="italic font-serif text-brand-clay">accidental.</em>
-            </h1>
-            <p class="text-lg md:text-2xl text-brand-forest/70 max-w-2xl mx-auto font-light leading-relaxed mb-20">
-                A Christ-centered community of young adults in Calhoun, GA. Doing life together, growing in faith, and
-                serving our city.
-            </p>
-            <div class="flex flex-wrap gap-8 justify-center">
-                <a href="#events"
-                    class="bg-brand-clay text-white px-12 py-5 rounded-xl text-xs font-bold uppercase tracking-widest shadow-xl shadow-brand-clay/20 hover:scale-105 transition-transform">
-                    See What's Happening
-                </a>
-                <a href="#about"
-                    class="inline-flex items-center gap-4 text-xs font-bold uppercase tracking-widest group">
-                    New Here?
-                    <span class="w-12 h-[1px] bg-brand-clay group-hover:w-20 transition-all duration-500"></span>
-                </a>
-            </div>
-        </div>
-
-        <div
-            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-clay/5 rounded-full blur-[120px] -z-10">
-        </div>
-    </header>
-
-    <!-- About Section -->
-    <section id="about"
-        class="py-32 bg-brand-forest text-brand-cream rounded-t-[3rem] lg:rounded-t-[5rem] relative z-10 shadow-2xl">
-        <div class="max-w-5xl mx-auto px-6 text-center">
-            <span class="text-brand-clay font-bold tracking-[0.4em] text-[10px] uppercase mb-8 block">Our
-                Foundation</span>
-
-            <blockquote class="font-serif text-2xl md:text-5xl text-brand-cream leading-tight italic mb-12 gsap-fade">
-                <span id="verseDisplay">Loading verse...</span>
-            </blockquote>
-
-            <div class="h-[1px] w-24 bg-brand-clay/40 mx-auto mb-20"></div>
-
-            <div class="grid md:grid-cols-3 gap-16 text-left gsap-fade">
-                <div class="group">
-                    <span class="font-serif italic text-brand-clay text-3xl mb-4 block">1.</span>
-                    <h3 class="font-serif font-bold text-2xl mb-4 italic tracking-tight">Connect</h3>
-                    <p class="text-sm text-brand-cream/50 leading-relaxed font-light">Building genuine friendships that
-                        go beyond Sabbath morning. We do lunch, hikes, game nights, and life together.</p>
-                </div>
-                <div class="group">
-                    <span class="font-serif italic text-brand-sage text-3xl mb-4 block">2.</span>
-                    <h3 class="font-serif font-bold text-2xl mb-4 italic tracking-tight">Grow</h3>
-                    <p class="text-sm text-brand-cream/50 leading-relaxed font-light">Deep diving into Scripture without
-                        the fluff. Join our Sabbath School class every week at 10:00 AM.</p>
-                </div>
-                <div class="group">
-                    <span class="font-serif italic text-brand-sand text-3xl mb-4 block">3.</span>
-                    <h3 class="font-serif font-bold text-2xl mb-4 italic tracking-tight">Serve</h3>
-                    <p class="text-sm text-brand-cream/50 leading-relaxed font-light">Putting faith into action. We get
-                        involved in local initiatives and church projects to love our neighbors.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Events Section -->
-    <section id="events" class="max-w-6xl mx-auto px-6 pt-32 pb-8">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-            <div>
-                <span class="text-brand-clay font-bold uppercase tracking-[0.4em] text-[10px]">What's Happening</span>
-                <h2 class="font-serif text-5xl md:text-6xl mt-4 italic">Upcoming Events.</h2>
-            </div>
-            <div id="countdown" class="text-[11px] uppercase tracking-widest text-brand-forest/40 font-bold mb-2"></div>
-        </div>
-
-        <div id="event-list" class="grid grid-cols-1 gap-6">
-            <div class="py-20 text-center italic font-serif opacity-30">Fetching calendar...</div>
-        </div>
-
-        <!-- Weekly Static Card -->
-        <div
-            class="mt-12 p-8 md:p-12 bg-brand-sand/20 border border-brand-sand rounded-[2rem] flex flex-col md:flex-row items-center gap-10">
-            <div class="flex-1 text-center md:text-left">
-                <div class="flex items-center gap-2 mb-4 justify-center md:justify-start">
-                    <span class="w-2 h-2 bg-brand-clay rounded-full animate-pulse"></span>
-                    <span class="text-brand-forest/60 text-[10px] font-bold uppercase tracking-widest">Every Week</span>
-                </div>
-                <h3 class="font-serif text-3xl mb-4 italic tracking-tight text-brand-forest">Sabbath School</h3>
-                <p class="text-brand-forest/60 text-sm leading-relaxed max-w-md">Join us every Saturday at 10:00 AM for
-                    deep discussion and fellowship at God's Pantry (Right Side Entrance).</p>
-            </div>
-            <a href="https://maps.google.com/?q=1411+Rome+Rd+SW,+Calhoun,+GA+30701" target="_blank"
-                class="bg-brand-forest text-white px-8 py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-brand-clay transition-all shadow-xl shadow-brand-forest/10 whitespace-nowrap">
-                📍 God's Pantry
+        <!-- Navigation -->
+        <nav id="navbar"
+            class="fixed w-full z-50 transition-all duration-500 py-6 px-6 lg:px-12 flex justify-between items-center">
+            <a href="#" class="font-serif font-bold text-2xl tracking-tight italic group">
+                On<span class="text-brand-clay group-hover:text-brand-forest transition-colors font-serif">Purpose</span>
             </a>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <!-- Instagram Section (Restored) -->
-    <section id="journal" class="py-24 px-4 bg-brand-cream">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-12">
-                <h2 class="font-serif text-4xl font-bold text-brand-forest">Life On Purpose</h2>
-                <a href="https://instagram.com/onpurpose.ya" target="_blank"
-                    class="inline-block mt-2 text-brand-clay font-medium hover:underline">@onpurpose.ya</a>
-            </div>
-
-            <!-- Grid -->
-            <div id="instagramGrid" class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"></div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <!-- Footer (Restored) -->
-    <footer class="bg-brand-forest text-white pt-16 pb-8 px-6 border-t border-white/10">
-        <div class="max-w-4xl mx-auto text-center">
-            <img src="onPurposeWhite.svg" onerror="this.style.display='none'" class="h-16 mx-auto mb-6 opacity-90"
-                alt="Logo">
-
-            <p class="text-brand-sage font-light mb-8">
-                A ministry of the Calhoun Seventh-day Adventist Church.
-            </p>
-
-            <div class="flex flex-wrap justify-center gap-6 text-sm font-medium tracking-wide mb-12">
-                <a href="#about" class="hover:text-brand-clay transition">About</a>
-                <a href="#events" class="hover:text-brand-clay transition">Events</a>
-                <a href="mailto:info@onpurposeya.com" class="hover:text-brand-clay transition">Contact</a>
-                <a href="https://adventistgiving.org/donate/ANTFEG" class="hover:text-brand-clay transition">Donate</a>
-            </div>
 
             <div
-                class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-brand-cream/60 gap-4">
-                <p>&copy; <span id="year"></span> On Purpose YA.</p>
-                <p>Designed for the Kingdom.</p>
+                class="hidden md:flex items-center space-x-12 text-[11px] font-bold uppercase tracking-[0.2em] text-brand-forest/70">
+                <a href="#about" class="hover:text-brand-clay transition-colors">About</a>
+                <a href="#events" class="hover:text-brand-clay transition-colors">Events</a>
+                <a href="#journal" class="hover:text-brand-clay transition-colors">Gallery</a>
             </div>
+
+            <button class="md:hidden p-2 text-brand-forest"
+                onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8h16M4 16h16"></path>
+                </svg>
+            </button>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu"
+            class="hidden fixed inset-0 z-[60] bg-brand-cream flex flex-col items-center justify-center gap-10 text-center">
+            <div class="flex flex-col gap-6 text-3xl font-serif italic font-bold text-brand-forest">
+                <a href="#about" onclick="document.getElementById('mobile-menu').classList.add('hidden')">About</a>
+                <a href="#events" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Events</a>
+                <a href="#journal" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Gallery</a>
+            </div>
+            <button onclick="document.getElementById('mobile-menu').classList.add('hidden')"
+                class="text-xs uppercase tracking-widest opacity-40 font-bold">Close Menu</button>
         </div>
-    </footer>
+
+        <!-- Hero Section -->
+        <header class="relative min-h-[90vh] flex flex-col justify-center max-w-7xl mx-auto px-6 pt-20 pb-32">
+            <div class="max-w-4xl mx-auto text-center gsap-hero-content">
+                <div class="flex items-center justify-center gap-3 mb-8">
+                    <span class="h-[1px] w-10 bg-brand-clay"></span>
+                    <span class="text-brand-clay font-bold uppercase tracking-[0.4em] text-[10px]">Calhoun YA</span>
+                    <span class="h-[1px] w-10 bg-brand-clay"></span>
+                </div>
+                <h1 class="font-serif text-6xl md:text-8xl lg:text-9xl leading-[1.05] mb-10 text-balance tracking-tight">
+                    Purpose isn't <br><em class="italic font-serif text-brand-clay">accidental.</em>
+                </h1>
+                <p class="text-lg md:text-2xl text-brand-forest/70 max-w-2xl mx-auto font-light leading-relaxed mb-20">
+                    A Christ-centered community of young adults in Calhoun, GA. Doing life together, growing in faith, and
+                    serving our city.
+                </p>
+                <div class="flex flex-wrap gap-8 justify-center">
+                    <a href="#events"
+                        class="bg-brand-clay text-white px-12 py-5 rounded-xl text-xs font-bold uppercase tracking-widest shadow-xl shadow-brand-clay/20 hover:scale-105 transition-transform">
+                        See What's Happening
+                    </a>
+                    <a href="#about"
+                        class="inline-flex items-center gap-4 text-xs font-bold uppercase tracking-widest group">
+                        New Here?
+                        <span class="w-12 h-[1px] bg-brand-clay group-hover:w-20 transition-all duration-500"></span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Fixed background blur sizing for mobile -->
+            <div
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-brand-clay/5 rounded-full blur-[100px] md:blur-[120px] -z-10">
+            </div>
+        </header>
+
+        <!-- About Section -->
+        <section id="about"
+            class="py-32 bg-brand-forest text-brand-cream rounded-t-[3rem] lg:rounded-t-[5rem] relative z-10 shadow-2xl">
+            <div class="max-w-5xl mx-auto px-6 text-center">
+                <span class="text-brand-clay font-bold tracking-[0.4em] text-[10px] uppercase mb-8 block">Our
+                    Foundation</span>
+
+                <blockquote class="font-serif text-2xl md:text-5xl text-brand-cream leading-tight italic mb-12 gsap-fade">
+                    <span id="verseDisplay">Loading verse...</span>
+                </blockquote>
+
+                <div class="h-[1px] w-24 bg-brand-clay/40 mx-auto mb-20"></div>
+
+                <div class="grid md:grid-cols-3 gap-16 text-left gsap-fade">
+                    <div class="group">
+                        <span class="font-serif italic text-brand-clay text-3xl mb-4 block">1.</span>
+                        <h3 class="font-serif font-bold text-2xl mb-4 italic tracking-tight">Connect</h3>
+                        <p class="text-sm text-brand-cream/50 leading-relaxed font-light">Building genuine friendships that
+                            go beyond Sabbath morning. We do lunch, hikes, game nights, and life together.</p>
+                    </div>
+                    <div class="group">
+                        <span class="font-serif italic text-brand-sage text-3xl mb-4 block">2.</span>
+                        <h3 class="font-serif font-bold text-2xl mb-4 italic tracking-tight">Grow</h3>
+                        <p class="text-sm text-brand-cream/50 leading-relaxed font-light">Deep diving into Scripture without
+                            the fluff. Join our Sabbath School class every week at 10:00 AM.</p>
+                    </div>
+                    <div class="group">
+                        <span class="font-serif italic text-brand-sand text-3xl mb-4 block">3.</span>
+                        <h3 class="font-serif font-bold text-2xl mb-4 italic tracking-tight">Serve</h3>
+                        <p class="text-sm text-brand-cream/50 leading-relaxed font-light">Putting faith into action. We get
+                            involved in local initiatives and church projects to love our neighbors.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Events Section -->
+        <section id="events" class="max-w-6xl mx-auto px-6 pt-32 pb-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+                <div>
+                    <span class="text-brand-clay font-bold uppercase tracking-[0.4em] text-[10px]">What's Happening</span>
+                    <h2 class="font-serif text-5xl md:text-6xl mt-4 italic">Upcoming Events.</h2>
+                </div>
+                <div id="countdown" class="text-[11px] uppercase tracking-widest text-brand-forest/40 font-bold mb-2"></div>
+            </div>
+
+            <div id="event-list" class="grid grid-cols-1 gap-6">
+                <div class="py-20 text-center italic font-serif opacity-30">Fetching calendar...</div>
+            </div>
+
+            <!-- Weekly Static Card -->
+            <div
+                class="mt-12 p-8 md:p-12 bg-brand-sand/20 border border-brand-sand rounded-[2rem] flex flex-col md:flex-row items-center gap-10">
+                <div class="flex-1 text-center md:text-left">
+                    <div class="flex items-center gap-2 mb-4 justify-center md:justify-start">
+                        <span class="w-2 h-2 bg-brand-clay rounded-full animate-pulse"></span>
+                        <span class="text-brand-forest/60 text-[10px] font-bold uppercase tracking-widest">Every Week</span>
+                    </div>
+                    <h3 class="font-serif text-3xl mb-4 italic tracking-tight text-brand-forest">Sabbath School</h3>
+                    <p class="text-brand-forest/60 text-sm leading-relaxed max-w-md">Join us every Saturday at 10:00 AM for
+                        deep discussion and fellowship at God's Pantry (Right Side Entrance).</p>
+                </div>
+                <a href="https://maps.google.com/?q=1411+Rome+Rd+SW,+Calhoun,+GA+30701" target="_blank"
+                    class="bg-brand-forest text-white px-8 py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-brand-clay transition-all shadow-xl shadow-brand-forest/10 whitespace-nowrap">
+                    📍 God's Pantry
+                </a>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="journal" class="py-24 px-4 bg-brand-cream">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="font-serif text-4xl font-bold text-brand-forest">Life On Purpose</h2>
+                    <a href="https://instagram.com/onpurpose.ya" target="_blank"
+                        class="inline-block mt-2 text-brand-clay font-medium hover:underline">@onpurpose.ya</a>
+                </div>
+
+                <!-- Grid -->
+                <div id="instagramGrid" class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"></div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-brand-forest text-white pt-16 pb-8 px-6 border-t border-white/10">
+            <div class="max-w-4xl mx-auto text-center">
+                <img src="onPurposeWhite.svg" onerror="this.style.display='none'" class="h-16 mx-auto mb-6 opacity-90"
+                    alt="Logo">
+
+                <p class="text-brand-sage font-light mb-8">
+                    A ministry of the Calhoun Seventh-day Adventist Church.
+                </p>
+
+                <div class="flex flex-wrap justify-center gap-6 text-sm font-medium tracking-wide mb-12">
+                    <a href="#about" class="hover:text-brand-clay transition">About</a>
+                    <a href="#events" class="hover:text-brand-clay transition">Events</a>
+                    <a href="mailto:info@onpurposeya.com" class="hover:text-brand-clay transition">Contact</a>
+                    <a href="https://adventistgiving.org/donate/ANTFEG" class="hover:text-brand-clay transition">Donate</a>
+                </div>
+
+                <div
+                    class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-brand-cream/60 gap-4">
+                    <p>&copy; <span id="year"></span> On Purpose YA.</p>
+                    <p>Designed for the Kingdom.</p>
+                </div>
+            </div>
+        </footer>
+
+    </div> <!-- End of overflow-x-hidden wrapper -->
 
     <script>
         const API_EVENTS = 'https://onpurpose-events.jdawg2450.workers.dev/';
