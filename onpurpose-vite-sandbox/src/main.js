@@ -1,0 +1,243 @@
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+const API_EVENTS = 'https://onpurpose-events.jdawg2450.workers.dev/';
+const API_INSTA = 'https://onpurpose-insta.jdawg2450.workers.dev/';
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+const verseText = "\u201cAnd we know that in all things God works for the good of those who love him, who have been called according to his purpose.\u201d";
+const verseRef = "Romans 8:28";
+document.getElementById("verseDisplay").innerHTML = `${verseText} <br><span class="block text-sm font-sans font-bold not-italic mt-6 text-brand-clay uppercase tracking-[0.3em]">- ${verseRef}</span>`;
+
+// Attach to window so onclick handlers in HTML can access it
+window.toggleDescription = function (id) {
+  const textEl = document.getElementById(id);
+  const btnEl = document.getElementById('btn-' + id);
+  if (!textEl) return;
+
+  if (textEl.classList.contains('line-clamp-2')) {
+    textEl.classList.remove('line-clamp-2');
+    if (btnEl) btnEl.textContent = 'Show Less';
+  } else {
+    textEl.classList.add('line-clamp-2');
+    if (btnEl) btnEl.textContent = 'Read More';
+  }
+};
+
+window.addEventListener("DOMContentLoaded", () => {
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.from(".gsap-hero-content", {
+    opacity: 0,
+    y: 20, /* Reduced the starting height from 40 down to 20 so it doesn't float up as high */
+    duration: 1.2, /* Slightly faster to make it feel snappier */
+    ease: "power3.out",
+    delay: 0.1
+  });
+
+  gsap.utils.toArray('.gsap-fade').forEach(el => {
+    gsap.from(el, {
+      opacity: 0,
+      y: 30,
+      duration: 1.2,
+      scrollTrigger: { trigger: el, start: "top 90%" }
+    });
+  });
+
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    if (window.scrollY > 50) {
+      nav.classList.add('bg-brand-cream/90', 'backdrop-blur-md', 'py-4', 'shadow-sm');
+      nav.classList.remove('py-6');
+    } else {
+      nav.classList.remove('bg-brand-cream/90', 'backdrop-blur-md', 'py-4', 'shadow-sm');
+      nav.classList.add('py-6');
+    }
+  });
+
+  loadEvents();
+  loadInstagram();
+});
+
+function escapeHTML(str) {
+  return String(str).replace(/[&<>"']/g, c => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[c]));
+}
+
+function findFirstUrlAndClean(text) {
+  if (!text) return { link: null, cleaned: '' };
+  const div = document.createElement('div');
+  div.innerHTML = text;
+  let link = div.querySelector('a[href]')?.getAttribute('href') || null;
+  let plain = div.textContent || div.innerText || "";
+  const urlRe = /(?:(?:https?:\/\/)|(?:www\.)|(?:[a-zA-Z0-9-]+\.(?:com|org|net|edu|gov|io)))[^\s]*/gi;
+  if (!link) {
+    const matches = plain.match(urlRe);
+    if (matches && matches.length > 0) {
+      link = matches[0].startsWith('http') ? matches[0] : 'https://' + matches[0];
+    }
+  }
+  const cleaned = plain.replace(urlRe, '').trim();
+  return { link, cleaned };
+}
+
+// Generates Skeleton Loaders for Events
+function showEventSkeletons(container) {
+  let skeletonHTML = '';
+  for (let i = 0; i < 3; i++) {
+    skeletonHTML += `
+        <div class="bg-white border border-brand-sand rounded-[1.5rem] p-6 md:p-8 flex flex-col md:flex-row items-center gap-8 animate-pulse shadow-sm">
+            <div class="w-20 h-20 bg-brand-forest/10 rounded-2xl shrink-0"></div>
+            <div class="flex-1 w-full space-y-4 py-2">
+                <div class="h-8 bg-brand-forest/5 rounded w-3/4"></div>
+                <div class="h-4 bg-brand-forest/5 rounded w-1/2"></div>
+                <div class="h-10 bg-brand-forest/5 rounded w-full mt-2"></div>
+            </div>
+            <div class="w-12 h-12 bg-brand-forest/10 rounded-full shrink-0"></div>
+        </div>`;
+  }
+  container.innerHTML = skeletonHTML;
+}
+
+async function loadEvents() {
+  const container = document.getElementById('event-list');
+  showEventSkeletons(container); // Show smooth placeholders before fetching
+
+  try {
+    const res = await fetch(API_EVENTS);
+    const data = await res.json();
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+
+    const events = (data.items || [])
+      .map(e => ({ ...e, startObj: e.start.dateTime ? new Date(e.start.dateTime) : new Date(e.start.date + 'T00:00:00') }))
+      .filter(e => e.startObj >= now)
+      .sort((a, b) => a.startObj - b.startObj)
+      .slice(0, 4);
+
+    container.innerHTML = '';
+    if (events.length > 0) {
+      const first = events[0];
+      const diff = first.startObj - new Date();
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      document.getElementById('countdown').textContent = `Next Event in ${d} days, ${h} hours`;
+    } else {
+      container.innerHTML = '<div class="py-12 text-center text-brand-forest/60 italic font-serif">Stay tuned for upcoming events...</div>';
+      return;
+    }
+
+    events.forEach((event, idx) => {
+      const date = event.startObj;
+      const { link, cleaned } = findFirstUrlAndClean(event.description || '');
+      const finalLink = link || event.htmlLink;
+      const descId = `desc-${idx}`;
+      const needsReadMore = cleaned && cleaned.length > 120;
+
+      const isForm = finalLink && (finalLink.includes('forms.gle') || finalLink.includes('docs.google.com/forms') || finalLink.includes('tally.so'));
+
+      let location = event.location || '';
+      if (location) {
+        location = location
+          .replace(/,?\s*(?:USA|United States|US)\b/gi, '')
+          .replace(/,?\s*\b\d{5}(?:-\d{4})?\b/g, '')
+          .trim()
+          .replace(/,$/, '');
+      }
+
+      const html = `
+    <div class="bg-white border border-brand-sand rounded-[1.5rem] p-6 md:p-8 flex flex-col md:flex-row items-center gap-8 group hover:shadow-xl transition-all duration-500">
+        <div class="flex flex-col items-center justify-center w-20 h-20 bg-brand-forest text-brand-cream rounded-2xl shrink-0">
+          <span class="text-[10px] uppercase font-bold tracking-tighter">${date.toLocaleDateString('en-US', { month: 'short' })}</span>
+          <span class="font-serif text-2xl font-bold italic">${date.getDate()}</span>
+        </div>
+        
+        <div class="flex-1 text-center md:text-left">
+          <h3 class="font-serif text-2xl md:text-3xl tracking-tight text-brand-forest group-hover:text-brand-clay transition-colors duration-500 cursor-pointer" onclick="toggleDescription('${descId}')">
+            ${escapeHTML(event.summary)}
+          </h3>
+          <div class="flex flex-wrap justify-center md:justify-start gap-4 text-[10px] font-bold uppercase tracking-widest text-brand-forest/40 mt-2 mb-3">
+            <span>${event.start.dateTime ? date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : 'All Day'}</span>
+            <span>•</span>
+            <span>${escapeHTML(location || 'Calhoun, GA')}</span>
+          </div>
+          
+          ${cleaned ? `
+            <p id="${descId}" class="text-brand-forest/60 text-sm leading-relaxed line-clamp-2 transition-all duration-500">
+              ${escapeHTML(cleaned)}
+            </p>
+            ${needsReadMore ? `
+              <button id="btn-${descId}" onclick="toggleDescription('${descId}')" class="text-brand-clay text-[10px] font-bold uppercase tracking-widest mt-2 hover:text-brand-forest transition-colors">
+                Read More
+              </button>
+            ` : ''}
+          ` : ''}
+        </div>
+
+        <div class="shrink-0">
+          ${isForm ? `
+            <a href="${finalLink}" target="_blank" class="flex items-center justify-center px-6 py-3 rounded-xl bg-brand-clay text-white text-[10px] font-bold uppercase tracking-widest hover:bg-brand-forest transition-all shadow-md">
+                RSVP
+            </a>
+          ` : `
+            <a href="${finalLink}" target="_blank" class="flex items-center justify-center w-12 h-12 rounded-full border border-brand-sand hover:bg-brand-clay hover:border-brand-clay hover:text-white transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </a>
+          `}
+        </div>
+    </div>
+  `;
+      container.insertAdjacentHTML('beforeend', html);
+    });
+  } catch (e) {
+    container.innerHTML = '<div class="py-12 text-center text-red-500/80 italic font-serif">Unable to load calendar. Please refresh.</div>';
+  }
+}
+
+// Generates Skeleton Loaders for Instagram
+function showInstaSkeletons(container) {
+  let skeletonHTML = '';
+  for (let i = 0; i < 4; i++) {
+    skeletonHTML += `<div class="aspect-square rounded-xl bg-brand-forest/10 animate-pulse"></div>`;
+  }
+  container.innerHTML = skeletonHTML;
+}
+
+async function loadInstagram() {
+  const container = document.getElementById('instagramGrid');
+  showInstaSkeletons(container); // Show grid placeholders
+
+  try {
+    const res = await fetch(API_INSTA);
+    const data = await res.json();
+    if (data.error || !data.data) {
+      container.innerHTML = '<p class="col-span-full text-center text-brand-forest/60 text-sm">Follow us @onpurpose.ya</p>';
+      return;
+    }
+    container.innerHTML = '';
+    data.data.slice(0, 4).forEach(post => {
+      let imgUrl = post.media_url;
+      if (post.media_type === 'VIDEO' || post.media_type === 'CAROUSEL_ALBUM') {
+        imgUrl = post.thumbnail_url || post.media_url;
+      }
+      const typeEmoji = post.media_type === 'VIDEO' ? '▶️' : (post.media_type === 'CAROUSEL_ALBUM' ? '✨' : '📸');
+      const caption = post.caption || 'View Post';
+      const item = `
+     <a href="${post.permalink}" target="_blank" class="group block relative aspect-square overflow-hidden rounded-xl bg-gray-100 shadow-md hover:shadow-xl transition-all duration-300">
+       <img src="${imgUrl}" alt="${escapeHTML(caption)}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+       <div class="absolute inset-0 bg-brand-forest/80 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6 text-center">
+          <div class="text-3xl mb-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">${typeEmoji}</div>
+          <p class="text-white text-sm font-medium line-clamp-4 mb-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100 leading-relaxed">${escapeHTML(caption)}</p>
+          <span class="text-brand-clay text-xs font-bold uppercase tracking-widest transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-150">View on Instagram</span>
+       </div>
+     </a>
+   `;
+      container.insertAdjacentHTML('beforeend', item);
+    });
+  } catch (err) {
+    console.error(err);
+    container.innerHTML = '<p class="col-span-full text-center text-brand-forest/60 text-sm">Couldn\'t load feed. Follow us @onpurpose.ya</p>';
+  }
+}
