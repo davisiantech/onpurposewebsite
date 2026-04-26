@@ -1,5 +1,10 @@
+html {
+    background-color: #2d3b2d; /* Footer color for bottom overscroll */
+    height: 100%;
+}
+
 body {
-    background-color: #fbf9f4;
+    background-color: transparent;
     color: #1c1c1c;
     overflow-x: hidden;
     font-family: 'Inter', sans-serif;

@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#fbf9f4" />
     <meta name="description"
         content="A Christ-centered community of young adults at Calhoun SDA Church. Because purpose isn't accidental." />
     <title>On Purpose | Calhoun YA</title>
@@ -53,10 +54,13 @@
 </head>
 
 <body class="antialiased selection:bg-brand-clay selection:text-white">
+    <!-- Top Backing Block for Safari Overscroll -->
+    <div style="position:fixed; top:0; left:0; width:100%; height:50vh; background:#fbf9f4; z-index:-10; pointer-events:none;"></div>
+    
     <div class="paper-grain"></div>
 
     <!-- Wrapping all content to prevent horizontal scroll on mobile -->
-    <div class="overflow-x-hidden w-full relative">
+    <div class="overflow-x-hidden w-full relative bg-brand-cream min-h-screen">
 
         <!-- Navigation -->
         <nav id="navbar"
@@ -246,7 +250,7 @@
         </section>
 
         <!-- Footer -->
-        <footer class="bg-brand-forest text-white pt-16 pb-8 px-6 border-t border-white/10">
+        <footer class="bg-brand-forest text-white pt-16 pb-[calc(2rem+env(safe-area-inset-bottom))] px-6 border-t border-white/10">
             <div class="max-w-4xl mx-auto text-center">
                 <img src="images/onPurposeWhite.svg" onerror="this.style.display='none'" class="h-16 mx-auto mb-6 opacity-90"
                     alt="Logo">
