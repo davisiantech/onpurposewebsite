@@ -1,5 +1,5 @@
-const API_EVENTS = 'https://onpurpose-events.jdawg2450.workers.dev/';
-const API_INSTA = 'https://onpurpose-insta.jdawg2450.workers.dev/';
+const API_EVENTS = 'data/events.json';
+const API_INSTA = 'data/instagram.json';
 
 document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -162,7 +162,7 @@ async function loadEvents() {
                     ${needsReadMore ? `
                       <button id="btn-${descId}" onclick="toggleDescription('${descId}')" class="text-brand-clay text-[10px] font-bold uppercase tracking-widest mt-2 hover:text-brand-forest transition-colors">
                         Read More
-                      </button>
+                       </button>
                     ` : ''}
                   ` : ''}
                 </div>
@@ -182,8 +182,61 @@ async function loadEvents() {
           `;
             container.insertAdjacentHTML('beforeend', html);
         });
+
+        // Update Dynamic Structured Data for Events
+        updateEventSchema(events);
+
     } catch (e) {
         container.innerHTML = '<div class="py-12 text-center opacity-30 italic font-serif">Updating calendar...</div>';
+    }
+}
+
+function updateEventSchema(events) {
+    // Remove existing dynamic event schema if any
+    const existing = document.getElementById('dynamic-event-schema');
+    if (existing) existing.remove();
+
+    const schemaList = events.map(event => {
+        const { link, cleaned } = findFirstUrlAndClean(event.description || '');
+        const startDate = event.start.dateTime || event.start.date;
+        const endDate = event.end.dateTime || event.end.date;
+
+        return {
+            "@context": "https://schema.org",
+            "@type": "Event",
+            "name": event.summary,
+            "startDate": startDate,
+            "endDate": endDate,
+            "eventStatus": "https://schema.org/EventScheduled",
+            "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+            "location": {
+                "@type": "Place",
+                "name": event.location || "Calhoun Seventh-day Adventist Church",
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "1411 Rome Rd SW",
+                    "addressLocality": "Calhoun",
+                    "addressRegion": "GA",
+                    "postalCode": "30701",
+                    "addressCountry": "US"
+                }
+            },
+            "description": cleaned || event.summary,
+            "url": link || event.htmlLink,
+            "organizer": {
+                "@type": "Organization",
+                "name": "On Purpose Young Adults",
+                "url": "https://onpurposeya.com"
+            }
+        };
+    });
+
+    if (schemaList.length > 0) {
+        const script = document.createElement('script');
+        script.id = 'dynamic-event-schema';
+        script.type = 'application/ld+json';
+        script.text = JSON.stringify(schemaList);
+        document.head.appendChild(script);
     }
 }
 

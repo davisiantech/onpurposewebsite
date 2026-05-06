@@ -1,0 +1,29 @@
+name: Sync Data
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Every hour
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Fetch Events Data
+        run: curl -s '${{ secrets.API_EVENTS_URL }}' > data/events.json
+
+      - name: Fetch Instagram Data
+        run: curl -s '${{ secrets.API_INSTA_URL }}' > data/instagram.json
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/events.json data/instagram.json
+          git commit -m "chore: sync calendar and instagram data [skip ci]" || echo "No changes to commit"
+          git push
