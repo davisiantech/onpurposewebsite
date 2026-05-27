@@ -14,16 +14,32 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Fetch Events Data
-        run: curl -s '${{ secrets.API_EVENTS_URL }}' > data/events.json
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
 
-      - name: Fetch Instagram Data
-        run: curl -s '${{ secrets.API_INSTA_URL }}' > data/instagram.json
+      - name: Run Semantic Sync
+        env:
+          API_EVENTS_URL: ${{ secrets.API_EVENTS_URL }}
+          API_INSTA_URL: ${{ secrets.API_INSTA_URL }}
+        run: node scripts/sync.js
 
       - name: Commit and Push Changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Stage the changed files
           git add data/events.json data/instagram.json
-          git commit -m "chore: sync calendar and instagram data [skip ci]" || echo "No changes to commit"
-          git push
+          if [ -d "images/instagram" ]; then
+            git add images/instagram/
+          fi
+          
+          # Commit and push only if there are actual changes staged
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: automated semantic sync [skip ci]"
+            git push
+          else
+            echo "No semantic changes detected. Skipping commit."
+          fi
