@@ -47,3 +47,6 @@ out/
 # OS generated files
 desktop.ini
 Thumbs.db
+
+# Brand Guide (Local Reference)
+brand-guide.md
