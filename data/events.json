@@ -142,32 +142,6 @@
     },
     {
       "kind": "calendar#event",
-      "id": "j5a3lgmh1mfkp6g1548ljsf40g",
-      "status": "confirmed",
-      "htmlLink": "https://www.google.com/calendar/event?eid=ajVhM2xnbWgxbWZrcDZnMTU0OGxqc2Y0MGcgY183YWVhNzhhZjgwYmVlZjQzYmVlMjEyYTBlYzM1NzI2MmY0Y2NlYTI0ZTgwOWFhNWU1OTljYzk2OWUyYzFhMGM3QGc",
-      "created": "2026-01-06T02:02:30.000Z",
-      "summary": "GCC Camp Meeting - Deeply Rooted",
-      "location": "Collegedale Seventh-day Adventist Church, 4829 College Dr E, Collegedale, TN 37315, USA",
-      "creator": {
-        "email": "jordan@stillwaterstech.org"
-      },
-      "organizer": {
-        "email": "c_7aea78af80beef43bee212a0ec357262f4ccea24e809aa5e599cc969e2c1a0c7@group.calendar.google.com",
-        "displayName": "On Purpose YA - Website",
-        "self": true
-      },
-      "start": {
-        "date": "2026-05-27"
-      },
-      "end": {
-        "date": "2026-05-31"
-      },
-      "transparency": "transparent",
-      "iCalUID": "j5a3lgmh1mfkp6g1548ljsf40g@google.com",
-      "eventType": "default"
-    },
-    {
-      "kind": "calendar#event",
       "id": "p39e83in0jqung14od8gpij3vg",
       "status": "confirmed",
       "htmlLink": "https://www.google.com/calendar/event?eid=cDM5ZTgzaW4wanF1bmcxNG9kOGdwaWozdmcgY183YWVhNzhhZjgwYmVlZjQzYmVlMjEyYTBlYzM1NzI2MmY0Y2NlYTI0ZTgwOWFhNWU1OTljYzk2OWUyYzFhMGM3QGc",
