@@ -142,6 +142,32 @@
     },
     {
       "kind": "calendar#event",
+      "id": "7datt8g34ajvht8ql3buekmtm4",
+      "status": "confirmed",
+      "htmlLink": "https://www.google.com/calendar/event?eid=N2RhdHQ4ZzM0YWp2aHQ4cWwzYnVla210bTQgY183YWVhNzhhZjgwYmVlZjQzYmVlMjEyYTBlYzM1NzI2MmY0Y2NlYTI0ZTgwOWFhNWU1OTljYzk2OWUyYzFhMGM3QGc",
+      "created": "2026-05-17T23:24:52.000Z",
+      "summary": "Pool Movie Night",
+      "creator": {
+        "email": "jordan@stillwaterstech.org"
+      },
+      "organizer": {
+        "email": "c_7aea78af80beef43bee212a0ec357262f4ccea24e809aa5e599cc969e2c1a0c7@group.calendar.google.com",
+        "displayName": "On Purpose YA - Website",
+        "self": true
+      },
+      "start": {
+        "dateTime": "2026-07-11T19:30:00-04:00",
+        "timeZone": "America/New_York"
+      },
+      "end": {
+        "dateTime": "2026-07-11T22:00:00-04:00",
+        "timeZone": "America/New_York"
+      },
+      "iCalUID": "7datt8g34ajvht8ql3buekmtm4@google.com",
+      "eventType": "default"
+    },
+    {
+      "kind": "calendar#event",
       "id": "p39e83in0jqung14od8gpij3vg",
       "status": "confirmed",
       "htmlLink": "https://www.google.com/calendar/event?eid=cDM5ZTgzaW4wanF1bmcxNG9kOGdwaWozdmcgY183YWVhNzhhZjgwYmVlZjQzYmVlMjEyYTBlYzM1NzI2MmY0Y2NlYTI0ZTgwOWFhNWU1OTljYzk2OWUyYzFhMGM3QGc",
