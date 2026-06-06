@@ -64,33 +64,6 @@
     },
     {
       "kind": "calendar#event",
-      "id": "4tp3kur7ik1pl0vqh1l2tonar0",
-      "status": "confirmed",
-      "htmlLink": "https://www.google.com/calendar/event?eid=NHRwM2t1cjdpazFwbDB2cWgxbDJ0b25hcjAgY183YWVhNzhhZjgwYmVlZjQzYmVlMjEyYTBlYzM1NzI2MmY0Y2NlYTI0ZTgwOWFhNWU1OTljYzk2OWUyYzFhMGM3QGc",
-      "created": "2026-05-17T23:22:04.000Z",
-      "summary": "Deep Dive - 1 John 3",
-      "description": "Deep Dive is a monthly Bible study for young adults who want to go beyond the surface and dig deeper into the church's sermon series. This month, we're diving into 1 John 3, exploring the profound reality of being called children of God, and how holding onto that identity transforms us even when the world doesn't understand us. Through open discussion, reflection, and fellowship, we'll seek to better understand how to walk in righteousness, love one another in action and in truth, and live with confident hearts before Him. DM on Instagram for location",
-      "creator": {
-        "email": "jordan@stillwaterstech.org"
-      },
-      "organizer": {
-        "email": "c_7aea78af80beef43bee212a0ec357262f4ccea24e809aa5e599cc969e2c1a0c7@group.calendar.google.com",
-        "displayName": "On Purpose YA - Website",
-        "self": true
-      },
-      "start": {
-        "dateTime": "2026-06-05T18:30:00-04:00",
-        "timeZone": "America/New_York"
-      },
-      "end": {
-        "dateTime": "2026-06-05T19:30:00-04:00",
-        "timeZone": "America/New_York"
-      },
-      "iCalUID": "4tp3kur7ik1pl0vqh1l2tonar0@google.com",
-      "eventType": "default"
-    },
-    {
-      "kind": "calendar#event",
       "id": "60hodvm8ca0a2f7ont6btpl0sk",
       "status": "confirmed",
       "htmlLink": "https://www.google.com/calendar/event?eid=NjBob2R2bThjYTBhMmY3b250NmJ0cGwwc2sgY183YWVhNzhhZjgwYmVlZjQzYmVlMjEyYTBlYzM1NzI2MmY0Y2NlYTI0ZTgwOWFhNWU1OTljYzk2OWUyYzFhMGM3QGc",
