@@ -36,34 +36,6 @@
     },
     {
       "kind": "calendar#event",
-      "id": "3nsb3ait011l0h542dg3mu533h",
-      "status": "confirmed",
-      "htmlLink": "https://www.google.com/calendar/event?eid=M25zYjNhaXQwMTFsMGg1NDJkZzNtdTUzM2ggY183YWVhNzhhZjgwYmVlZjQzYmVlMjEyYTBlYzM1NzI2MmY0Y2NlYTI0ZTgwOWFhNWU1OTljYzk2OWUyYzFhMGM3QGc",
-      "created": "2026-04-13T23:17:14.000Z",
-      "summary": "Gym Social",
-      "description": "Join On Purpose for an open gym social! Whether you want to shoot some hoops, jump into a pickup game, or just hang out and connect with other young adults, come ready to break a sweat and enjoy some great community time. Please remember to wear proper athletic shoes and bring a water bottle.",
-      "location": "397 Campus Ln, Calhoun, GA 30701, USA",
-      "creator": {
-        "email": "jordan@stillwaterstech.org"
-      },
-      "organizer": {
-        "email": "c_7aea78af80beef43bee212a0ec357262f4ccea24e809aa5e599cc969e2c1a0c7@group.calendar.google.com",
-        "displayName": "On Purpose YA - Website",
-        "self": true
-      },
-      "start": {
-        "dateTime": "2026-06-13T20:00:00-04:00",
-        "timeZone": "America/New_York"
-      },
-      "end": {
-        "dateTime": "2026-06-13T23:00:00-04:00",
-        "timeZone": "America/New_York"
-      },
-      "iCalUID": "3nsb3ait011l0h542dg3mu533h@google.com",
-      "eventType": "default"
-    },
-    {
-      "kind": "calendar#event",
       "id": "60hodvm8ca0a2f7ont6btpl0sk",
       "status": "confirmed",
       "htmlLink": "https://www.google.com/calendar/event?eid=NjBob2R2bThjYTBhMmY3b250NmJ0cGwwc2sgY183YWVhNzhhZjgwYmVlZjQzYmVlMjEyYTBlYzM1NzI2MmY0Y2NlYTI0ZTgwOWFhNWU1OTljYzk2OWUyYzFhMGM3QGc",
