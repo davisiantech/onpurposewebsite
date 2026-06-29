@@ -8,12 +8,39 @@
   "items": [
     {
       "kind": "calendar#event",
+      "id": "2tjdd0o5u3uf8vk137h0g57n0o",
+      "status": "confirmed",
+      "htmlLink": "https://www.google.com/calendar/event?eid=MnRqZGQwbzV1M3VmOHZrMTM3aDBnNTduMG8gY183YWVhNzhhZjgwYmVlZjQzYmVlMjEyYTBlYzM1NzI2MmY0Y2NlYTI0ZTgwOWFhNWU1OTljYzk2OWUyYzFhMGM3QGc",
+      "created": "2026-06-29T15:55:57.000Z",
+      "summary": "Deep Dive",
+      "description": "Deep Dive is a monthly Bible study for young adults who want to go beyond the surface and dig deeper into the church's sermon series. This month, we're diving into 1 John 3, exploring the profound reality of being called children of God, and how holding onto that identity transforms us even when the world doesn't understand us. Through open discussion, reflection, and fellowship, we'll seek to better understand how to walk in righteousness, love one another in action and in truth, and live with confident hearts before Him. DM on Instagram for location",
+      "creator": {
+        "email": "jordan@stillwaterstech.org"
+      },
+      "organizer": {
+        "email": "c_7aea78af80beef43bee212a0ec357262f4ccea24e809aa5e599cc969e2c1a0c7@group.calendar.google.com",
+        "displayName": "On Purpose YA - Website",
+        "self": true
+      },
+      "start": {
+        "dateTime": "2026-07-24T18:30:00-04:00",
+        "timeZone": "America/New_York"
+      },
+      "end": {
+        "dateTime": "2026-07-24T19:30:00-04:00",
+        "timeZone": "America/New_York"
+      },
+      "iCalUID": "2tjdd0o5u3uf8vk137h0g57n0o@google.com",
+      "eventType": "default"
+    },
+    {
+      "kind": "calendar#event",
       "id": "3bqrb6lprvb902ni8qunku7pbo",
       "status": "confirmed",
       "htmlLink": "https://www.google.com/calendar/event?eid=M2JxcmI2bHBydmI5MDJuaThxdW5rdTdwYm8gY183YWVhNzhhZjgwYmVlZjQzYmVlMjEyYTBlYzM1NzI2MmY0Y2NlYTI0ZTgwOWFhNWU1OTljYzk2OWUyYzFhMGM3QGc",
       "created": "2026-04-10T22:00:04.000Z",
       "summary": "Young Adult Sabbath",
-      "description": "Join the young adults for a special Sabbath service focused on 1 John 5. We are leading the entire service, guiding the music, and sharing a message about what this chapter teaches us regarding faith and love. This is a wonderful opportunity for the whole congregation to connect and worship alongside us for the morning.",
+      "description": "What does it truly mean to overcome the world? On July 11, the On Purpose young adults will be leading our entire Sabbath worship service to explore this exact question. Through special music, prayer, and a message based on 1 John 5, we will look at how faith in Jesus gives us the ultimate victory. The whole congregation is invited to come and worship alongside us!",
       "location": "Calhoun Seventh-day Adventist Church, 1411 Rome Rd SW, Calhoun, GA 30701, USA",
       "creator": {
         "email": "jordan@stillwaterstech.org"
@@ -92,6 +119,7 @@
       "htmlLink": "https://www.google.com/calendar/event?eid=N2RhdHQ4ZzM0YWp2aHQ4cWwzYnVla210bTQgY183YWVhNzhhZjgwYmVlZjQzYmVlMjEyYTBlYzM1NzI2MmY0Y2NlYTI0ZTgwOWFhNWU1OTljYzk2OWUyYzFhMGM3QGc",
       "created": "2026-05-17T23:24:52.000Z",
       "summary": "Pool Movie Night",
+      "description": "Looking for the perfect way to cool off and connect with friends? On the night of July 11, the On Purpose young adults will be hosting a Pool Movie Night to do exactly that. Through an evening of swimming, sharing dinner, and watching a movie under the stars, we will take time to unwind and strengthen our community. All young adults are invited to bring a towel, invite a friend, and dive into a wonderful night of fellowship with us! DM us on Instagram at @OnPurpose.YA for the address.",
       "creator": {
         "email": "jordan@stillwaterstech.org"
       },
