@@ -8,33 +8,6 @@
   "items": [
     {
       "kind": "calendar#event",
-      "id": "2tjdd0o5u3uf8vk137h0g57n0o",
-      "status": "confirmed",
-      "htmlLink": "https://www.google.com/calendar/event?eid=MnRqZGQwbzV1M3VmOHZrMTM3aDBnNTduMG8gY183YWVhNzhhZjgwYmVlZjQzYmVlMjEyYTBlYzM1NzI2MmY0Y2NlYTI0ZTgwOWFhNWU1OTljYzk2OWUyYzFhMGM3QGc",
-      "created": "2026-06-29T15:55:57.000Z",
-      "summary": "Deep Dive - 3 John",
-      "description": "Deep Dive is a monthly Bible study for young adults looking to go beyond the surface of the church's sermon series. This month, we are exploring 3 John and discussing what it looks like to faithfully walk in the truth and show genuine hospitality to others. Join us for discussion and fellowship! DM @OnPurpose.YA for the location.",
-      "creator": {
-        "email": "jordan@stillwaterstech.org"
-      },
-      "organizer": {
-        "email": "c_7aea78af80beef43bee212a0ec357262f4ccea24e809aa5e599cc969e2c1a0c7@group.calendar.google.com",
-        "displayName": "On Purpose YA - Website",
-        "self": true
-      },
-      "start": {
-        "dateTime": "2026-07-24T18:30:00-04:00",
-        "timeZone": "America/New_York"
-      },
-      "end": {
-        "dateTime": "2026-07-24T19:30:00-04:00",
-        "timeZone": "America/New_York"
-      },
-      "iCalUID": "2tjdd0o5u3uf8vk137h0g57n0o@google.com",
-      "eventType": "default"
-    },
-    {
-      "kind": "calendar#event",
       "id": "60hodvm8ca0a2f7ont6btpl0sk",
       "status": "confirmed",
       "htmlLink": "https://www.google.com/calendar/event?eid=NjBob2R2bThjYTBhMmY3b250NmJ0cGwwc2sgY183YWVhNzhhZjgwYmVlZjQzYmVlMjEyYTBlYzM1NzI2MmY0Y2NlYTI0ZTgwOWFhNWU1OTljYzk2OWUyYzFhMGM3QGc",
