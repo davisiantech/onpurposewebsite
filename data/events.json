@@ -8,6 +8,33 @@
   "items": [
     {
       "kind": "calendar#event",
+      "id": "3b9nm7qj3m0hss2jictc58mial",
+      "status": "confirmed",
+      "htmlLink": "https://www.google.com/calendar/event?eid=M2I5bm03cWozbTBoc3MyamljdGM1OG1pYWwgY183YWVhNzhhZjgwYmVlZjQzYmVlMjEyYTBlYzM1NzI2MmY0Y2NlYTI0ZTgwOWFhNWU1OTljYzk2OWUyYzFhMGM3QGc",
+      "created": "2026-08-14T15:13:06.000Z",
+      "summary": "Deep Dive - Luke 8",
+      "description": "Deep Dive is a monthly Bible study for young adults looking to go beyond the surface of the church's sermon series. This month, we are exploring Luke 8 and discussing what it looks like to faithfully walk in the truth and show genuine hospitality to others. Join us for discussion and fellowship! DM @OnPurpose.YA for the location.",
+      "creator": {
+        "email": "jordan@stillwaterstech.org"
+      },
+      "organizer": {
+        "email": "c_7aea78af80beef43bee212a0ec357262f4ccea24e809aa5e599cc969e2c1a0c7@group.calendar.google.com",
+        "displayName": "On Purpose YA - Website",
+        "self": true
+      },
+      "start": {
+        "dateTime": "2026-08-28T18:30:00-04:00",
+        "timeZone": "America/New_York"
+      },
+      "end": {
+        "dateTime": "2026-08-28T19:30:00-04:00",
+        "timeZone": "America/New_York"
+      },
+      "iCalUID": "3b9nm7qj3m0hss2jictc58mial@google.com",
+      "eventType": "default"
+    },
+    {
+      "kind": "calendar#event",
       "id": "60hodvm8ca0a2f7ont6btpl0sk",
       "status": "confirmed",
       "htmlLink": "https://www.google.com/calendar/event?eid=NjBob2R2bThjYTBhMmY3b250NmJ0cGwwc2sgY183YWVhNzhhZjgwYmVlZjQzYmVlMjEyYTBlYzM1NzI2MmY0Y2NlYTI0ZTgwOWFhNWU1OTljYzk2OWUyYzFhMGM3QGc",
@@ -90,7 +117,8 @@
       "status": "confirmed",
       "htmlLink": "https://www.google.com/calendar/event?eid=cDM5ZTgzaW4wanF1bmcxNG9kOGdwaWozdmcgY183YWVhNzhhZjgwYmVlZjQzYmVlMjEyYTBlYzM1NzI2MmY0Y2NlYTI0ZTgwOWFhNWU1OTljYzk2OWUyYzFhMGM3QGc",
       "created": "2026-01-06T02:03:37.000Z",
-      "summary": "GCC YALife Retreat",
+      "summary": "GCC YALife Retreat : STRONGER TOGETHER",
+      "description": "Join fellow young adults ages 18 to 35 for the 2026 Young Adult LIFE Retreat: STRONGER TOGETHER at Cohutta Springs Youth Camp. This year merges Adventist Christian Fellowship with the annual retreat for an all-encompassing weekend of fun, edification, and connection with Jesus, featuring messages from Angelo Grasso. Meals will be provided all day Sabbath and Sunday morning, but please note that no meal is provided on Friday night, so plan accordingly. If you are staying in the dorm style cabins, remember to bring your own bedding for a single bed, towels, and toiletries. Please complete your registration by the deadline on September 27, 2026<br><br><a href=\"https://www.ultracamp.com/info/sessiondetail.aspx?idCamp=331&amp;campCode=GCA&amp;idSession=571600\">https://www.ultracamp.com/info/sessiondetail.aspx?idCamp=331&amp;campCode=GCA&amp;idSession=571600</a>",
       "location": "Cohutta Springs Youth Camp, 1181 Cohutta Springs Rd, Crandall, GA 30711, USA",
       "creator": {
         "email": "jordan@stillwaterstech.org"
