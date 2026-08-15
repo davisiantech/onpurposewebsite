@@ -79,7 +79,7 @@ export default function Events() {
                 )}
 
                 {!isLoading && !error && events.length === 0 && (
-                    <div className="py-20 text-center text-brand-forest/60 italic font-serif opacity-30">Stay tuned for upcoming events...</div>
+                    <div className="py-20 text-center text-brand-forest/60 italic font-serif">No current events scheduled. Check back soon!</div>
                 )}
 
                 {!isLoading && !error && events.map((event, index) => (

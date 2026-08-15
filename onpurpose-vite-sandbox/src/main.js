@@ -125,7 +125,11 @@ async function loadEvents() {
       const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
       document.getElementById('countdown').textContent = `Next Event in ${d} days, ${h} hours`;
     } else {
-      container.innerHTML = '<div class="py-12 text-center text-brand-forest/60 italic font-serif">Stay tuned for upcoming events...</div>';
+      const countdownEl = document.getElementById('countdown');
+      if (countdownEl) {
+        countdownEl.textContent = '';
+      }
+      container.innerHTML = '<div class="py-12 text-center text-brand-forest/60 italic font-serif">No current events scheduled. Check back soon!</div>';
       return;
     }
 

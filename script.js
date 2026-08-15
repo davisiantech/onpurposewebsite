@@ -118,6 +118,13 @@ async function loadEvents() {
             if (countdownEl) {
                 countdownEl.textContent = `Next Event in ${d} days, ${h} hours`;
             }
+        } else {
+            const countdownEl = document.getElementById('countdown');
+            if (countdownEl) {
+                countdownEl.textContent = '';
+            }
+            container.innerHTML = '<div class="py-12 text-center text-brand-forest/60 italic font-serif">No current events scheduled. Check back soon!</div>';
+            return;
         }
 
         events.forEach((event, idx) => {
