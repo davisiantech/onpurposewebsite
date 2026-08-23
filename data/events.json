@@ -139,34 +139,6 @@
       },
       "iCalUID": "p39e83in0jqung14od8gpij3vg@google.com",
       "eventType": "default"
-    },
-    {
-      "kind": "calendar#event",
-      "id": "p7trbvsg7djt5m8kucab9nm3pc",
-      "status": "confirmed",
-      "htmlLink": "https://www.google.com/calendar/event?eid=cDd0cmJ2c2c3ZGp0NW04a3VjYWI5bm0zcGMgY183YWVhNzhhZjgwYmVlZjQzYmVlMjEyYTBlYzM1NzI2MmY0Y2NlYTI0ZTgwOWFhNWU1OTljYzk2OWUyYzFhMGM3QGc",
-      "created": "2025-08-08T15:00:32.000Z",
-      "summary": "AYP UNSHAKEN 2026",
-      "description": "<p>Join us in Austin for our 6th annual leadership convention! Enjoy inspiring stories, practical ideas, engagement with leadership experts, and create connections with other Adventist young professionals from around the world.</p><strong><b>Who Should Attend:</b></strong> All are welcome, but programming is designed for professionals in their 20s and 30s in mind.<a href=\"https://register.adventsourceevents.org/AYPUNSHAKEN2026/page/4979055/register\" target=\"_blank\">https://register.adventsourceevents.org/AYPUNSHAKEN2026/page/4979055/register</a>",
-      "location": "1001 E McCarty Ln, San Marcos, TX, USA",
-      "creator": {
-        "email": "jordan@stillwaterstech.org"
-      },
-      "organizer": {
-        "email": "c_7aea78af80beef43bee212a0ec357262f4ccea24e809aa5e599cc969e2c1a0c7@group.calendar.google.com",
-        "displayName": "On Purpose YA",
-        "self": true
-      },
-      "start": {
-        "dateTime": "2026-08-20T14:00:00-04:00",
-        "timeZone": "America/New_York"
-      },
-      "end": {
-        "dateTime": "2026-08-23T14:00:00-04:00",
-        "timeZone": "America/New_York"
-      },
-      "iCalUID": "p7trbvsg7djt5m8kucab9nm3pc@google.com",
-      "eventType": "default"
     }
   ]
 }
