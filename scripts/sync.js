@@ -4,6 +4,8 @@ const path = require('path');
 // Target paths
 const EVENTS_FILE = path.join(__dirname, '../data/events.json');
 const INSTA_FILE = path.join(__dirname, '../data/instagram.json');
+const HEROES_FILE = path.join(__dirname, '../data/heroes.json');
+const IMAGES_DIR = path.join(__dirname, '../images');
 const INSTA_IMG_DIR = path.join(__dirname, '../images/instagram');
 
 // Endpoints from environment variables
@@ -156,10 +158,35 @@ async function syncInstagram() {
     console.log('Instagram sync completed successfully.');
 }
 
+/**
+ * Discovers all hero images in the images folder and writes data/heroes.json.
+ */
+function syncHeroes() {
+    console.log('Scanning for hero images in images/ ...');
+    if (!fs.existsSync(IMAGES_DIR)) {
+        fs.mkdirSync(IMAGES_DIR, { recursive: true });
+    }
+
+    const files = fs.readdirSync(IMAGES_DIR);
+    const heroFiles = files
+        .filter(file => /^hero-.*\.(jpe?g|png|webp)$/i.test(file))
+        .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }))
+        .map(file => `images/${file}`);
+
+    if (heroFiles.length === 0) {
+        console.warn('No hero-* images found in images/. Defaulting to images/hero-1.jpg');
+        heroFiles.push('images/hero-1.jpg');
+    }
+
+    fs.writeFileSync(HEROES_FILE, JSON.stringify(heroFiles, null, 2), 'utf8');
+    console.log(`Heroes manifest updated: ${heroFiles.length} images (${heroFiles.join(', ')}).`);
+}
+
 async function main() {
     try {
         await syncEvents();
         await syncInstagram();
+        syncHeroes();
         console.log('Sync processing completed successfully.');
     } catch (error) {
         console.error('Error during sync processing:', error);
@@ -168,3 +195,4 @@ async function main() {
 }
 
 main();
+

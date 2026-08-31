@@ -1,324 +1,120 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#fbf9f4" />
-    <meta name="description"
-        content="A Christ-centered community of young adults at Calhoun SDA Church. Because purpose isn't accidental." />
-    <title>On Purpose | Calhoun Young Adults</title>
-
-    <!-- Favicon -->
-    <link rel="icon" href="images/onPurposeColorBGIcon.svg" type="image/svg+xml">
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap"
-        rel="stylesheet">
-
-    <!-- GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            forest: '#2d3b2d',    // Deep, soft green
-                            sage: '#8fa89f',      // Quiet accent green
-                            clay: '#d6825c',      // Warm terracotta
-                            sand: '#e8e2d6',      // Soft tan for borders
-                            cream: '#fbf9f4',     // Warm off-white
-                            ink: '#1c1c1c'        // Soft black
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Fraunces', 'serif']
-                    }
-                }
-            }
-        }
-    </script>
-
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="style.css">
-
-    <!-- Structured Data (Static) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Church",
-      "name": "On Purpose Young Adults",
-      "alternateName": "On Purpose YA",
-      "description": "A Christ-centered community of young adults at Calhoun Seventh-day Adventist Church.",
-      "url": "https://onpurposeya.com",
-      "logo": "https://onpurposeya.com/images/onPurposeColorBGIcon.svg",
-      "image": "https://onpurposeya.com/images/onPurposeColorBGIcon.svg",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "1411 Rome Rd SW",
-        "addressLocality": "Calhoun",
-        "addressRegion": "GA",
-        "postalCode": "30701",
-        "addressCountry": "US"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 34.4812,
-        "longitude": -84.9745
-      },
-      "parentOrganization": {
-        "@type": "Organization",
-        "name": "Calhoun Seventh-day Adventist Church",
-        "url": "https://calhounsdachurch.com"
-      },
-      "sameAs": [
-        "https://instagram.com/onpurpose.ya"
-      ]
-    }
-    </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fbf9f4">
+  <meta name="description" content="A Christ-centered community of young adults in Calhoun, Georgia, growing in faith, doing life together, and serving our city.">
+  <link rel="canonical" href="https://onpurposeya.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="On Purpose | Calhoun Young Adults">
+  <meta property="og:description" content="Come as you are. Find community, grow in faith, and live on purpose.">
+  <meta property="og:image" content="https://onpurposeya.com/images/hero-1.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="images/onPurposeColorBGIcon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <title>On Purpose | Calhoun Young Adults</title>
 </head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="grain" aria-hidden="true"></div>
 
-<body class="antialiased selection:bg-brand-clay selection:text-white">
-    <!-- Top Backing Block for Safari Overscroll -->
-    <div style="position:fixed; top:0; left:0; width:100%; height:50vh; background:#fbf9f4; z-index:-10; pointer-events:none;"></div>
-    
-    <div class="paper-grain"></div>
+  <nav class="nav" id="navbar" aria-label="Main navigation">
+    <a class="wordmark" href="#top" aria-label="On Purpose home">On<span>Purpose</span></a>
+    <div class="nav-links">
+      <a href="#new-here">New Here</a><a href="#about">About</a><a href="#beliefs">Beliefs</a><a href="#events">Events</a><a href="#gallery">Gallery</a>
+    </div>
+    <button class="menu-button" id="menuButton" type="button" aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false"><span></span><span></span></button>
+  </nav>
 
-    <!-- Wrapping all content to prevent horizontal scroll on mobile -->
-    <div class="overflow-x-hidden w-full relative bg-brand-cream min-h-screen">
+  <div class="mobile-menu" id="mobileMenu" hidden>
+    <button class="menu-close" id="menuClose" type="button">Close menu</button>
+    <a href="#new-here">New Here</a><a href="#about">About</a><a href="#beliefs">Beliefs</a><a href="#events">Events</a><a href="#gallery">Gallery</a>
+  </div>
 
-        <!-- Navigation -->
-        <nav id="navbar"
-            class="fixed w-full z-50 transition-all duration-500 py-6 px-6 lg:px-12 flex justify-between items-center">
-            <a href="#" class="font-serif font-bold text-2xl tracking-tight italic group">
-                On<span class="text-brand-clay group-hover:text-brand-forest transition-colors font-serif">Purpose</span>
-            </a>
-
-            <div
-                class="hidden md:flex items-center space-x-12 text-[11px] font-bold uppercase tracking-[0.2em] text-brand-forest/70">
-                <a href="#about" class="hover:text-brand-clay transition-colors">About</a>
-                <a href="#beliefs" class="hover:text-brand-clay transition-colors">Beliefs</a>
-                <a href="#events" class="hover:text-brand-clay transition-colors">Events</a>
-                <a href="#journal" class="hover:text-brand-clay transition-colors">Gallery</a>
-            </div>
-
-            <button class="md:hidden p-2 text-brand-forest"
-                onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8h16M4 16h16"></path>
-                </svg>
-            </button>
-        </nav>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu"
-            class="hidden fixed inset-0 z-[60] bg-brand-cream flex flex-col items-center justify-center gap-10 text-center">
-            <div class="flex flex-col gap-6 text-3xl font-serif italic font-bold text-brand-forest">
-                <a href="#about" onclick="document.getElementById('mobile-menu').classList.add('hidden')">About</a>
-                <a href="#beliefs" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Beliefs</a>
-                <a href="#events" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Events</a>
-                <a href="#journal" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Gallery</a>
-            </div>
-            <button onclick="document.getElementById('mobile-menu').classList.add('hidden')"
-                class="text-xs uppercase tracking-widest opacity-40 font-bold">Close Menu</button>
+  <main id="main">
+    <header class="hero" id="top">
+      <div class="hero-copy reveal">
+        <p class="eyebrow"><span></span> Calhoun Young Adults <span></span></p>
+        <h1>Purpose isn't <em>accidental.</em></h1>
+        <p class="hero-intro">A Christ-centered community where young adults grow in faith, build real friendships, and serve Calhoun together.</p>
+        <div class="hero-actions">
+          <a class="button button-clay" href="#new-here">Plan your first visit</a>
+          <a class="text-link" href="#events">See what's happening <span aria-hidden="true">→</span></a>
         </div>
+      </div>
+      <figure class="hero-photo reveal">
+        <img id="heroImage" src="images/hero-1.jpg" alt="On Purpose young adult community" width="3024" height="4032">
+        <figcaption><strong>Come as you are.</strong><span>There’s a place for you here.</span></figcaption>
+      </figure>
+    </header>
 
-        <!-- Hero Section -->
-        <header class="relative min-h-[90vh] flex flex-col justify-center max-w-7xl mx-auto px-6 pt-20 pb-32">
-            <div class="max-w-4xl mx-auto text-center gsap-hero-content">
-                <div class="flex items-center justify-center gap-3 mb-8">
-                    <span class="h-[1px] w-10 bg-brand-clay"></span>
-                    <span class="text-brand-clay font-bold uppercase tracking-[0.4em] text-[10px]">Calhoun Young Adults</span>
-                    <span class="h-[1px] w-10 bg-brand-clay"></span>
-                </div>
-                <h1 class="font-serif text-6xl md:text-8xl lg:text-9xl leading-[1.05] mb-10 text-balance tracking-tight">
-                    Purpose isn't <br><em class="italic font-serif text-brand-clay">accidental.</em>
-                </h1>
-                <p class="text-lg md:text-2xl text-brand-forest/70 max-w-2xl mx-auto font-light leading-relaxed mb-20">
-                    A Christ-centered community of young adults in Calhoun, GA. Doing life together, growing in faith, and
-                    serving our city.
-                </p>
-                <div class="flex flex-wrap gap-8 justify-center">
-                    <a href="#events"
-                        class="bg-brand-clay text-white px-12 py-5 rounded-xl text-xs font-bold uppercase tracking-widest shadow-xl shadow-brand-clay/20 hover:scale-105 transition-transform">
-                        See What's Happening
-                    </a>
-                    <a href="#about"
-                        class="inline-flex items-center gap-4 text-xs font-bold uppercase tracking-widest group">
-                        New Here?
-                        <span class="w-12 h-[1px] bg-brand-clay group-hover:w-20 transition-all duration-500"></span>
-                    </a>
-                </div>
-            </div>
+    <section class="first-visit" id="new-here">
+      <div class="section-heading reveal">
+        <p class="eyebrow light">Your first Saturday</p>
+        <h2>You don't have to have it <em>all figured out.</em></h2>
+        <p>Whether you’re new to faith, new to Calhoun, or simply looking for community, you’re welcome at the table.</p>
+      </div>
+      <div class="visit-grid reveal">
+        <article><h3>Saturday mornings</h3><p>We meet at 10:00 AM for an honest, discussion-led hour around Scripture.</p></article>
+        <article><h3>Where to find us</h3><p>We’re in God's Pantry at Calhoun SDA Church, through the entrance on the right side.</p></article>
+        <article><h3>Just come as you are</h3><p>No registration, dress code, or preparation. Come on your own or bring a friend.</p></article>
+      </div>
+      <div class="visit-actions reveal">
+        <a class="button button-cream" href="https://maps.google.com/?q=1411+Rome+Rd+SW,+Calhoun,+GA+30701" target="_blank" rel="noopener">Get directions</a>
+        <a class="button button-outline-light" href="mailto:info@onpurposeya.com">Ask us a question</a>
+      </div>
+    </section>
 
-            <!-- Fixed background blur sizing for mobile -->
-            <div
-                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-brand-clay/5 rounded-full blur-[100px] md:blur-[120px] -z-10">
-            </div>
-        </header>
+    <section class="foundation" id="about">
+      <p class="eyebrow about-label reveal">About On Purpose</p>
+      <div class="about-layout">
+        <div class="quote reveal">
+          <blockquote>“In all things God works for the good of those who love him, who have been called according to his purpose.”</blockquote>
+          <cite>Romans 8:28</cite>
+        </div>
+        <div class="about-story reveal">
+          <p class="about-lede">We’re young adults making room for real friendship, honest conversation, and a faith that shows up in everyday life.</p>
+          <p class="mantra" aria-label="Our shared rhythm: Connect, Grow, Serve"><span>Connect.</span> <span>Grow.</span> <span>Serve.</span></p>
+        </div>
+      </div>
+    </section>
 
-        <!-- About Section -->
-        <section id="about"
-            class="py-32 bg-brand-forest text-brand-cream rounded-t-[3rem] lg:rounded-t-[5rem] relative z-10 shadow-2xl">
-            <div class="max-w-5xl mx-auto px-6 text-center">
-                <span class="text-brand-clay font-bold tracking-[0.4em] text-[10px] uppercase mb-8 block">Our Foundation</span>
+    <section class="beliefs" id="beliefs">
+      <div class="belief-title reveal"><p class="eyebrow">What we believe</p><h2>Faith is a <em>journey.</em></h2></div>
+      <div class="belief-grid reveal">
+        <article><h3>Jesus at the Center</h3><p>He is the lens through which we see God, the world, and ourselves. In His life, death, and resurrection, we find our ultimate purpose.</p></article>
+        <article><h3>The Word as Our Map</h3><p>The Bible is more than an old book. It’s a living invitation to know God’s heart and find a better way to live.</p></article>
+        <article><h3>Rest & Restoration</h3><p>We cherish the Sabbath as a gift of rhythm in a restless world. It reminds us that God's love, not productivity, defines us.</p></article>
+        <article><h3>Hope for Tomorrow</h3><p>We believe Jesus is coming back to make all things new. That hope shapes how we live on purpose today.</p></article>
+      </div>
+    </section>
 
-                <blockquote class="font-serif text-2xl md:text-5xl text-brand-cream leading-tight italic mb-12 gsap-fade text-balance">
-                    <span id="verseDisplay">Loading verse...</span>
-                </blockquote>
+    <section class="events" id="events">
+      <div class="events-heading reveal"><div><p class="eyebrow">What's happening</p><h2>Come do life <em>with us.</em></h2></div><p id="countdown" class="countdown" aria-live="polite"></p></div>
+      <div id="eventList" class="event-list"><p class="loading">Loading upcoming events…</p></div>
+      <article class="weekly reveal">
+        <div><p class="eyebrow">Every Saturday</p><h3>Sabbath School</h3><p>10:00 AM · God's Pantry, right-side entrance<br>Calhoun Seventh-day Adventist Church</p></div>
+        <div class="weekly-actions"><a class="button button-forest" href="https://maps.google.com/?q=1411+Rome+Rd+SW,+Calhoun,+GA+30701" target="_blank" rel="noopener">Get directions</a><a class="text-link" href="mailto:info@onpurposeya.com">Contact us →</a></div>
+      </article>
+    </section>
 
-                <div class="h-[1px] w-24 bg-brand-clay/40 mx-auto mb-20"></div>
+    <section class="gallery" id="gallery">
+      <div class="gallery-heading reveal"><p class="eyebrow">Life on purpose</p><h2>Real community.<br><em>Real life.</em></h2><a class="text-link" href="https://instagram.com/onpurpose.ya" target="_blank" rel="noopener">Follow @onpurpose.ya →</a></div>
+      <div id="instagramGrid" class="gallery-grid"></div>
+    </section>
+  </main>
 
-                <div class="grid md:grid-cols-3 gap-16 text-left gsap-fade">
-                    <div class="group hover:-translate-y-2 transition-transform duration-500">
-                        <span class="font-serif italic text-brand-clay text-3xl mb-4 block">1.</span>
-                        <h3 class="font-serif font-bold text-2xl mb-4 italic tracking-tight text-balance">Connect</h3>
-                        <p class="text-sm text-brand-cream/50 leading-relaxed font-light">Building genuine friendships that
-                            go beyond Sabbath morning. We do lunch, hikes, game nights, and life together.</p>
-                    </div>
-                    <div class="group hover:-translate-y-2 transition-transform duration-500">
-                        <span class="font-serif italic text-brand-sage text-3xl mb-4 block">2.</span>
-                        <h3 class="font-serif font-bold text-2xl mb-4 italic tracking-tight text-balance">Grow</h3>
-                        <p class="text-sm text-brand-cream/50 leading-relaxed font-light">Deep diving into Scripture without
-                            the fluff. Join our Sabbath School class every week at 10:00 AM.</p>
-                    </div>
-                    <div class="group hover:-translate-y-2 transition-transform duration-500">
-                        <span class="font-serif italic text-brand-sand text-3xl mb-4 block">3.</span>
-                        <h3 class="font-serif font-bold text-2xl mb-4 italic tracking-tight text-balance">Serve</h3>
-                        <p class="text-sm text-brand-cream/50 leading-relaxed font-light">Putting faith into action. We get
-                            involved in local initiatives and church projects to love our neighbors.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Beliefs Section -->
-        <section id="beliefs" class="py-32 bg-brand-cream relative">
-            <div class="max-w-6xl mx-auto px-6">
-                <div class="flex flex-col md:flex-row gap-16 items-start">
-                    <div class="md:w-1/3 sticky top-32">
-                        <span class="text-brand-clay font-bold tracking-[0.4em] text-[10px] uppercase mb-6 block">What We Believe</span>
-                        <h2 class="font-serif text-5xl md:text-6xl italic leading-tight text-brand-forest text-balance">Faith is a <br>journey.</h2>
-                        <div class="h-[1px] w-12 bg-brand-clay mt-8"></div>
-                    </div>
-                    
-                    <div class="md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-20 text-left">
-                        <div class="gsap-belief-item">
-                            <h3 class="font-serif font-bold text-2xl mb-4 italic text-brand-forest text-balance">Jesus at the Center</h3>
-                            <p class="text-sm text-brand-forest/70 leading-relaxed font-light">He is the lens through which we see everything: God, the world, and ourselves. In His life, death, and resurrection, we find our ultimate purpose.</p>
-                        </div>
-                        
-                        <div class="gsap-belief-item">
-                            <h3 class="font-serif font-bold text-2xl mb-4 italic text-brand-forest text-balance">The Word as Our Map</h3>
-                            <p class="text-sm text-brand-forest/70 leading-relaxed font-light">We believe the Bible is more than an old book. It’s a living invitation to know God’s heart and find a better way to live.</p>
-                        </div>
-                        
-                        <div class="gsap-belief-item">
-                            <h3 class="font-serif font-bold text-2xl mb-4 italic text-brand-forest text-balance">Rest & Restoration</h3>
-                            <p class="text-sm text-brand-forest/70 leading-relaxed font-light">We cherish the Sabbath as a gift of rhythm in a restless world. It is a weekly reminder that we are defined by God's love, not our productivity.</p>
-                        </div>
-                        
-                        <div class="gsap-belief-item">
-                            <h3 class="font-serif font-bold text-2xl mb-4 italic text-brand-forest text-balance">Hope for Tomorrow</h3>
-                            <p class="text-sm text-brand-forest/70 leading-relaxed font-light">We live with the conviction that Jesus is coming back to make all things new. This hope drives us to live on purpose today.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Events Section -->
-        <section id="events" class="max-w-6xl mx-auto px-6 pt-32 pb-8">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-                <div>
-                    <span class="text-brand-clay font-bold uppercase tracking-[0.4em] text-[10px]">What's Happening</span>
-                    <h2 class="font-serif text-5xl md:text-6xl mt-4 italic">Upcoming Events.</h2>
-                </div>
-                <div id="countdown" class="text-[11px] uppercase tracking-widest text-brand-forest/40 font-bold mb-2"></div>
-            </div>
-
-            <div id="event-list" class="grid grid-cols-1 gap-6">
-                <div class="py-20 text-center italic font-serif opacity-30">Fetching calendar...</div>
-            </div>
-
-            <!-- Weekly Static Card -->
-            <div
-                class="mt-12 p-8 md:p-12 bg-brand-sand/20 border border-brand-sand rounded-[2rem] flex flex-col md:flex-row items-center gap-10">
-                <div class="flex-1 text-center md:text-left">
-                    <div class="flex items-center gap-2 mb-4 justify-center md:justify-start">
-                        <span class="w-2 h-2 bg-brand-clay rounded-full animate-pulse"></span>
-                        <span class="text-brand-forest/60 text-[10px] font-bold uppercase tracking-widest">Every Week</span>
-                    </div>
-                    <h3 class="font-serif text-3xl mb-4 italic tracking-tight text-brand-forest">Sabbath School</h3>
-                    <p class="text-brand-forest/60 text-sm leading-relaxed max-w-md">Join us every Saturday at 10:00 AM for
-                        deep discussion and fellowship at God's Pantry (Right Side Entrance).</p>
-                </div>
-                <a href="https://maps.google.com/?q=1411+Rome+Rd+SW,+Calhoun,+GA+30701" target="_blank"
-                    class="bg-brand-forest text-white px-8 py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-brand-clay transition-all shadow-xl shadow-brand-forest/10 whitespace-nowrap">
-                    📍 God's Pantry
-                </a>
-            </div>
-        </section>
-
-        <!-- Gallery Section -->
-        <section id="journal" class="py-24 px-4 bg-brand-cream">
-            <div class="max-w-6xl mx-auto">
-                <div class="text-center mb-12">
-                    <h2 class="font-serif text-4xl font-bold text-brand-forest">Life On Purpose</h2>
-                    <a href="https://instagram.com/onpurpose.ya" target="_blank"
-                        class="inline-block mt-2 text-brand-clay font-medium hover:underline">@onpurpose.ya</a>
-                </div>
-
-                <!-- Grid -->
-                <div id="instagramGrid" class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"></div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="bg-brand-forest text-white pt-16 pb-[calc(2rem+env(safe-area-inset-bottom))] px-6 border-t border-white/10">
-            <div class="max-w-4xl mx-auto text-center">
-                <img src="images/onPurposeWhite.svg" onerror="this.style.display='none'" class="h-16 mx-auto mb-6 opacity-90"
-                    alt="Logo">
-
-                <p class="text-brand-sage font-light mb-4 text-sm">
-                    A ministry of the <a href="https://calhounsdachurch.com" target="_blank" class="hover:text-brand-clay transition-colors underline decoration-brand-clay/30 underline-offset-4">Calhoun Seventh-day Adventist Church</a>.
-                </p>
-                
-                <p class="text-[9px] uppercase tracking-[0.3em] text-white/30 mb-12">
-                    Part of the global <a href="https://adventist.org" target="_blank" class="hover:text-white transition-colors">Seventh-day Adventist</a> Movement.
-                </p>
-
-                <div class="flex flex-wrap justify-center gap-6 text-sm font-medium tracking-wide mb-12">
-                    <a href="#about" class="hover:text-brand-clay transition">About</a>
-                    <a href="#beliefs" class="hover:text-brand-clay transition">Beliefs</a>
-                    <a href="#events" class="hover:text-brand-clay transition">Events</a>
-                    <a href="mailto:info@onpurposeya.com" class="hover:text-brand-clay transition">Contact</a>
-                    <a href="https://adventistgiving.org/donate/ANTFEG" class="hover:text-brand-clay transition">Donate</a>
-                    <a href="privacy-policy/" class="hover:text-brand-clay transition">Privacy Policy</a>
-                </div>
-
-                <div
-                    class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-brand-cream/60 gap-4">
-                    <p>&copy; <span id="year"></span> On Purpose Young Adults.</p>
-                    <p>Designed for the Kingdom.</p>
-                </div>
-            </div>
-        </footer>
-
-    </div> <!-- End of overflow-x-hidden wrapper -->
-
-    <!-- Custom Scripts -->
-    <script src="script.js"></script>
+  <footer>
+    <img src="images/onPurposeWhite.svg" alt="On Purpose Young Adults" width="995" height="569">
+    <p>A ministry of the <a href="https://calhounsdachurch.com" target="_blank" rel="noopener">Calhoun Seventh-day Adventist Church</a>.</p>
+    <p class="movement">Part of the global <a href="https://adventist.org" target="_blank" rel="noopener">Seventh-day Adventist</a> Movement.</p>
+    <nav aria-label="Footer navigation"><a href="#about">About</a><a href="#beliefs">Beliefs</a><a href="#events">Events</a><a href="mailto:info@onpurposeya.com">Contact</a><a href="https://adventistgiving.org/donate/ANTFEG">Donate</a><a href="privacy-policy/">Privacy Policy</a></nav>
+    <div class="footer-bottom"><span>© <span id="year"></span> On Purpose Young Adults.</span><span>Designed for the Kingdom.</span></div>
+  </footer>
+  <script src="script.js" defer></script>
 </body>
-
 </html>

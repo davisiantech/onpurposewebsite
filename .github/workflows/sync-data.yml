@@ -31,7 +31,7 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
           # Stage the changed files
-          git add data/events.json data/instagram.json
+          git add data/events.json data/instagram.json data/heroes.json
           if [ -d "images/instagram" ]; then
             git add images/instagram/
           fi

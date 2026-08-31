@@ -1,281 +1,45 @@
-const API_EVENTS = 'data/events.json';
-const API_INSTA = 'data/instagram.json';
+const eventList=document.querySelector('#eventList');
+const countdown=document.querySelector('#countdown');
+document.querySelector('#year').textContent=new Date().getFullYear();
 
-document.getElementById("year").textContent = new Date().getFullYear();
-
-const verseText = "\u201cAnd we know that in all things God works for the good of those who love him, who have been called according to his purpose.\u201d";
-const verseRef = "Romans 8:28";
-const verseDisplay = document.getElementById("verseDisplay");
-if (verseDisplay) {
-    verseDisplay.innerHTML = `${verseText} <br><span class="block text-sm font-sans font-bold not-italic mt-6 text-brand-clay uppercase tracking-[0.3em]">- ${verseRef}</span>`;
-}
-
-window.toggleDescription = function (id) {
-    const textEl = document.getElementById(id);
-    const btnEl = document.getElementById('btn-' + id);
-    if (!textEl) return;
-
-    if (textEl.classList.contains('line-clamp-2')) {
-        textEl.classList.remove('line-clamp-2');
-        if (btnEl) btnEl.textContent = 'Show Less';
-    } else {
-        textEl.classList.add('line-clamp-2');
-        if (btnEl) btnEl.textContent = 'Read More';
+async function loadHero(){
+  const heroImage=document.querySelector('#heroImage');
+  if(!heroImage)return;
+  try{
+    const response=await fetch('data/heroes.json');
+    if(!response.ok)throw new Error('heroes unavailable');
+    const heroList=await response.json();
+    if(Array.isArray(heroList)&&heroList.length>0){
+      const randomSrc=heroList[Math.floor(Math.random()*heroList.length)];
+      heroImage.src=randomSrc;
     }
-};
-
-window.addEventListener("DOMContentLoaded", () => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    gsap.from(".gsap-hero-content", {
-        opacity: 0,
-        y: 40,
-        duration: 1.5,
-        ease: "power3.out",
-        delay: 0.2
-    });
-
-    gsap.utils.toArray('.gsap-fade').forEach(el => {
-        gsap.from(el, {
-            opacity: 0,
-            y: 30,
-            duration: 1.2,
-            scrollTrigger: { trigger: el, start: "top 90%" }
-        });
-    });
-
-    gsap.from(".gsap-belief-item", {
-        opacity: 0,
-        y: 30,
-        duration: 1,
-        stagger: 0.2,
-        scrollTrigger: {
-            trigger: "#beliefs",
-            start: "top 70%"
-        }
-    });
-
-    window.addEventListener('scroll', () => {
-        const nav = document.getElementById('navbar');
-        if (window.scrollY > 50) {
-            nav.classList.add('bg-brand-cream/90', 'backdrop-blur-md', 'py-4', 'shadow-sm');
-            nav.classList.remove('py-6');
-        } else {
-            nav.classList.remove('bg-brand-cream/90', 'backdrop-blur-md', 'py-4', 'shadow-sm');
-            nav.classList.add('py-6');
-        }
-    });
-
-    loadEvents();
-    loadInstagram();
-});
-
-function escapeHTML(str) {
-    return String(str).replace(/[&<>"']/g, c => ({
-        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-    }[c]));
+  }catch(_){
+    // Retain default fallback image in HTML
+  }
 }
+loadHero();
 
-function findFirstUrlAndClean(text) {
-    if (!text) return { link: null, cleaned: '' };
-    const div = document.createElement('div');
-    div.innerHTML = text;
-    let link = div.querySelector('a[href]')?.getAttribute('href') || null;
-    let plain = div.textContent || div.innerText || "";
-    const urlRe = /(?:(?:https?:\/\/)|(?:www\.)|(?:[a-zA-Z0-9-]+\.(?:com|org|net|edu|gov|io)))[^\s]*/gi;
-    if (!link) {
-        const matches = plain.match(urlRe);
-        if (matches && matches.length > 0) {
-            link = matches[0].startsWith('http') ? matches[0] : 'https://' + matches[0];
-        }
-    }
-    const cleaned = plain.replace(urlRe, '').trim();
-    return { link, cleaned };
-}
 
-async function loadEvents() {
-    const container = document.getElementById('event-list');
-    if (!container) return;
-    try {
-        const res = await fetch(API_EVENTS);
-        const data = await res.json();
-        const now = new Date();
-        now.setHours(0, 0, 0, 0);
+const menu=document.querySelector('#mobileMenu');
+const menuButton=document.querySelector('#menuButton');
+const menuClose=document.querySelector('#menuClose');
+let lastFocused;
+function openMenu(){lastFocused=document.activeElement;menu.hidden=false;menuButton.setAttribute('aria-expanded','true');menuButton.setAttribute('aria-label','Close menu');document.body.style.overflow='hidden';menu.querySelector('a').focus()}
+function closeMenu(){menu.hidden=true;menuButton.setAttribute('aria-expanded','false');menuButton.setAttribute('aria-label','Open menu');document.body.style.overflow='';lastFocused?.focus()}
+menuButton.addEventListener('click',()=>menu.hidden?openMenu():closeMenu());
+menuClose.addEventListener('click',closeMenu);
+menu.querySelectorAll('a').forEach(link=>link.addEventListener('click',closeMenu));
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!menu.hidden)closeMenu()});
+addEventListener('scroll',()=>document.querySelector('#navbar').classList.toggle('scrolled',scrollY>30),{passive:true});
 
-        const events = (data.items || [])
-            .map(e => ({ ...e, startObj: e.start.dateTime ? new Date(e.start.dateTime) : new Date(e.start.date + 'T00:00:00') }))
-            .filter(e => e.startObj >= now)
-            .sort((a, b) => a.startObj - b.startObj)
-            .slice(0, 4);
+const escapeHTML=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+function parseDescription(html=''){const holder=document.createElement('div');holder.innerHTML=html;const anchor=holder.querySelector('a[href]');const plain=holder.textContent.trim();const match=plain.match(/https?:\/\/[^\s]+/);return{description:plain.replace(/https?:\/\/[^\s]+/g,'').trim(),link:anchor?.href||match?.[0]||null}}
+function startOfDay(date){const d=new Date(date);d.setHours(0,0,0,0);return d}
+function formatDateRange(event,start){if(event.start.dateTime)return start.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'})+' · '+start.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});const end=new Date(event.end.date+'T00:00:00');end.setDate(end.getDate()-1);const startLabel=start.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});if(end.getTime()===start.getTime())return startLabel+' · All day';return `${startLabel} – ${end.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'})}`}
+function locationLabel(location=''){return location.replace(/,?\s*(USA|United States|US)\b/gi,'').trim()||'Calhoun, GA'}
+function eventSchema(event,description,link){const location=locationLabel(event.location);return{'@context':'https://schema.org','@type':'Event',name:event.summary,startDate:event.start.dateTime||event.start.date,endDate:event.end.dateTime||event.end.date,eventStatus:'https://schema.org/EventScheduled',eventAttendanceMode:'https://schema.org/OfflineEventAttendanceMode',location:{'@type':'Place',name:location,address:location},description:description||event.summary,url:link||event.htmlLink,organizer:{'@type':'Organization',name:'On Purpose Young Adults',url:'https://onpurposeya.com'}}}
+async function loadEvents(){try{const response=await fetch('data/events.json');if(!response.ok)throw new Error('events unavailable');const data=await response.json();const now=new Date();const events=(data.items||[]).map(event=>({...event,startObject:new Date(event.start.dateTime||event.start.date+'T00:00:00')})).filter(event=>event.startObject>=startOfDay(now)).sort((a,b)=>a.startObject-b.startObject).slice(0,4);if(!events.length){eventList.innerHTML='<p class="loading">No events are currently scheduled. Follow us on Instagram for the latest updates.</p>';return}const dayCount=Math.max(0,Math.ceil((startOfDay(events[0].startObject)-startOfDay(now))/86400000));countdown.textContent=dayCount===0?'Our next event is today':`Next event in ${dayCount} day${dayCount===1?'':'s'}`;eventList.innerHTML=events.map((event,index)=>{const {description,link}=parseDescription(event.description);const destination=link||event.htmlLink;const detailsId=`event-details-${index}`;const action=link?`<a class="button button-clay event-button" href="${escapeHTML(destination)}" target="_blank" rel="noopener">RSVP / details</a>`:`<a class="calendar-arrow" href="${escapeHTML(destination)}" target="_blank" rel="noopener" aria-label="View ${escapeHTML(event.summary)} in Google Calendar"><span aria-hidden="true">→</span></a>`;const details=description?`<p class="event-description" id="${detailsId}">${escapeHTML(description)}</p>${description.length>150?`<button class="event-read-more" type="button" aria-expanded="false" aria-controls="${detailsId}">Read more</button>`:''}`:'';return `<article class="event-card reveal"><div class="date-tile" aria-hidden="true"><span class="month">${event.startObject.toLocaleDateString('en-US',{month:'short'})}</span><span class="day">${event.startObject.getDate()}</span></div><div class="event-copy"><p class="event-meta">${escapeHTML(formatDateRange(event,event.startObject))} · ${escapeHTML(locationLabel(event.location))}</p><h3>${escapeHTML(event.summary)}</h3>${details}</div><div class="event-actions">${action}</div></article>`}).join('');const schema=document.createElement('script');schema.type='application/ld+json';schema.textContent=JSON.stringify(events.map(event=>{const parsed=parseDescription(event.description);return eventSchema(event,parsed.description,parsed.link)}));document.head.append(schema)}catch(error){eventList.innerHTML='<p class="loading">We couldn’t load the calendar right now. <a href="https://instagram.com/onpurpose.ya">Check Instagram for the latest events.</a></p>'}}
 
-        container.innerHTML = '';
-        if (events.length > 0) {
-            const first = events[0];
-            const diff = first.startObj - new Date();
-            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            const countdownEl = document.getElementById('countdown');
-            if (countdownEl) {
-                countdownEl.textContent = `Next Event in ${d} days, ${h} hours`;
-            }
-        } else {
-            const countdownEl = document.getElementById('countdown');
-            if (countdownEl) {
-                countdownEl.textContent = '';
-            }
-            container.innerHTML = '<div class="py-12 text-center text-brand-forest/60 italic font-serif">No current events scheduled. Check back soon!</div>';
-            return;
-        }
-
-        events.forEach((event, idx) => {
-            const date = event.startObj;
-            const { link, cleaned } = findFirstUrlAndClean(event.description || '');
-            const finalLink = link || event.htmlLink;
-            const descId = `desc-${idx}`;
-            const needsReadMore = cleaned && cleaned.length > 120;
-
-            const isForm = finalLink && (finalLink.includes('forms.gle') || finalLink.includes('docs.google.com/forms') || finalLink.includes('tally.so'));
-
-            let location = event.location || '';
-            if (location) {
-                location = location
-                    .replace(/,?\s*(?:USA|United States|US)\b/gi, '')
-                    .replace(/,?\s*\b\d{5}(?:-\d{4})?\b/g, '')
-                    .trim()
-                    .replace(/,$/, '');
-            }
-
-            const html = `
-            <div class="bg-white border border-brand-sand rounded-[1.5rem] p-6 md:p-8 flex flex-col md:flex-row items-center gap-8 group hover:shadow-xl transition-all duration-500">
-                <div class="flex flex-col items-center justify-center w-20 h-20 bg-brand-forest text-brand-cream rounded-2xl shrink-0">
-                  <span class="text-[10px] uppercase font-bold tracking-tighter">${date.toLocaleDateString('en-US', { month: 'short' })}</span>
-                  <span class="font-serif text-2xl font-bold italic">${date.getDate()}</span>
-                </div>
-                
-                <div class="flex-1 text-center md:text-left">
-                  <h3 class="font-serif text-2xl md:text-3xl tracking-tight text-brand-forest group-hover:text-brand-clay transition-colors duration-500 cursor-pointer" onclick="toggleDescription('${descId}')">
-                    ${escapeHTML(event.summary)}
-                  </h3>
-                  <div class="flex flex-wrap justify-center md:justify-start gap-4 text-[10px] font-bold uppercase tracking-widest text-brand-forest/40 mt-2 mb-3">
-                    <span>${event.start.dateTime ? date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : 'All Day'}</span>
-                    <span>•</span>
-                    <span>${escapeHTML(location || 'Calhoun, GA')}</span>
-                  </div>
-                  
-                  ${cleaned ? `
-                    <p id="${descId}" class="text-brand-forest/60 text-sm leading-relaxed line-clamp-2 transition-all duration-500">
-                      ${escapeHTML(cleaned)}
-                    </p>
-                    ${needsReadMore ? `
-                      <button id="btn-${descId}" onclick="toggleDescription('${descId}')" class="text-brand-clay text-[10px] font-bold uppercase tracking-widest mt-2 hover:text-brand-forest transition-colors">
-                        Read More
-                       </button>
-                    ` : ''}
-                  ` : ''}
-                </div>
-
-                <div class="shrink-0">
-                  ${isForm ? `
-                    <a href="${finalLink}" target="_blank" class="flex items-center justify-center px-6 py-3 rounded-xl bg-brand-clay text-white text-[10px] font-bold uppercase tracking-widest hover:bg-brand-forest transition-all shadow-md">
-                        RSVP
-                    </a>
-                  ` : `
-                    <a href="${finalLink}" target="_blank" class="flex items-center justify-center w-12 h-12 rounded-full border border-brand-sand hover:bg-brand-clay hover:border-brand-clay hover:text-white transition-all">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </a>
-                  `}
-                </div>
-            </div>
-          `;
-            container.insertAdjacentHTML('beforeend', html);
-        });
-
-        // Update Dynamic Structured Data for Events
-        updateEventSchema(events);
-
-    } catch (e) {
-        container.innerHTML = '<div class="py-12 text-center opacity-30 italic font-serif">Updating calendar...</div>';
-    }
-}
-
-function updateEventSchema(events) {
-    // Remove existing dynamic event schema if any
-    const existing = document.getElementById('dynamic-event-schema');
-    if (existing) existing.remove();
-
-    const schemaList = events.map(event => {
-        const { link, cleaned } = findFirstUrlAndClean(event.description || '');
-        const startDate = event.start.dateTime || event.start.date;
-        const endDate = event.end.dateTime || event.end.date;
-
-        return {
-            "@context": "https://schema.org",
-            "@type": "Event",
-            "name": event.summary,
-            "startDate": startDate,
-            "endDate": endDate,
-            "eventStatus": "https://schema.org/EventScheduled",
-            "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-            "location": {
-                "@type": "Place",
-                "name": event.location || "Calhoun Seventh-day Adventist Church",
-                "address": {
-                    "@type": "PostalAddress",
-                    "streetAddress": "1411 Rome Rd SW",
-                    "addressLocality": "Calhoun",
-                    "addressRegion": "GA",
-                    "postalCode": "30701",
-                    "addressCountry": "US"
-                }
-            },
-            "description": cleaned || event.summary,
-            "url": link || event.htmlLink,
-            "organizer": {
-                "@type": "Organization",
-                "name": "On Purpose Young Adults",
-                "url": "https://onpurposeya.com"
-            }
-        };
-    });
-
-    if (schemaList.length > 0) {
-        const script = document.createElement('script');
-        script.id = 'dynamic-event-schema';
-        script.type = 'application/ld+json';
-        script.text = JSON.stringify(schemaList);
-        document.head.appendChild(script);
-    }
-}
-
-async function loadInstagram() {
-    const container = document.getElementById('instagramGrid');
-    if (!container) return;
-    try {
-        const res = await fetch(API_INSTA);
-        const data = await res.json();
-        if (data.error || !data.data) {
-            container.innerHTML = '<p class="col-span-full text-center text-gray-400 text-sm">Follow us @onpurpose.ya</p>';
-            return;
-        }
-        container.innerHTML = '';
-        data.data.slice(0, 4).forEach(post => {
-            let imgUrl = post.media_url;
-            if (post.media_type === 'VIDEO' || post.media_type === 'CAROUSEL_ALBUM') {
-                imgUrl = post.thumbnail_url || post.media_url;
-            }
-            const typeEmoji = post.media_type === 'VIDEO' ? '▶️' : (post.media_type === 'CAROUSEL_ALBUM' ? '✨' : '📸');
-            const caption = post.caption || 'View Post';
-            const item = `
-             <a href="${post.permalink}" target="_blank" class="group block relative aspect-square overflow-hidden rounded-xl bg-gray-100 shadow-md hover:shadow-xl transition-all duration-300">
-               <img src="${imgUrl}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="Instagram Post">
-               <div class="absolute inset-0 bg-brand-forest/80 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6 text-center">
-                  <div class="text-3xl mb-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">${typeEmoji}</div>
-                  <p class="text-white text-sm font-medium line-clamp-4 mb-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100 leading-relaxed">${escapeHTML(caption)}</p>
-                  <span class="text-brand-clay text-xs font-bold uppercase tracking-widest transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-150">View on Instagram</span>
-               </div>
-             </a>
-           `;
-            container.insertAdjacentHTML('beforeend', item);
-        });
-    } catch (err) { console.error(err); }
-}
+eventList.addEventListener('click',event=>{const button=event.target.closest('.event-read-more');if(!button)return;const details=document.querySelector(`#${button.getAttribute('aria-controls')}`);const isOpen=button.getAttribute('aria-expanded')==='true';button.setAttribute('aria-expanded',String(!isOpen));button.textContent=isOpen?'Read more':'Show less';details.classList.toggle('expanded',!isOpen)});
+async function loadInstagram(){const grid=document.querySelector('#instagramGrid');try{const response=await fetch('data/instagram.json');if(!response.ok)throw new Error('gallery unavailable');const data=await response.json();grid.innerHTML=data.data.slice(0,4).map((post,index)=>{const caption=(post.caption||'On Purpose community').split('\n')[0];return `<a class="gallery-item reveal" href="${escapeHTML(post.permalink)}" target="_blank" rel="noopener" aria-label="View Instagram post: ${escapeHTML(caption)}"><img src="${escapeHTML(post.media_url)}" alt="${escapeHTML(caption)}" width="720" height="720" loading="lazy" decoding="async"><span>View on Instagram →</span></a>`}).join('')}catch(error){grid.innerHTML='<p>Follow <a href="https://instagram.com/onpurpose.ya">@onpurpose.ya</a> to see life in our community.</p>'}}
+loadEvents();loadInstagram();
