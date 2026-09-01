@@ -169,7 +169,7 @@ function syncHeroes() {
 
     const files = fs.readdirSync(IMAGES_DIR);
     const heroFiles = files
-        .filter(file => /^hero-.*\.(jpe?g|png|webp)$/i.test(file))
+        .filter(file => /^hero-\d+\.(jpe?g|png|webp)$/i.test(file))
         .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }))
         .map(file => `images/${file}`);
 
