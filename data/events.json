@@ -86,6 +86,32 @@
     },
     {
       "kind": "calendar#event",
+      "id": "b37mq4btn6vmivuqbm30051hs4",
+      "status": "confirmed",
+      "htmlLink": "https://www.google.com/calendar/event?eid=YjM3bXE0YnRuNnZtaXZ1cWJtMzAwNTFoczQgY183YWVhNzhhZjgwYmVlZjQzYmVlMjEyYTBlYzM1NzI2MmY0Y2NlYTI0ZTgwOWFhNWU1OTljYzk2OWUyYzFhMGM3QGc",
+      "created": "2026-09-01T12:36:46.000Z",
+      "summary": "AYP IGNITE Convention",
+      "description": "AYP IGNITE Convention 2027 in Nashville, Tennessee.",
+      "location": "Nashville, Tennessee",
+      "creator": {
+        "email": "jordan@stillwaterstech.org"
+      },
+      "organizer": {
+        "email": "c_7aea78af80beef43bee212a0ec357262f4ccea24e809aa5e599cc969e2c1a0c7@group.calendar.google.com",
+        "displayName": "On Purpose YA - Website",
+        "self": true
+      },
+      "start": {
+        "date": "2027-08-19"
+      },
+      "end": {
+        "date": "2027-08-23"
+      },
+      "iCalUID": "b37mq4btn6vmivuqbm30051hs4@google.com",
+      "eventType": "default"
+    },
+    {
+      "kind": "calendar#event",
       "id": "gb702n0mit8soocmekriccv2l0",
       "status": "confirmed",
       "htmlLink": "https://www.google.com/calendar/event?eid=Z2I3MDJuMG1pdDhzb29jbWVrcmljY3YybDAgY183YWVhNzhhZjgwYmVlZjQzYmVlMjEyYTBlYzM1NzI2MmY0Y2NlYTI0ZTgwOWFhNWU1OTljYzk2OWUyYzFhMGM3QGc",
