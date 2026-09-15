@@ -55,3 +55,8 @@ brand-guide.md
 *.py
 *.pyc
 __pycache__/
+
+# Backups & Redesign Workspace
+backup/
+.backups/
+redesign/

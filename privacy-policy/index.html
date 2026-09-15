@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#fbf9f4">
+  <meta name="theme-color" content="#F7F4EC">
   <meta name="description" content="Privacy Policy for the On Purpose Young Adults website.">
   <link rel="canonical" href="https://onpurposeya.com/privacy-policy/">
   <meta property="og:type" content="website">
@@ -17,18 +17,18 @@
   <meta name="twitter:title" content="Privacy Policy | On Purpose">
   <meta name="twitter:description" content="Privacy Policy for the On Purpose Young Adults website.">
   <meta name="twitter:image" content="https://onpurposeya.com/images/share-card.jpg">
-  <link rel="icon" href="../images/onPurposeColorBGIcon.svg" type="image/svg+xml">
+  <link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,500;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css?v=6">
   <title>Privacy Policy | On Purpose</title>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="grain" aria-hidden="true"></div>
   <nav class="nav scrolled" aria-label="Main navigation">
-    <a class="wordmark" href="../" aria-label="On Purpose home">On<span>Purpose</span></a>
+    <a class="wordmark" href="../" aria-label="On Purpose home"><picture><source media="(max-width: 700px)" srcset="../images/brand-icon.svg"><img src="../images/brand-primary.svg" alt="On Purpose — Calhoun SDA Young Adults" width="885" height="665"></picture></a>
     <a class="privacy-back" href="../">Back to home</a>
   </nav>
 
@@ -76,12 +76,7 @@
     </article>
   </main>
 
-  <footer>
-    <img src="../images/onPurposeWhite.svg" alt="On Purpose Young Adults" width="995" height="569">
-    <p>A ministry of the <a href="https://calhounsdachurch.com" target="_blank" rel="noopener">Calhoun Seventh-day Adventist Church</a>.</p>
-    <p class="movement">Part of the global <a href="https://adventist.org" target="_blank" rel="noopener">Seventh-day Adventist</a> Movement.</p>
-    <nav aria-label="Footer navigation"><a href="../#about">About</a><a href="../#beliefs">Beliefs</a><a href="../#events">Events</a><a href="mailto:info@onpurposeya.com">Contact</a><a href="https://adventistgiving.org/donate/ANTFEG">Donate</a><a href="#" aria-current="page">Privacy Policy</a></nav>
-    <div class="footer-bottom"><span>© 2026 On Purpose Young Adults.</span><span>Designed for the Kingdom.</span></div>
-  </footer>
+  <footer><div class="footer-main"><img src="../images/brand-primary.svg" alt="On Purpose — Calhoun SDA Young Adults" width="885" height="665"><div><p class="eyebrow">Stay in touch</p><h2>On Purpose.<br>Calhoun, Georgia.</h2><a href="mailto:info@onpurposeya.com">info@onpurposeya.com ↗</a></div></div><div class="footer-bottom"><span>Designed for the Kingdom.</span><p>© <span id="year"></span> On Purpose · A young adult ministry of <a href="https://calhounsdachurch.com">Calhoun SDA Church</a>.</p><nav aria-label="Footer navigation"><a href="https://adventist.org">Seventh-day Adventist</a><a href="https://adventistgiving.org/donate/ANTFEG">Give</a><a href="#" aria-current="page">Privacy</a></nav></div></footer>
+  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
 </body>
 </html>
