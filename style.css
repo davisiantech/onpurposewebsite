@@ -9,6 +9,8 @@
 .hero h1 span{display:inline-block;position:relative;padding-bottom:12px;transform:rotate(-2deg)}
 .hero h1 span:after{content:'';position:absolute;left:0;right:3%;bottom:1px;height:5px;background:var(--rust);border-radius:50% 35% 60% 40%;transform:rotate(1deg)}
 .welcome a span{display:inline-grid;place-items:center;width:30px;height:30px;background:var(--rust);color:var(--paper);border-radius:50%;transition:transform .2s}
+
+.policy{max-width:900px;margin:0 auto;padding:70px 8% 100px}.policy-header{border-bottom:1px solid var(--stone);padding-bottom:35px}.policy-header h1{font:clamp(56px,7vw,92px)/1 'Bebas Neue',sans-serif;margin:18px 0 10px}.policy-updated{font-size:13px;color:var(--moss)}.policy-content{padding-top:35px}.policy-content section{margin-bottom:34px}.policy-content h2{font:34px/1.1 'Bebas Neue',sans-serif;margin-bottom:10px}.policy-content p,.policy-content li{font-size:16px;line-height:1.7}.policy-content ul{padding-left:22px}.privacy-back{font-size:12px;border-bottom:1px solid var(--stone);padding-bottom:4px}.policy + footer{margin-top:0}
 .welcome a:hover span{transform:rotate(45deg)}
 .photo-caption{border-left:4px solid var(--rust)}
 .pillars article{transition:transform .2s,background .2s}
