@@ -87,3 +87,19 @@
 @media(prefers-reduced-motion:reduce){.gallery-item img,.saturday-strip .button{transition:none}.gallery-item:hover img{transform:none}}
 
 button,.event-actions a,.event-read-more{color:var(--ink)}
+.saturday-strip{flex-wrap:wrap}.current-study{flex-basis:100%;border-top:1px solid var(--stone);padding-top:22px}.current-study[hidden]{display:none}.current-study h3{font:34px/1.15 'Bebas Neue',sans-serif;margin:10px 0}.current-study p:not(.eyebrow){max-width:700px;font-size:14px}.current-study .quiet-link{margin-top:12px;font-size:12px}.social-links{display:flex;flex-wrap:wrap;gap:18px}.calendar-subscribe{margin-top:22px}.footer-bottom nav{flex-wrap:wrap}
+@media(max-width:700px){.current-study{grid-column:1/-1}.current-study p:not(.eyebrow){font-size:14px}.social-links{margin-top:18px}}
+
+/* Small accents borrowed from the current ministry cards. */
+.hero-photo{border-bottom:7px solid var(--rust);border-right:7px solid var(--moss);border-radius:45px 6px 45px 6px}
+.current-study{border-top:0;border-left:4px solid var(--rust);padding:20px 26px;background:#eee9df;border-radius:3px 28px 3px 3px}
+.current-study .eyebrow{color:var(--rust)}
+footer{background:var(--ink);color:var(--paper);border-top:6px solid var(--rust);border-radius:40px 0 0 0}
+.footer-main h2{color:var(--paper)}
+.footer-bottom{color:var(--stone);border-top-color:#555851}
+.footer-bottom a:hover,.footer-main a:hover{color:var(--paper);text-decoration:underline;text-underline-offset:4px}
+.calendar-subscribe{position:relative;width:fit-content;max-width:100%}
+.calendar-subscribe .button{background:transparent;border:1px solid var(--ink);border-radius:30px;color:var(--ink)}
+/* Preserve Safari's native elastic scrolling and touch gestures. */
+html,body{overscroll-behavior-y:auto}
+@media(max-width:700px){.hero-photo{border-bottom-width:5px;border-right-width:5px;border-radius:28px 4px 28px 4px}.current-study{padding:18px 20px}footer{border-radius:28px 0 0 0}}

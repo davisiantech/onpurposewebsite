@@ -53,3 +53,17 @@ async function loadEvents(){try{const response=await fetch('data/events.json');i
 eventList.addEventListener('click',event=>{const button=event.target.closest('.event-read-more');if(!button)return;const details=document.querySelector(`#${button.getAttribute('aria-controls')}`);const isOpen=button.getAttribute('aria-expanded')==='true';button.setAttribute('aria-expanded',String(!isOpen));button.textContent=isOpen?'Event details':'Hide details';details.hidden=isOpen;details.classList.toggle('expanded',!isOpen)});
 async function loadInstagram(){const grid=document.querySelector('#instagramGrid');try{const response=await fetch('data/instagram.json');if(!response.ok)throw new Error('gallery unavailable');const data=await response.json();grid.innerHTML=data.data.slice(0,4).map((post,index)=>{const caption=(post.caption||'On Purpose community').split('\n')[0];return `<a class="gallery-item reveal" href="${escapeHTML(post.permalink)}" target="_blank" rel="noopener" aria-label="View Instagram post: ${escapeHTML(caption)}"><img src="${escapeHTML(post.media_url)}" alt="${escapeHTML(caption)}" width="720" height="720" loading="lazy" decoding="async"></a>`}).join('')}catch(error){grid.innerHTML='<p>Follow <a href="https://instagram.com/onpurpose.ya">@onpurpose.ya</a> to see life in our community.</p>'}}
 loadEvents();loadInstagram();
+
+async function loadStudy(){
+  const container=document.querySelector('#currentStudy');
+  try{
+    const response=await fetch('data/studies.json');
+    if(!response.ok)return;
+    const study=OnPurposeStudies.activeStudy(await response.json());
+    if(!study)return;
+    const link=OnPurposeStudies.safeURL(study.material_url);
+    container.innerHTML=`<p class="eyebrow">This quarter · InVerse</p><h3>${escapeHTML(study.title)}</h3>${study.description?`<p>${escapeHTML(study.description)}</p>`:''}${link?`<a class="quiet-link" href="${escapeHTML(link)}" target="_blank" rel="noopener">Study material</a>`:''}`;
+    container.hidden=false;
+  }catch(_){/* The weekly Sabbath School invitation remains available. */}
+}
+loadStudy();

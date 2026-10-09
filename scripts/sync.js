@@ -1,5 +1,19 @@
 const fs = require('fs');
 const path = require('path');
+const { fromCSV } = require('./studies');
+const STUDIES_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR1SEVnzQVH01qT8E3yKlHLagS7gePJO1ve6qRfERps2G4T7JdC6jpu6Hr51j8dR3Qoh1c0AWGaOwZ4/pub?output=csv';
+
+async function syncStudies() {
+    try {
+        const response = await fetch(STUDIES_URL, { signal: AbortSignal.timeout(30000) });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const studies = fromCSV(await response.text());
+        fs.writeFileSync(path.join(__dirname, '../data/studies.json'), JSON.stringify(studies, null, 2) + '\n');
+        console.log(`Studies synced: ${studies.length} quarters.`);
+    } catch (error) {
+        console.warn(`Study refresh failed; keeping previous snapshot: ${error.message}`);
+    }
+}
 
 // Target paths
 const EVENTS_FILE = path.join(__dirname, '../data/events.json');
@@ -183,6 +197,7 @@ function syncHeroes() {
 }
 
 async function main() {
+    await syncStudies();
     try {
         await syncEvents();
         await syncInstagram();
