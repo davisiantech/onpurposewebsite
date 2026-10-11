@@ -1,5 +1,10 @@
 # On Purpose website
 
+The site uses the October 2026 Blue Ridge palette and supplied vector assets:
+dusty ridge blue, clay rust, slate charcoal, and soft white. Small secondary
+text uses a darker blue for readability. The light logo is used on the dark
+footer; the full-color mark is used on the light page.
+
 The live static website is served from this repository root. Open `index.html`
 locally or serve the repository and visit `/`.
 
