@@ -8,6 +8,34 @@
   "items": [
     {
       "kind": "calendar#event",
+      "id": "3adpaq1afr1d7emmvu2nfibalf",
+      "status": "confirmed",
+      "htmlLink": "https://www.google.com/calendar/event?eid=M2FkcGFxMWFmcjFkN2VtbXZ1Mm5maWJhbGYgY183YWVhNzhhZjgwYmVlZjQzYmVlMjEyYTBlYzM1NzI2MmY0Y2NlYTI0ZTgwOWFhNWU1OTljYzk2OWUyYzFhMGM3QGc",
+      "created": "2026-10-26T23:31:31.000Z",
+      "summary": "Game Night | School Supplies Drive",
+      "description": "<p>Join us for pizza, games, and fellowship! We'll also be helping with the school supply drive by packing teacher baskets. Pizza will be provided, and you're welcome to bring a friend and your favorite board game!</p>",
+      "creator": {
+        "email": "jordan@stillwaterstech.org"
+      },
+      "organizer": {
+        "email": "c_7aea78af80beef43bee212a0ec357262f4ccea24e809aa5e599cc969e2c1a0c7@group.calendar.google.com",
+        "displayName": "On Purpose YA - Website",
+        "self": true
+      },
+      "start": {
+        "dateTime": "2026-11-14T18:00:00-05:00",
+        "timeZone": "America/New_York"
+      },
+      "end": {
+        "dateTime": "2026-11-14T22:00:00-05:00",
+        "timeZone": "America/New_York"
+      },
+      "transparency": "transparent",
+      "iCalUID": "3adpaq1afr1d7emmvu2nfibalf@google.com",
+      "eventType": "default"
+    },
+    {
+      "kind": "calendar#event",
       "id": "60hodvm8ca0a2f7ont6btpl0sk",
       "status": "confirmed",
       "htmlLink": "https://www.google.com/calendar/event?eid=NjBob2R2bThjYTBhMmY3b250NmJ0cGwwc2sgY183YWVhNzhhZjgwYmVlZjQzYmVlMjEyYTBlYzM1NzI2MmY0Y2NlYTI0ZTgwOWFhNWU1OTljYzk2OWUyYzFhMGM3QGc",
