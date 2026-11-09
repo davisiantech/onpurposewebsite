@@ -4,15 +4,11 @@ const { fromCSV } = require('./studies');
 const STUDIES_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR1SEVnzQVH01qT8E3yKlHLagS7gePJO1ve6qRfERps2G4T7JdC6jpu6Hr51j8dR3Qoh1c0AWGaOwZ4/pub?output=csv';
 
 async function syncStudies() {
-    try {
-        const response = await fetch(STUDIES_URL, { signal: AbortSignal.timeout(30000) });
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const studies = fromCSV(await response.text());
-        fs.writeFileSync(path.join(__dirname, '../data/studies.json'), JSON.stringify(studies, null, 2) + '\n');
-        console.log(`Studies synced: ${studies.length} quarters.`);
-    } catch (error) {
-        console.warn(`Study refresh failed; keeping previous snapshot: ${error.message}`);
-    }
+    const response = await fetch(STUDIES_URL, { signal: AbortSignal.timeout(30000) });
+    if (!response.ok) throw new Error(`Study Sheet returned HTTP ${response.status}`);
+    const studies = fromCSV(await response.text());
+    fs.writeFileSync(path.join(__dirname, '../data/studies.json'), JSON.stringify(studies, null, 2) + '\n');
+    console.log(`Studies synced: ${studies.length} quarters.`);
 }
 
 // Target paths
@@ -55,12 +51,15 @@ async function syncEvents() {
     }
 
     console.log('Fetching calendar events...');
-    const response = await fetch(API_EVENTS_URL);
+    const response = await fetch(API_EVENTS_URL, { signal: AbortSignal.timeout(30000) });
     if (!response.ok) {
         throw new Error(`Failed to fetch events: ${response.statusText}`);
     }
 
     const data = await response.json();
+    if (!Array.isArray(data.items)) {
+        throw new Error('Calendar feed has no events array; keeping previous calendar data.');
+    }
 
     // Strip top-level etag and updated timestamp
     delete data.etag;
@@ -97,16 +96,18 @@ async function syncInstagram() {
     }
 
     console.log('Fetching Instagram feed...');
-    const response = await fetch(API_INSTA_URL);
+    const response = await fetch(API_INSTA_URL, { signal: AbortSignal.timeout(30000) });
     if (!response.ok) {
-        throw new Error(`Failed to fetch Instagram data: ${response.statusText}`);
+        if (response.status === 401 || response.status === 403) {
+            throw new Error(`Instagram feed authorization failed (HTTP ${response.status}). Reconnect Instagram with the feed provider and update the API_INSTA_URL GitHub Actions secret if the feed URL changes. Existing posts are preserved.`);
+        }
+        throw new Error(`Failed to fetch Instagram data: HTTP ${response.status}`);
     }
 
     const data = await response.json();
 
     if (!data.data || !Array.isArray(data.data)) {
-        console.warn('Instagram data has unexpected structure. Skipping.');
-        return;
+        throw new Error('Instagram feed has no posts array; keeping previous Instagram data.');
     }
 
     // Keep the top 6 posts (site only displays top 4)
@@ -185,7 +186,12 @@ function syncHeroes() {
     const heroFiles = files
         .filter(file => /^hero-\d+\.(jpe?g|png|webp)$/i.test(file))
         .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }))
-        .map(file => `images/${file}`);
+        .map(file => {
+            const stem = path.parse(file).name;
+            return [640, 1200].every(width => fs.existsSync(path.join(IMAGES_DIR, 'optimized', `${stem}-${width}.webp`)))
+                ? `images/optimized/${stem}-1200.webp`
+                : `images/${file}`;
+        });
 
     if (heroFiles.length === 0) {
         console.warn('No hero-* images found in images/. Defaulting to images/hero-1.jpg');
@@ -197,16 +203,19 @@ function syncHeroes() {
 }
 
 async function main() {
-    await syncStudies();
-    try {
-        await syncEvents();
-        await syncInstagram();
-        syncHeroes();
-        console.log('Sync processing completed successfully.');
-    } catch (error) {
-        console.error('Error during sync processing:', error);
-        process.exit(1);
+    let failed = false;
+    for (const [name, sync] of [['Studies', syncStudies], ['Calendar', syncEvents], ['Instagram', syncInstagram], ['Photos', syncHeroes]]) {
+        try {
+            await sync();
+        } catch (error) {
+            failed = true;
+            console.error(`${name} sync failed: ${error.message}`);
+        }
     }
+    if (failed) console.error('Some feeds failed. Successful updates can still be saved; failed feeds retain their previous data.');
+    else console.log('Sync processing completed successfully.');
+    return failed ? 1 : 0;
 }
 
-main();
+if (require.main === module) main().then(code => { process.exitCode = code; });
+module.exports = { main, syncStudies, syncEvents, syncInstagram };

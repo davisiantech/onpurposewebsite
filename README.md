@@ -1,9 +1,28 @@
 # On Purpose website
 
-The site uses the October 2026 Blue Ridge palette and supplied vector assets:
-dusty ridge blue, clay rust, slate charcoal, and soft white. Small secondary
-text uses a darker blue for readability. The light logo is used on the dark
-footer; the full-color mark is used on the light page.
+The official logos use the October 2026 Blue Ridge identity. The page
+palette adds warm cream, peach, golden yellow, and a deeper blue, with Fraunces headings and Inter body text. The main slogan uses the original
+vector artwork in `images/design/purpose-isnt-accidental.svg`, with the small
+wordmark removed from its bottom.
+The opening uses two optimized community photos with lightweight vector trails.
+The next calendar event is automatically featured in the curved yellow field.
+The complete calendar below includes every upcoming event, including that
+featured event, with no fixed count limit. Venue/city labels link to full map
+addresses; missing locations stay unconfirmed. Recognized forms and registration
+URLs get RSVP labels; other links get More info.
+Calendar descriptions show a short
+excerpt with Read more / Read less for longer descriptions. More info continues
+to open registration when present, or the Google Calendar event otherwise.
+
+## Community photo performance
+
+Original `images/hero-*` photos are kept as source files. Visitors receive the
+640px or 1200px WebP versions in `images/optimized/`, with responsive image sizes
+and a small initial fallback. To add or replace a community photo, keep the
+`hero-N` naming pattern and run `node scripts/optimize-photos.js` with `cwebp`
+installed (`brew install webp` on macOS). Commit the resulting variants along
+with the originals. The normal sync discovers optimized variants automatically;
+photos without variants still work using their source image.
 
 The live static website is served from this repository root. Open `index.html`
 locally or serve the repository and visit `/`.
@@ -12,6 +31,18 @@ Brand assets live in `images/`; rotating community photos are listed in
 `data/heroes.json`; calendar and Instagram data are stored in `data/`. GitHub
 Actions refreshes those files hourly through `scripts/sync.js`. Before a commit,
 run `node scripts/sync.js` with `API_EVENTS_URL` and `API_INSTA_URL` configured.
+
+## Sync troubleshooting
+
+Each feed syncs independently. If one fails, GitHub Actions still commits
+successful updates and keeps the failed feed's previous snapshot. The run
+remains marked as failed so connection problems stay visible.
+
+An Instagram HTTP 401 or 403 means the feed endpoint rejected authorization.
+Reconnect or renew Instagram authorization with the feed provider. If that
+produces a new feed URL, update `API_INSTA_URL` under GitHub repository Settings
+→ Secrets and variables → Actions. Rerun **Sync Data** using **Run workflow**
+to verify the connection. Do not commit tokens or private feed URLs to this repo.
 
 ## Quarterly Sabbath School studies
 

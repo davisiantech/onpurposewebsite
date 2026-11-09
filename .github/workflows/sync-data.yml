@@ -20,6 +20,8 @@ jobs:
           node-version: 18
 
       - name: Run Semantic Sync
+        id: sync
+        continue-on-error: true
         env:
           API_EVENTS_URL: ${{ secrets.API_EVENTS_URL }}
           API_INSTA_URL: ${{ secrets.API_INSTA_URL }}
@@ -35,6 +37,9 @@ jobs:
           if [ -d "images/instagram" ]; then
             git add images/instagram/
           fi
+          if [ -d "images/optimized" ]; then
+            git add images/optimized/
+          fi
           
           # Commit and push only if there are actual changes staged
           if ! git diff --cached --quiet; then
@@ -43,3 +48,9 @@ jobs:
           else
             echo "No semantic changes detected. Skipping commit."
           fi
+
+      - name: Report feed failures
+        if: steps.sync.outcome == 'failure'
+        run: |
+          echo "::error::A feed could not sync. Successful updates were saved. Check the Run Semantic Sync step for the affected feed and repair instructions."
+          exit 1
