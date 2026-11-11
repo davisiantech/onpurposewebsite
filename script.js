@@ -88,7 +88,7 @@ function renderEvent(event,index,featured=false){
   const label=link&&OnPurposeEvents.isRegistrationURL(link)?'RSVP':'More info';
   const action=`<a class="button event-button" href="${escapeHTML(destination)}" target="_blank" rel="noopener" aria-label="${label} for ${escapeHTML(event.summary)}">${label}</a>`;
   const place=OnPurposeEvents.locationDetails(event.location);
-  const location=place.address?`<a class="event-location" href="https://maps.google.com/?q=${encodeURIComponent(place.address)}" target="_blank" rel="noopener" aria-label="Get directions to ${escapeHTML(place.address)}">${escapeHTML(place.label)}</a>`:`<p class="event-location">${escapeHTML(place.label)}</p>`;
+  const location=place.address?`<a class="event-location" href="https://maps.google.com/?q=${encodeURIComponent(place.address)}" target="_blank" rel="noopener" aria-label="Get directions to ${escapeHTML(place.address)}">${escapeHTML(place.label)}</a>`:'';
   const heading=featured?'h2':'h3';
   const date=featured?'':`<div class="date-tile" aria-hidden="true"><span class="month">${event.startObject.toLocaleDateString('en-US',{month:'short'})}</span><span class="day">${event.startObject.getDate()}</span></div>`;
   return `<article class="event-card${featured?' event-featured':''}">${date}<div class="event-copy"><p class="event-meta">${escapeHTML(formatDateRange(event,event.startObject))}</p><${heading}>${escapeHTML(event.summary)}</${heading}>${location}${details}</div><div class="event-actions">${action}</div></article>`;

@@ -10,7 +10,7 @@ test('locations keep venue and city but omit street and postal code from the lab
   assert.equal(locationDetails('Calhoun, GA').label,'Calhoun, GA');
 });
 test('missing locations are never invented',()=>{
-  assert.deepEqual(locationDetails(),{label:'Location details coming soon',address:''});
+  assert.deepEqual(locationDetails(),{label:'',address:''});
 });
 test('forms and registration pages get RSVP while general event pages do not',()=>{
   for(const url of ['https://forms.gle/abcd','https://docs.google.com/forms/d/e/example/viewform','https://gycweb.org/register-now/','https://www.ultracamp.com/info/sessiondetail.aspx?idCamp=331'])assert.ok(isRegistrationURL(url),url);

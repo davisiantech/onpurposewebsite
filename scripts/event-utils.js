@@ -1,7 +1,7 @@
 (function(root){
   function locationDetails(value=''){
     const address=String(value).replace(/,?\s*(?:USA|United States|US)\s*$/i,'').replace(/\s+/g,' ').trim();
-    if(!address)return {label:'Location details coming soon',address:''};
+    if(!address)return {label:'',address:''};
     const parts=address.split(',').map(s=>s.trim()).filter(Boolean);
     const street=parts.findIndex(part=>/^\d+\s/.test(part));
     if(street!==-1){

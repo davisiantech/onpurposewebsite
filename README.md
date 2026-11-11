@@ -8,7 +8,7 @@ The opening uses two optimized community photos with lightweight vector trails.
 The next calendar event is automatically featured in the curved yellow field.
 The complete calendar below includes every upcoming event, including that
 featured event, with no fixed count limit. Venue/city labels link to full map
-addresses; missing locations stay unconfirmed. Recognized forms and registration
+addresses; events without locations omit the location line. Recognized forms and registration
 URLs get RSVP labels; other links get More info.
 Calendar descriptions show a short
 excerpt with Read more / Read less for longer descriptions. More info continues
