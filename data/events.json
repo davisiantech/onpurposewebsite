@@ -67,8 +67,8 @@
       "status": "confirmed",
       "htmlLink": "https://www.google.com/calendar/event?eid=Nzk2cnU2bTNhdXFzOGVodmJiMzQ3aDBrc2kgY183YWVhNzhhZjgwYmVlZjQzYmVlMjEyYTBlYzM1NzI2MmY0Y2NlYTI0ZTgwOWFhNWU1OTljYzk2OWUyYzFhMGM3QGc",
       "created": "2025-11-09T01:16:21.000Z",
-      "summary": "On Purpose Christmas Party",
-      "description": "<p>Our annual Christmas gathering is a chance for young adults to spend time together and celebrate the season. More details, including the time and location, will be shared as plans are finalized.</p>",
+      "summary": "The Christmas Express Party",
+      "description": "<p>Join us for The Christmas Express, our Polar Express-themed Christmas party! Wear your Christmas pajamas and bring a dish to share for the potluck. We'll have a short worship, Christmas games, and an optional white elephant gift exchange ($25 maximum). Please RSVP by November 28. The exact address will be provided after RSVP, and a shared potluck list will be available to coordinate food.</p><p><a href=\"https://forms.gle/4E1WdY6vYMMcvy3S9\">https://forms.gle/4E1WdY6vYMMcvy3S9</a><br></p>",
       "creator": {
         "email": "jordan@stillwaterstech.org"
       },
@@ -78,10 +78,12 @@
         "self": true
       },
       "start": {
-        "date": "2026-12-05"
+        "dateTime": "2026-12-05T18:00:00-05:00",
+        "timeZone": "America/New_York"
       },
       "end": {
-        "date": "2026-12-06"
+        "dateTime": "2026-12-05T18:30:00-05:00",
+        "timeZone": "America/New_York"
       },
       "transparency": "transparent",
       "iCalUID": "796ru6m3auqs8ehvbb347h0ksi@google.com",
